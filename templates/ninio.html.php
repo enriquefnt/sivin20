@@ -1,13 +1,13 @@
-  <div class="container">
-    <form class="row g-4" action="" method="post">
+  <!-- <div class="container">
+    <form class="row g-4" action="ninio" method="post">
     <div class="col-sm-4">
-    <label class="form-label-sm" for="ApeNom">Nombre</label>
+    <label class="form-label-sm" for="ApeNom">Buscar por nombre</label>
         <input class="form-control form-control-sm" type="text" name="label" id="dName" class="form-control form-control-lg">
         <input type="hidden" name="value" id="dValue" value="">
         <button class="btn btn-primary" type="submit" name="submit">Buscar</button>
     </div>
     </form>
-</div>
+</div> -->
 
 
 	
@@ -15,29 +15,29 @@
 <form onkeydown="return event.key != 'Enter';" class="row g-3"  action=""  onsubmit="myButton.disabled = true; return true;" method="post" autocomplete="off" >
 		<h5>Datos personales</h5>
 	
-	<input type="hidden" name="Ninio[IdNiño]" value="<?=$datosCaso['IdNiño'] ?? ''?>">
+	<input type="hidden" name="Ninio[IdNiño]" value="<?=$datosNinio['IdNiño'] ?? ''?>">
         
 <div class="col-sm-6">	
 			<label class="form-label-sm" for="ApeNom">Apellido y Nombre</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[Apellidos]" id="ApeNom" required="required" value="<?=$datosCaso['ApeNom'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Ninio[ApeNom]" id="ApeNom" required="required" value="<?=$datosNinio['ApeNom'] ?? ''?>">
 </div>
 
 <div class="col-sm-3">	
 			<label class="form-label-sm" for="Dni">DNI</label>
-			<input class="form-control form-control-sm" type="number" name="Ninio[Dni]" id="Dni" required="required" value="<?=$datosCaso['Dni'] ?? ''?>">
+			<input class="form-control form-control-sm" type="number" name="Ninio[Dni]" id="Dni" required="required" value="<?=$datosNinio['Dni'] ?? ''?>">
 </div>
 
 <div class="col-sm-3">	
 			<label class="form-label-sm" for="FechaNto">Fecha de Nacimiento</label>
-			<input class="form-control form-control-sm" type="date" name="Ninio[FechaNto]" id="FechaNto" required="required" value="<?=$datosCaso['FechaNto'] ?? ''?>">
+			<input class="form-control form-control-sm" type="date" name="Ninio[FechaNto]" id="FechaNto" required="required" value="<?=$datosNinio['FechaNto'] ?? ''?>">
 </div>
 <div class="col-sm-4">	
 			<label class="form-label-sm" for="Sexo">Sexo</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[Sexo]" id="Sexo" required="required" value="<?=$datosCaso['Sexo'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Ninio[Sexo]" id="Sexo" required="required" value="<?=$datosNinio['Sexo'] ?? ''?>">
 </div>
 <div class="col-sm-4">	
 			<label class="form-label-sm" for="Sexo">Etnia</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[TpoEtnia]" id="Etnia" required="required" value="<?=$datosCaso['TpoEtnia'] ?? ''?>">
+			<input class="form-control form-control-sm" type="number" name="Ninio[TpoEtnia]" id="Etnia" required="required" value="<?=$datosNinio['TpoEtnia'] ?? ''?>">
 </div>
 
 <button class="btn btn-primary" type="submit" name="submit">Cargar</button>

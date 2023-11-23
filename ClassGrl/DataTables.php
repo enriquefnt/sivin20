@@ -116,10 +116,13 @@ public function save($record)
 	if ($record[$this->primaryKey] == '') {
 	$record[$this->primaryKey] = null;
 	}
+	var_dump($record);
 	$this->insert($record);
 	} catch (\PDOException $e) {
+		var_dump($record);
 	$this->update($record);
 }
 }
 }
+
 

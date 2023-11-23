@@ -76,7 +76,7 @@ $_SESSION['establecimiento_nombre'];}
           </li> 
          
           <li class="nav-item">
-          <a class="navbar-brand mb-0 " href="/ninios/busca">Datos de Casos</a>
+          <a class="navbar-brand mb-0 " href="/ninios/edit">Datos de Casos</a>
           </li>
      
           <li> 

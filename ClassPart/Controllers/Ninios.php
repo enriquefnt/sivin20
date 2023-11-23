@@ -11,13 +11,18 @@ class Ninios
     private $locTable;
     private $authentication;
 
-    public function __construct(\ClassGrl\DataTables $niniosTable)
+    public function __construct(\ClassGrl\DataTables $niniosTable,
+                                 \ClassGrl\DataTables $locTable,
+                                 \ClassGrl\Authentication $authentication)
     {
         $this->niniosTable = $niniosTable;
-        // $this->authentication = $authentication;
+        $this->locTable = $locTable;
+        $this->authentication = $authentication;
     }
 
 // -----------------------------------------------------
+// Metodo si es GET para beneficiario////// 
+
 public function edit($id=null) {
 	
     $localidades = $this->locTable->findAll();
@@ -30,27 +35,27 @@ public function edit($id=null) {
     }
     
             if (isset($_GET['id'])) {
-                    $datosCaso = $this->benefTable->findById($_GET['id']);
+                    $datosNinio = $this->niniosTable->findById($_GET['id']);
                                         }
     
-                $title = ' Ninio';
+                $title = 'Caso';
     
             
     
-                  return ['template' => 'edita_benef.html.php',
+                  return ['template' => 'ninio.html.php',
                              'title' => $title ,
                          'variables' => [
                            'data'  =>   $data,
-                         'datosCaso' => $datosCaso  ?? ' '
+                         'datosNinio' => $datosNinio  ?? ' '
                                          ]
                         ];
                 
     }
     
-    /// Metodo si es con post para Ninio//////   
-    
-    public function editSubmit() {
-        
+    /// Metodo si es con post para beneficiario//////   
+
+public function editSubmit() {
+	
     $localidades = $this->locTable->findAll();
     foreach($localidades as $localidad)
     {
@@ -64,63 +69,52 @@ public function edit($id=null) {
     
         $Ninio = $_POST['Ninio'];
     
-       
-    
-     //   $Ninio['fechaCarga'] = new \DateTime();
-      //  $Ninio['id_usuario'] = $usuario['id_usuario'] ?? '00';
+    	
+        //$Ninio['fechaCarga'] = new \DateTime();
+        //$Ninioo['id_usuario'] = $usuario['id_usuario'] ?? '00';
     
             
         $errors = [];
     
     
-    if ( empty($_GET['id']) && count($this->benefTable->find('DNI', $Ninio['DNI'])) > 0) {
+    if ( empty($_GET['id']) && count($this->niniosTable->find('Dni', $Ninio['Dni'])) > 0) {
     
-    $errors[] = 'Un Ninio con este DNI ya está registrado';
+    $errors[] = 'Un beneficiario con este DNI ya está registrado';
     }
     
     if  (empty($errors)) {
-    
-    $this->benefTable->save($Ninio);
+        var_dump($Ninio);
+    $this->niniosTable->save($Ninio);
     if (empty($_GET['id'])){
-    $datosBenef = $this->benefTable->ultimoReg();
+    $datosNinio = $this->niniosTable->ultimoReg();
     }
     else{
-        $datosBenef = $this->benefTable->findById($_GET['id']);
+        $datosNinio = $this->niniosTable->findById($_GET['id']);
     }
     
     return ['template' => 'registersuccess.html.php',
                              'title' => 'Carga' ,
                          'variables' => [
-                            'datosCaso' => $datosBenef  ?? ' '
+                            'datosCaso' => $datosNinio  ?? ' '
                                          ]
                         ];
     
     }
-    
-    
+       
     
     else {
-     return ['template' => 'edita_benef.html.php',
+     return ['template' => 'ninio.html.php',
                              'title' => 'Revisar' ,
                          'variables' => [
                                'errors'=> $errors,
                              'data'  =>   $data,
-                         'datosCaso' => $Ninio  ?? ' '
+                         'datosCaso' => $datosNinio  ?? ' '
                                          ]
                         ];
     }
     
     }
-
-
-
-
-
-
-
-
-
-
+    
 // ----------------------------------------------------------
 
     public function busca()

@@ -112,7 +112,7 @@ if  (empty($errors)) {
 
 $this->userTable->save($Usuario);
 
-header('Location: /user/listar');
+//header('Location: /ninios/home');
 }
 
 else {
