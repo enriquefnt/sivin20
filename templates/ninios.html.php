@@ -15,7 +15,7 @@
 <form onkeydown="return event.key != 'Enter';" class="row g-3"  action=""  onsubmit="myButton.disabled = true; return true;" method="post" autocomplete="off" >
 		<h5>Datos personales</h5>
 	
-	<input type="hidden" name="Ninio[IdNiño]" value="<?=$datosNinio['IdNiño'] ?? ''?>">
+	<input type="hidden" name="Ninio[IdNinio]" value="<?=$datosNinio['IdNinio'] ?? ''?>">
         
 <div class="col-sm-6">	
 			<label class="form-label-sm" for="ApeNom">Apellido y Nombre</label>

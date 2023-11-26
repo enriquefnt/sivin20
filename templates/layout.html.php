@@ -82,7 +82,15 @@ $_SESSION['establecimiento_nombre'];}
           <li class="nav-item">
           <a class="navbar-brand mb-0 " href="/ninios/ninios">Cargar casos</a>
           </li>
-
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle navbar-brand mb-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Usuarios
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="navbar-brand mb-0" href="/user/user">Cargar Usuario</a></li>
+              <li><a class="navbar-brand mb-0" href="/user/listar">Ver/Editar</a></li>
+             </ul>
+          </li>
 
           <li> 
           <a class="nav-item active" aria-current="page" href ="/login/logout">Salir</a>

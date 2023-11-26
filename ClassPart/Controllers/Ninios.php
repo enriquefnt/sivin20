@@ -28,7 +28,7 @@ class Ninios
         foreach ($result as $ninio) {
             $data[] = array(
                 'label' => $ninio['ApeNom'],
-                'value' => $ninio['IdNiño']
+                'value' => $ninio['IdNinio']
             );
         }
 
@@ -108,8 +108,9 @@ public function niniosSubmit() {
     }
     
     if  (empty($errors)) {
-        var_dump($Ninio);
+      //  var_dump($Ninio);
     $this->niniosTable->save($Ninio);
+    
     if (empty($_GET['id'])){
     $datosNinio = $this->niniosTable->ultimoReg();
     }
