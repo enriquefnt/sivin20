@@ -76,9 +76,14 @@ $_SESSION['establecimiento_nombre'];}
           </li> 
          
           <li class="nav-item">
-          <a class="navbar-brand mb-0 " href="/ninios/busca">Buscar Beneficiarios</a>
+          <a class="navbar-brand mb-0 " href="/ninios/busca">Buscar casos</a>
           </li>
      
+          <li class="nav-item">
+          <a class="navbar-brand mb-0 " href="/ninios/ninios">Cargar casos</a>
+          </li>
+
+
           <li> 
           <a class="nav-item active" aria-current="page" href ="/login/logout">Salir</a>
           </li>
