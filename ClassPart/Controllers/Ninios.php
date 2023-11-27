@@ -92,8 +92,24 @@ public function niniosSubmit() {
     
         $usuario = $this->authentication->getUser();
     
-        $Ninio = $_POST['Ninio'];
-    
+        $Caso = $_POST['Ninio'];
+        $Ninio =[];
+        
+        $Ninio['IdNinio']=$Caso['IdNinio'];
+        $Ninio['ApeNom']=strtoupper($Caso['Apellido'].', '.$Caso['Nombre']);
+        $Ninio['Dni']=$Caso['Dni'];
+        //if ($Caso['Dni'] >0){$Ninio['Indocu']='NO';};
+        $Ninio['Indocu'] = ($Caso['Dni'] > 0) ? 'NO' : 'SI';
+        $Ninio['FechaNto']=$Caso['FechaNto'];
+        $Ninio['Sexo']=$Caso['Sexo'];
+        $Ninio['Etnia']='Criol/Ori';
+        $Ninio['TpoEtnia']=$Caso['TpoEtnia'];
+        $Ninio['ApeResp']=strtoupper($Caso['ApellidoR'].', '.$Caso['NombreR']);
+        $Ninio['DniResp']=$Caso['DniResp'];
+        $Ninio['Indocures']=($Caso['DniResp'] > 0) ? 'NO' : 'SI';
+        $Ninio['AlfaResp']='DESC';
+        $Ninio['Fono']=$Caso['Fono'];
+        $Ninio['ObraSocial']='DESC';
     	
         //$Ninio['fechaCarga'] = new \DateTime();
         //$Ninioo['id_usuario'] = $usuario['id_usuario'] ?? '00';
@@ -102,7 +118,8 @@ public function niniosSubmit() {
         $errors = [];
     
     
-    if ( empty($_GET['id']) && count($this->niniosTable->find('Dni', $Ninio['Dni'])) > 0) {
+    if ( empty($_GET['id']) && count($this->niniosTable->find('Dni', $Ninio['Dni'])) > 0
+    && $Ninio['Dni'] > 0) {
     
     $errors[] = 'Un beneficiario con este DNI ya está registrado';
     }
