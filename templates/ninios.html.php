@@ -37,7 +37,7 @@ endif;
 		
 	
 	<input type="hidden" name="Ninio[IdNinio]" value="<?=$datosNinio['IdNinio'] ?? ''?>">
-    <div class="row mb-3">       
+          
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Nombre">Nombre</label>
 			<input class="form-control form-control-sm" type="text" name="Ninio[Nombre]" id="Nombre" required="required" value="<?=$datosNinio['ApeNom'] ?? ''?>">
@@ -64,6 +64,22 @@ endif;
 			<label class="form-label-sm" for="TpoEtnia">Etnia</label>
 			<input class="form-control form-control-sm" type="number" name="Ninio[TpoEtnia]" id="Etnia" required="required" value="<?=$datosNinio['TpoEtnia'] ?? ''?>">
 </div>
+
+<div class="col-sm-2">	
+			<label class="form-label-sm" for="Peso">Peso al nacer</label>
+			<input class="form-control form-control-sm" type="number" name="Ninio[Peso]" id="Peso"  value="<?=$datosNinio['Peso'] ?? ''?>">
+</div>	
+
+<div class="col-sm-2">	
+			<label class="form-label-sm" for="Peso">Talla al nacer</label>
+			<input class="form-control form-control-sm" type="number" name="Ninio[Talla]" id="Talla"  value="<?=$datosNinio['Talla'] ?? ''?>">
+</div>
+
+<div class="col-sm-2">	
+			<label class="form-label-sm" for="Peso">Edad Gestacional</label>
+			<input class="form-control form-control-sm" type="number" name="Ninio[Semanas]" id="Semanas"  value="<?=$datosNinio['Semanas'] ?? ''?>">
+</div>
+
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NombreR">Nombre Responsable</label>
 			<input class="form-control form-control-sm" type="text" name="Ninio[NombreR]" id="NombreR" required="required" value="<?=$datosNinio['ApeNom'] ?? ''?>">
@@ -81,7 +97,7 @@ endif;
 			<label class="form-label-sm" for="Domicilio">Domicilio</label>
 			<input class="form-control form-control-sm" type="text" name="Domicilio[Domicilio]" id="Domicilio" required="required" value="<?=$datosNinio['DniResp'] ?? ''?>">
 </div>
-<div class="col-sm-3">	
+<div class="col-sm-2">	
 			<label class="form-label-sm" for="Domicilio">Localidad</label>
 			<input class="form-control form-control-sm" type="text" name="Domicilio[Localidad]" id="Localidad" required="required" value="<?=$datosNinio['DniResp'] ?? ''?>">
 </div>
@@ -91,6 +107,8 @@ endif;
 			title="Codigo de área (sin 0) - nùmero (sin 15)">Celular</label>
 			<input class="form-control form-control-sm"  type="text" id="Fono" name="Ninio[Fono]" placeholder="###-#######" data-llenar-campo="Fono" pattern="[0-9]{3}-[0-9]{7}"  value="<?=$datosCaso['Fono'] ?? ''?>" autocomplete="off" />
 	</div>
+
+	
  <!-- <div class="col-sm-2">  
  <button class="btn btn-primary" type="submit" name="submit">Cargar</button> 
 <input class="btn btn-primary" type="submit" value="Cargar">
@@ -104,7 +122,7 @@ endif;
   </form>
 
 </div>
-</div>
+
 
      <script>
     var auto_complete = new Autocom(document.getElementById('dName'), {

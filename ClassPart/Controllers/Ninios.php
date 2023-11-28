@@ -98,7 +98,6 @@ public function niniosSubmit() {
         $Ninio['IdNinio']=$Caso['IdNinio'];
         $Ninio['ApeNom']=strtoupper($Caso['Apellido'].', '.$Caso['Nombre']);
         $Ninio['Dni']=$Caso['Dni'];
-        //if ($Caso['Dni'] >0){$Ninio['Indocu']='NO';};
         $Ninio['Indocu'] = ($Caso['Dni'] > 0) ? 'NO' : 'SI';
         $Ninio['FechaNto']=$Caso['FechaNto'];
         $Ninio['Sexo']=$Caso['Sexo'];
@@ -110,6 +109,15 @@ public function niniosSubmit() {
         $Ninio['AlfaResp']='DESC';
         $Ninio['Fono']=$Caso['Fono'];
         $Ninio['ObraSocial']='DESC';
+        $Ninio['Peso']=$Caso['Peso'];
+        $Ninio['Semanas']=$Caso['Semanas'];
+        $Ninio['Talla']=$Caso['Talla'];
+        $Ninio['Obito']='NO';
+        $Ninio['PSumar']='NO';;
+        $Ninio['UsuId']=$usuario['id_usuario'];
+        $Ninio['FechaCapta'] = new \DateTime();
+        
+
     	
         //$Ninio['fechaCarga'] = new \DateTime();
         //$Ninioo['id_usuario'] = $usuario['id_usuario'] ?? '00';
