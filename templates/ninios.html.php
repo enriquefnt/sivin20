@@ -56,14 +56,45 @@ endif;
 			<label class="form-label-sm" for="FechaNto">Fecha de Nacimiento</label>
 			<input class="form-control form-control-sm" type="date" name="Ninio[FechaNto]" id="FechaNto" required="required" value="<?=$datosNinio['FechaNto'] ?? ''?>">
 </div>
-<div class="col-sm-2">	
-			<label class="form-label-sm" for="Sexo">Sexo</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[Sexo]" id="Sexo" required="required" value="<?=$datosNinio['Sexo'] ?? ''?>">
-</div>
-<div class="col-sm-2">	
-			<label class="form-label-sm" for="TpoEtnia">Etnia</label>
-			<input class="form-control form-control-sm" type="number" name="Ninio[TpoEtnia]" id="Etnia" required="required" value="<?=$datosNinio['TpoEtnia'] ?? ''?>">
-</div>
+
+<div class="col-sm-2">
+  <label class="form-label-sm" for="tipo">Sexo</label>
+  <select name="Ninio[Sexo]" id="Sexo" class="form-control form-control-sm">
+  	<option hidden selected><?=$datosUser['Sexo'] ?? '...'?></option>
+  <!--  <option value='1'>Administrador</option> -->
+    <option value='Femenino'>Femenino</option>
+    <option value='Masculino'>Masculino</option>
+    <option value='No determinado'>No determinado</option>
+        </select>
+ </div>
+
+
+ <div class="col-sm-2">
+  <label class="form-label-sm" for="tipo">Etnia</label>
+  <select name="Ninio[TpoEtnia]" id="TpoEtnia" class="form-control form-control-sm">
+  	<option hidden selected><?=$datosUser['TpoEtnia'] ?? '...'?></option>
+  <!--  <option value='1'>Administrador</option> -->
+  	<option value=0>Criollo</option>
+	<option value=16>Wichis</option>
+	<option value=13>Toba</option>
+	<option value=1>Ava-guaraní</option>
+	<option value=2>Chané</option>
+	<option value=3>Chorotes</option>
+	<option value=4>Chulupí</option>
+	<option value=8>Kolla</option>
+	<option value=5>Diaguita calchaquí</option>
+	<option value=6>Guaraní</option>
+	<option value=7>Iogys (wichí)</option>
+	<option value=9>Lule</option>
+	<option value=10>Mocoví</option>
+	<option value=11>Tapieté</option>
+	<option value=12>Tastil</option>
+	<option value=14>Tupí guaraní</option>
+	<option value=15>Whenhayes (wichí)</option>
+	<option value=99>No determinada</option> 
+        </select>
+ </div>
+
 
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Peso">Peso al nacer</label>
@@ -98,9 +129,24 @@ endif;
 			<input class="form-control form-control-sm" type="text" name="Domicilio[Domicilio]" id="Domicilio" required="required" value="<?=$datosNinio['DniResp'] ?? ''?>">
 </div>
 <div class="col-sm-2">	
-			<label class="form-label-sm" for="Domicilio">Localidad</label>
+			<label class="form-label-sm" for="Localidad">Localidad</label>
 			<input class="form-control form-control-sm" type="text" name="Domicilio[Localidad]" id="Localidad" required="required" value="<?=$datosNinio['DniResp'] ?? ''?>">
 </div>
+
+
+<!-- <div class="col-sm-6">
+    	<label class="form-label-sm" for="Localidad">Localidad</label>
+    	<input type="text" name="Beneficiario[Localidad]" id="nombre_geo" class="form-control form-control-sm" value="<?=$datosCaso['Localidad'] ?? ''?>"autocomplete="off" />
+		<input type="hidden" name="Beneficiario[id_localidad]" id="id_localidad"  value="<?=$data['value'] ?? ''?>" />
+    </div> -->
+
+
+
+
+
+
+
+
 
 <div class="col-2">
 			<label class="form-label-sm" for="Fono"
@@ -147,4 +193,13 @@ endif;
         // Puedes usar el valor en el campo oculto (IdNiño) para identificar al Ninio.
         alert('Cargar ficha hija para el IdNiño: ' + document.getElementById('dValue').value);
     });
+</script>
+
+<script>
+var auto_complete = new Autocom(document.getElementById('nombre_geo'), {
+    data:<?php echo json_encode($data); ?>,
+    maximumItems:10,
+    highlightTyped:true,
+    highlightClass : 'fw-bold text-primary'
+}); 
 </script>
