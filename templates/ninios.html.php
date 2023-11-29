@@ -37,6 +37,7 @@ endif;
 		
 	
 	<input type="hidden" name="Ninio[IdNinio]" value="<?=$datosNinio['IdNinio'] ?? ''?>">
+	<input type="hidden" name="Domicilio[IdResi]" value="<?=$datosDomi['IdResi'] ?? ''?>">
           
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Nombre">Nombre</label>
@@ -124,13 +125,16 @@ endif;
 			<label class="form-label-sm" for="Dni">DNI Responsable</label>
 			<input class="form-control form-control-sm" type="number" name="Ninio[DniResp]" id="DniResp" required="required" value="<?=$datosNinio['DniResp'] ?? ''?>">
 </div>
+
+
+
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Domicilio">Domicilio</label>
-			<input class="form-control form-control-sm" type="text" name="Domicilio[Domicilio]" id="Domicilio" required="required" value="<?=$datosNinio['DniResp'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Domicilio[Domicilio]" id="Domicilio" required="required" value="<?=$datosDomi['DniResp'] ?? ''?>">
 </div>
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Localidad">Localidad</label>
-			<input class="form-control form-control-sm" type="text" name="Domicilio[Localidad]" id="Localidad" required="required" value="<?=$datosNinio['DniResp'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Domicilio[Localidad]" id="Localidad" required="required" value="<?=$datosDomi['DniResp'] ?? ''?>">
 </div>
 
 
@@ -139,14 +143,6 @@ endif;
     	<input type="text" name="Beneficiario[Localidad]" id="nombre_geo" class="form-control form-control-sm" value="<?=$datosCaso['Localidad'] ?? ''?>"autocomplete="off" />
 		<input type="hidden" name="Beneficiario[id_localidad]" id="id_localidad"  value="<?=$data['value'] ?? ''?>" />
     </div> -->
-
-
-
-
-
-
-
-
 
 <div class="col-2">
 			<label class="form-label-sm" for="Fono"

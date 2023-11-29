@@ -8,22 +8,20 @@ class SivinWebsite implements \ClassGrl\Website  {
 	private \ClassGrl\DataTables $tablaUser;
 	private \ClassGrl\DataTables $tablaLoc;
 	private \ClassGrl\DataTables $tablaPrueba;
+	private \ClassGrl\DataTables $tablaResi;
 	private \ClassGrl\Authentication $Authentication;
 	
 public function __construct() {
 
 
-	$pdo = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2; charset=utf8', 'saltaped_sivin2', 'i1ZYuur=sO1N');
+	$pdo = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2; charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N');
 	$this->tablaNinios = new \ClassGrl\DataTables($pdo,'Ninios', 'IdNinio');	
 	$this->tablaUser = new \ClassGrl\DataTables($pdo,'datos_usuarios', 'id_usuario');	
 	$this->tablaLoc = new \ClassGrl\DataTables($pdo,'Localidades', 'gid');
 	$this->tablaInsti = new \ClassGrl\DataTables($pdo,'instituciones', 'codi_esta');
-	$this->tablaPrueba = new \ClassGrl\DataTables($pdo,'prueba', 'IdNinio');
+	$this->tablaResi = new \ClassGrl\DataTables($pdo,'NIÑOSRESIDENCIA', 'IdResi');
 	$this->authentication = new \ClassGrl\Authentication($this->tablaUser,'user', 'password'); 
-	
-
-
-}
+	}
 
 
 
@@ -56,16 +54,12 @@ public function getController(string $controllerName): ?object {
 
 	else if ($controllerName === 'ninios') {
 
-		$controller = new  \ClassPart\Controllers\Ninios($this->tablaNinios,$this->tablaLoc, $this->authentication);
+		$controller = new  \ClassPart\Controllers\Ninios($this->tablaNinios,$this->tablaLoc, 
+		$this->tablaResi, $this->authentication);
 
 		}
 
 
-		else if ($controllerName === 'prueba') {
-
-			$controller = new  \ClassPart\Controllers\Prueba($this->tablaPrueba);
-	
-			}
 	else if ($controllerName == 'login') {
 
 		$controller = new \ClassPart\Controllers\Login($this->authentication);

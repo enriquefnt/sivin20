@@ -9,14 +9,17 @@ class Ninios
 {
     private $niniosTable;
     private $locTable;
+    private $resiTable;
     private $authentication;
 
     public function __construct(\ClassGrl\DataTables $niniosTable,
-                                 \ClassGrl\DataTables $locTable,
+                                \ClassGrl\DataTables $locTable,
+                                \ClassGrl\DataTables $resiTable,
                                  \ClassGrl\Authentication $authentication)
     {
         $this->niniosTable = $niniosTable;
         $this->locTable = $locTable;
+        $this->resiTable = $resiTable;
         $this->authentication = $authentication;
     }
 
@@ -91,10 +94,13 @@ public function niniosSubmit() {
     }
     
         $usuario = $this->authentication->getUser();
-    
+        $Resi=$_POST['Domicilio'];
+     //   var_dump($Resi);
         $Caso = $_POST['Ninio'];
         $Ninio =[];
-        
+        $Domicilio=[];
+       
+       ///Datos del niño////
         $Ninio['IdNinio']=$Caso['IdNinio'];
         $Ninio['ApeNom']=strtoupper($Caso['Apellido'].', '.$Caso['Nombre']);
         $Ninio['Dni']=$Caso['Dni'];
@@ -117,10 +123,14 @@ public function niniosSubmit() {
         $Ninio['UsuId']=$usuario['id_usuario'];
         $Ninio['FechaCapta'] = new \DateTime();
         
+////Datos domicilio ////
+
+        $Domicilio['IdResi']=$Resi['IdResi'];        
+        $Domicilio['ResiLocal']=$Resi['Localidad'];
+
 
     	
-        //$Ninio['fechaCarga'] = new \DateTime();
-        //$Ninioo['id_usuario'] = $usuario['id_usuario'] ?? '00';
+        
     
             
         $errors = [];
@@ -133,8 +143,9 @@ public function niniosSubmit() {
     }
     
     if  (empty($errors)) {
-      //  var_dump($Ninio);
+        var_dump($Domicilio);
     $this->niniosTable->save($Ninio);
+    $this->resiTable->save($Domicilio);
     
     if (empty($_GET['id'])){
     $datosNinio = $this->niniosTable->ultimoReg();
