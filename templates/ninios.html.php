@@ -132,18 +132,18 @@ endif;
 			<label class="form-label-sm" for="Domicilio">Domicilio</label>
 			<input class="form-control form-control-sm" type="text" name="Domicilio[Domicilio]" id="Domicilio" required="required" value="<?=$datosDomi['DniResp'] ?? ''?>">
 </div>
-<div class="col-sm-2">	
+<!-- <div class="col-sm-2">	
 			<label class="form-label-sm" for="Localidad">Localidad</label>
 			<input class="form-control form-control-sm" type="text" name="Domicilio[Localidad]" id="Localidad" required="required" value="<?=$datosDomi['DniResp'] ?? ''?>">
-</div>
+</div> -->
 
 
-<!-- <div class="col-sm-6">
+<div class="col-sm-2">
     	<label class="form-label-sm" for="Localidad">Localidad</label>
-    	<input type="text" name="Beneficiario[Localidad]" id="nombre_geo" class="form-control form-control-sm" value="<?=$datosCaso['Localidad'] ?? ''?>"autocomplete="off" />
-		<input type="hidden" name="Beneficiario[id_localidad]" id="id_localidad"  value="<?=$data['value'] ?? ''?>" />
-    </div> -->
-
+    	<input type="text" name="Domicilio[Localidad]" id="Localidad" class="form-control form-control-sm" value="<?=$data['label'] ?? ''?>"autocomplete="off" />
+		<input type="hidden" name="Domicilio[ResiAo]" id="Localidad"  value="<?=$data['value'] ?? ''?>" />
+    </div>
+	
 <div class="col-2">
 			<label class="form-label-sm" for="Fono"
 			title="Codigo de área (sin 0) - nùmero (sin 15)">Celular</label>
@@ -166,7 +166,7 @@ endif;
 </div>
 
 
-     <script>
+     <!-- <script>
     var auto_complete = new Autocom(document.getElementById('dName'), {
         data:<?php echo json_encode($data); ?>,
         maximumItems: 10,
@@ -189,13 +189,14 @@ endif;
         // Puedes usar el valor en el campo oculto (IdNiño) para identificar al Ninio.
         alert('Cargar ficha hija para el IdNiño: ' + document.getElementById('dValue').value);
     });
-</script>
+</script> -->
 
 <script>
-var auto_complete = new Autocom(document.getElementById('nombre_geo'), {
+var auto_complete = new Autocom(document.getElementById('Localidad'), {
     data:<?php echo json_encode($data); ?>,
     maximumItems:10,
     highlightTyped:true,
     highlightClass : 'fw-bold text-primary'
 }); 
 </script>
+

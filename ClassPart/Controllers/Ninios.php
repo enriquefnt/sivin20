@@ -95,7 +95,7 @@ public function niniosSubmit() {
     
         $usuario = $this->authentication->getUser();
         $Resi=$_POST['Domicilio'];
-     //   var_dump($Resi);
+       var_dump($Resi);
         $Caso = $_POST['Ninio'];
         $Ninio =[];
         $Domicilio=[];
@@ -125,17 +125,16 @@ public function niniosSubmit() {
         
 ////Datos domicilio ////
 
-        $Domicilio['IdResi']=$Resi['IdResi'];        
+        $Domicilio['IdResi']=$Resi['IdResi'];    
+        $Domicilio['ResiDire']=$Resi['Domicilio'];    
         $Domicilio['ResiLocal']=$Resi['Localidad'];
-
-
-    	
+        $Domicilio['ResiUsu']=$usuario['id_usuario']; 
+        $Domicilio['ResiAo']=$_POST['Domicilio']['ResiAo'] ;
+        $Domicilio['ResiFecha']=new \DateTime();  
+       
         
-    
-            
         $errors = [];
-    
-    
+        
     if ( empty($_GET['id']) && count($this->niniosTable->find('Dni', $Ninio['Dni'])) > 0
     && $Ninio['Dni'] > 0) {
     
@@ -143,9 +142,14 @@ public function niniosSubmit() {
     }
     
     if  (empty($errors)) {
-        var_dump($Domicilio);
+        
     $this->niniosTable->save($Ninio);
-    $this->resiTable->save($Domicilio);
+
+    $ultimo = $this->niniosTable->ultimoReg();
+
+     $Domicilio['ResiNinio']=$ultimo['IdNinio'];   
+     var_dump($Domicilio);
+     $this->resiTable->save($Domicilio);
     
     if (empty($_GET['id'])){
     $datosNinio = $this->niniosTable->ultimoReg();
@@ -188,19 +192,5 @@ public function niniosSubmit() {
         return ['template' => 'home.html.php', 'title' => $title, 'variables' => []];
     }
 
-    public function cargarFichaHija()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-            // Verifica si el IdNiño está presente en el formulario
-            $idNino = $_POST['value'];
-
-            if (!empty($idNino)) {
-                // Realiza las acciones para cargar la ficha hija, por ejemplo, redirecciona a otra página con el IdNiño
-              
-				echo 'el id del niño es: ' . $idNino ;
-				//  header("Location: Usuarios.php?idNino=$idNino");
-                exit();
-            }
-        }
-    }
+   
 }
