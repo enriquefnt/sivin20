@@ -55,11 +55,11 @@ endif;
           
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Nombre">Nombre</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[Nombre]" id="Nombre" required="required" value="<?=$datosNinio['ApeNom'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Ninio[Nombre]" id="Nombre" required="required" value="<?=$datosNinio['Nombre'] ?? ''?>">
 </div>
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Apellido">Apellido</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[Apellido]" id="Apellido" required="required" value="<?=$datosNinio['ApeNom'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Ninio[Apellido]" id="Apellido" required="required" value="<?=$datosNinio['Apellido'] ?? ''?>">
 </div>
 
 <div class="col-sm-2">	
@@ -128,11 +128,11 @@ endif;
 
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NombreR">Nombre Responsable</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[NombreR]" id="NombreR" required="required" value="<?=$datosNinio['ApeNom'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Ninio[NombreR]" id="NombreR" required="required" value="<?=$datosNinio['ApeResp'] ?? ''?>">
 </div>
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="ApellidoR">Apellido Responsable</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[ApellidoR]" id="ApellidoR" required="required" value="<?=$datosNinio['ApeNom'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Ninio[ApellidoR]" id="ApellidoR" required="required" value="<?=$datosNinio['ApeResp'] ?? ''?>">
 </div>
 
 <div class="col-sm-2">	

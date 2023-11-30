@@ -49,11 +49,6 @@ class Ninios
 
     public function buscaSubmit()
     {
-      // var_dump($_POST);
-       
-       $datosNinio = $this->niniosTable->findById($_POST['idNinio']);
-       $title = 'Caso';
-        
         $localidades = $this->locTable->findAll();
         foreach($localidades as $localidad)
         {
@@ -62,6 +57,16 @@ class Ninios
                 'value'     =>  $localidad['gid']
             );
         }
+      // var_dump($_POST);
+       
+       $datosNinio = $this->niniosTable->findById($_POST['idNinio']);
+       $apenom = $this->separar_nombres($datosNinio['ApeNom']);
+       var_dump($apenom);
+     //  $datosNinio['Nombre']=$apenom['Nombre'];
+     //  $datosNinio['Apellido']=$apenom['Apellido'];
+       $title = 'Caso';
+      //  var_dump($datosNinio );
+        
             
     
         return ['template' => 'ninios.html.php',
@@ -232,7 +237,15 @@ public function niniosSubmit() {
     }
     
 // ----------------------------------------------------------
-
+    private function separar_nombres($cadena) {
+                $apenom_array = explode(" ", $cadena);
+                $nombres = array_slice($apenom_array, 1);
+                $nombre = implode(" ", $nombres);
+                return [
+                "apellido" => $apenom_array[0],
+                "nombres" => $nombre,
+                ];
+            }
 
 
     public function home()
