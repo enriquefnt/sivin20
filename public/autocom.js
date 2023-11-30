@@ -5,6 +5,7 @@ const DEFAULTS = {
   highlightClass: 'text-primary',
   label: 'label',
   value: 'value',
+  aop: 'aop',
   showValue: false,
   showValueBeforeLabel: false,
 };

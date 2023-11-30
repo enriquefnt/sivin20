@@ -92,10 +92,13 @@ public function niniosSubmit() {
             'value'     =>  $localidad['gid']
         );
     }
-    
+      
+
+
         $usuario = $this->authentication->getUser();
         $Resi=$_POST['Domicilio'];
-       var_dump($Resi);
+
+     //  var_dump($Resi);
         $Caso = $_POST['Ninio'];
         $Ninio =[];
         $Domicilio=[];
@@ -129,9 +132,9 @@ public function niniosSubmit() {
         $Domicilio['ResiDire']=$Resi['Domicilio'];    
         $Domicilio['ResiLocal']=$Resi['Localidad'];
         $Domicilio['ResiUsu']=$usuario['id_usuario']; 
-        $Domicilio['ResiAo']=$_POST['Domicilio']['ResiAo'] ;
+       $Domicilio['ResiAo']=$this->locTable->findById($Resi['ResiAo'])['aop']; 
         $Domicilio['ResiFecha']=new \DateTime();  
-       
+       var_dump($Domicilio);
         
         $errors = [];
         
@@ -148,7 +151,7 @@ public function niniosSubmit() {
     $ultimo = $this->niniosTable->ultimoReg();
 
      $Domicilio['ResiNinio']=$ultimo['IdNinio'];   
-     var_dump($Domicilio);
+    // var_dump($Domicilio);
      $this->resiTable->save($Domicilio);
     
     if (empty($_GET['id'])){

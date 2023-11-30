@@ -138,12 +138,32 @@ endif;
 </div> -->
 
 
-<div class="col-sm-2">
+<!-- <div class="col-sm-2">
     	<label class="form-label-sm" for="Localidad">Localidad</label>
     	<input type="text" name="Domicilio[Localidad]" id="Localidad" class="form-control form-control-sm" value="<?=$data['label'] ?? ''?>"autocomplete="off" />
 		<input type="hidden" name="Domicilio[ResiAo]" id="Localidad"  value="<?=$data['value'] ?? ''?>" />
-    </div>
+    </div> 
 	
+	<div class="col-sm-2">
+    <label class="form-label-sm" for="Localidad">Localidad</label>
+    <input type="text" name="Domicilio[Localidad]" id="Localidad" class="form-control form-control-sm" value="<?=$data['label'] ?? ''?>" autocomplete="off" />
+    <input type="hidden" name="Domicilio[ResiAo]" id="ResiAo" value="<?=$data['value'] ?? ''?>" />
+</div>
+
+<div class="col-sm-2">
+  <label class="form-label-sm" for="Localidad">Localidad</label>
+  <input type="text" name="Domicilio[Localidad]" id="Localidad" class="form-control form-control-sm" value="<?=$data['label'] ?? ''?>" autocomplete="off" />
+  <input type="hidden" name="Domicilio[ResiAo]" id="ResiAo" value="<?=isset($data['value']) ? $data['value'] : ''?>" />
+</div>
+-->
+<div class="col-sm-2">
+  <label class="form-label-sm" for="Localidad">Localidad</label>
+  <input type="text" name="Domicilio[Localidad]" id="Localidad" class="form-control form-control-sm" value="<?=$data['label'] ?? ''?>" autocomplete="off" />
+  <input type="hidden" name="Domicilio[ResiAo]" id="ResiAo" value="<?=isset($data['value']) ? $data['value'] : ''?>" />
+</div>
+
+
+
 <div class="col-2">
 			<label class="form-label-sm" for="Fono"
 			title="Codigo de área (sin 0) - nùmero (sin 15)">Celular</label>
@@ -189,7 +209,7 @@ endif;
         // Puedes usar el valor en el campo oculto (IdNiño) para identificar al Ninio.
         alert('Cargar ficha hija para el IdNiño: ' + document.getElementById('dValue').value);
     });
-</script> -->
+</script> 
 
 <script>
 var auto_complete = new Autocom(document.getElementById('Localidad'), {
@@ -198,5 +218,63 @@ var auto_complete = new Autocom(document.getElementById('Localidad'), {
     highlightTyped:true,
     highlightClass : 'fw-bold text-primary'
 }); 
+var Domicilio = {};
+  Domicilio['ResiAo'] = data[0].value;
+
+</script> -->
+<script>
+var auto_complete = new Autocom(document.getElementById('Localidad'), {
+  data: <?php echo json_encode($data); ?>,
+  maximumItems: 10,
+  highlightTyped: true,
+  highlightClass: 'fw-bold text-primary',
+  onSelectItem: function(selectedItem) {
+    document.getElementById('ResiAo').value = selectedItem.value; // Asignar el valor del item seleccionado al input hidden
+  }
+});
 </script>
 
+
+
+
+
+
+<!--
+var auto_complete = new Autocom(document.getElementById('Localidad'), {
+    data: data,
+    maximumItems: 10,
+    highlightTyped: true,
+    highlightClass: 'fw-bold text-primary'
+  });
+
+  var Domicilio = {};
+  Domicilio['ResiAo'] = data[0].value;
+</script>
+
+
+ document.addEventListener('DOMContentLoaded', function () {
+  // Simulación de datos de la tabla en MySQL
+  var data = [
+    { label: 'Item 1', value: 'value1' },
+    { label: 'Item 2', value: 'value2' },
+    { label: 'Item 3', value: 'value3' },
+    { label: 'Item 4', value: 'value1' },
+    { label: 'Item 5', value: 'value2' },
+    { label: 'Item 6', value: 'value3' },
+
+    // Agrega más datos según tu tabla
+  ];
+
+  var autocompleteInput = document.getElementById('autocompleteInput');
+  var hiddenValueInput = document.getElementById('hiddenValue');
+
+  var auto_complete = new Autocom(autocompleteInput, {
+    data: data,
+    maximumItems: 10,
+    highlightTyped: true,
+    highlightClass: 'fw-bold text-primary',
+    onSelectItem: function (selectedItem) {
+      hiddenValueInput.value = selectedItem.value;
+    }
+  });
+}); -->
