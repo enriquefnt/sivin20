@@ -49,8 +49,30 @@ class Ninios
 
     public function buscaSubmit()
     {
-      
-    var_dump($_POST);
+      // var_dump($_POST);
+       
+       $datosNinio = $this->niniosTable->findById($_POST['idNinio']);
+       $title = 'Caso';
+        
+        $localidades = $this->locTable->findAll();
+        foreach($localidades as $localidad)
+        {
+            $data[] = array(
+                'label'     =>  $localidad['nombre_geo'],
+                'value'     =>  $localidad['gid']
+            );
+        }
+            
+    
+        return ['template' => 'ninios.html.php',
+                   'title' => $title ,
+               'variables' => [
+                 'data'  =>   $data,
+               'datosNinio' => $datosNinio  ?? ' '
+                               ]
+              ];
+    
+   // header('Location: /ninios/ninio');
 }
 
 
@@ -93,7 +115,16 @@ public function ninios($id=null) {
     /// Metodo si es con post para beneficiario//////   
 
 public function niniosSubmit() {
-	
+	$result = $this->niniosTable->findAll();
+
+        foreach ($result as $ninio) {
+            $dataNinio[] = array(
+                'label' => $ninio['ApeNom'],
+                'value' => $ninio['IdNinio']
+            );
+        }
+
+
     $localidades = $this->locTable->findAll();
     foreach($localidades as $localidad)
     {
