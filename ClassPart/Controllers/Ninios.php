@@ -29,23 +29,33 @@ class Ninios
         $result = $this->niniosTable->findAll();
 
         foreach ($result as $ninio) {
-            $data[] = array(
+            $dataNinio[] = array(
                 'label' => $ninio['ApeNom'],
                 'value' => $ninio['IdNinio']
             );
         }
 
-        $title = 'Busca Beneficiario';
+        $title = 'Busca Niño';
 
         return [
             'template' => 'busca_ninio.html.php',
             'title' => $title,
             'variables' => [
-                'data' => $data,
-                'result' => $result ?? ' '
+                'data' => $dataNinio
+              //  'result' => $result ?? ' '
             ]
         ];
     }
+
+    public function buscaSubmit()
+    {
+      
+    var_dump($_POST);
+}
+
+
+
+
 
 
 // -----------------------------------------------------
@@ -122,7 +132,7 @@ public function niniosSubmit() {
         $Ninio['Semanas']=$Caso['Semanas'];
         $Ninio['Talla']=$Caso['Talla'];
         $Ninio['Obito']='NO';
-        $Ninio['PSumar']='NO';;
+        $Ninio['PSumar']='NO';
         $Ninio['UsuId']=$usuario['id_usuario'];
         $Ninio['FechaCapta'] = new \DateTime();
         
@@ -133,8 +143,9 @@ public function niniosSubmit() {
         $Domicilio['ResiLocal']=$Resi['Localidad'];
         $Domicilio['ResiUsu']=$usuario['id_usuario']; 
        $Domicilio['ResiAo']=$this->locTable->findById($Resi['ResiAo'])['aop']; 
+       $Ninio['Aoresi']=$this->locTable->findById($Resi['ResiAo'])['aop']; 
         $Domicilio['ResiFecha']=new \DateTime();  
-       var_dump($Domicilio);
+      // var_dump($Domicilio);
         
         $errors = [];
         
@@ -181,6 +192,11 @@ public function niniosSubmit() {
                                          ]
                         ];
     }
+    
+
+
+
+
     
     }
     
