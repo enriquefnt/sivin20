@@ -21,7 +21,7 @@ endif;
 <?php
 	if(1===1) :
 ?>
-<div class="container">
+<!-- <div class="container">
 
 <fieldset class="border p-2">
  <legend class="w-80 p-0 h-0 ">Buscar 
@@ -37,7 +37,7 @@ endif;
 </div>
 </fieldset>
 
-</div>
+</div> -->
 
 <?php
 endif;
@@ -128,11 +128,11 @@ endif;
 
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NombreR">Nombre Responsable</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[NombreR]" id="NombreR" required="required" value="<?=$datosNinio['ApeResp'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Ninio[NombreR]" id="NombreR" required="required" value="<?=$datosNinio['NombreR'] ?? ''?>">
 </div>
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="ApellidoR">Apellido Responsable</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[ApellidoR]" id="ApellidoR" required="required" value="<?=$datosNinio['ApeResp'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Ninio[ApellidoR]" id="ApellidoR" required="required" value="<?=$datosNinio['ApellidoR'] ?? ''?>">
 </div>
 
 <div class="col-sm-2">	

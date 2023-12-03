@@ -42,11 +42,11 @@ class Ninios
             'title' => $title,
             'variables' => [
                 'data' => $dataNinio
-              //  'result' => $result ?? ' '
+              
             ]
         ];
     }
-
+/*
     public function buscaSubmit()
     {
         $localidades = $this->locTable->findAll();
@@ -57,15 +57,27 @@ class Ninios
                 'value'     =>  $localidad['gid']
             );
         }
-      // var_dump($_POST);
-       
-       $datosNinio = $this->niniosTable->findById($_POST['idNinio']);
+     var_dump($_POST);
+       if(isset($_POST)){
+              $datosNinio = $this->niniosTable->findById($_POST['idNinio']);
+      
        $apenom = $this->separar_nombres($datosNinio['ApeNom']);
        var_dump($apenom);
-     //  $datosNinio['Nombre']=$apenom['Nombre'];
-     //  $datosNinio['Apellido']=$apenom['Apellido'];
+      $datosNinio['Nombre']=$apenom['nombres'];
+       $datosNinio['Apellido']=$apenom['apellido'];
+
+       $apenomR = $this->separar_nombres($datosNinio['ApeResp']);
+       var_dump($apenomR);
+      $datosNinio['NombreR']=$apenomR['nombres'];
+       $datosNinio['ApellidoR']=$apenomR['apellido'];
+
+        $resiNinio= $this->resiTable->findById($_POST['id']);
+
+
+
+
        $title = 'Caso';
-      //  var_dump($datosNinio );
+      
         
             
     
@@ -79,8 +91,9 @@ class Ninios
     
    // header('Location: /ninios/ninio');
 }
+}
 
-
+*/
 
 
 
@@ -98,9 +111,25 @@ public function ninios($id=null) {
             'value'     =>  $localidad['gid']
         );
     }
-    
-            if (isset($_GET['id'])) {
-                    $datosNinio = $this->niniosTable->findById($_GET['id']);
+    //var_dump($_GET);
+            
+        if (isset($_GET['id'])) {
+
+                $datosNinio = $this->niniosTable->findById($_GET['id']);
+      
+                $apenom = $this->separar_nombres($datosNinio['ApeNom']);
+               // var_dump($apenom);
+               $datosNinio['Nombre']=$apenom['nombres'];
+                $datosNinio['Apellido']=$apenom['apellido'];
+         
+                $apenomR = $this->separar_nombres($datosNinio['ApeResp']);
+                
+               $datosNinio['NombreR']=$apenomR['nombres'];
+                $datosNinio['ApellidoR']=$apenomR['apellido'];
+         
+                $resiNinio= $this->resiTable->findById($_GET['id']);
+                var_dump($resiNinio);
+         
                                         }
     
                 $title = 'Caso';
@@ -111,7 +140,8 @@ public function ninios($id=null) {
                              'title' => $title ,
                          'variables' => [
                            'data'  =>   $data,
-                         'datosNinio' => $datosNinio  ?? ' '
+                         'datosNinio' => $datosNinio  ?? ' ',
+                         'resiNinio'=> $resiNinio ?? ' '
                                          ]
                         ];
                 
