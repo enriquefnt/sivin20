@@ -142,11 +142,12 @@ endif;
 
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Domicilio">Domicilio</label>
-			<input class="form-control form-control-sm" type="text" name="Domicilio[Domicilio]" id="Domicilio" required="required" value="<?=$datosDomi['DniResp'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Domicilio[Domicilio]" id="Domicilio" required="required" value="<?=$resiNinio['ResiDire'] ?? ''?>">
 </div>
-<div class="col-sm-2">
+
+	<div class="col-sm-2">
   <label class="form-label-sm" for="Localidad">Localidad</label>
-  <input type="text" name="Domicilio[Localidad]" id="Localidad" class="form-control form-control-sm" value="<?=$data['label'] ?? ''?>" autocomplete="off" />
+  <input type="text" name="Domicilio[Localidad]" id="Localidad" class="form-control form-control-sm" value="<?=$resiNinio['ResiLocal'] ?? ''?>" autocomplete="off" />
   <input type="hidden" name="Domicilio[ResiAo]" id="ResiAo" value="<?=isset($data['value']) ? $data['value'] : ''?>" />
 </div>
 

@@ -81,7 +81,7 @@ public function ninios($id=null) {
                 $datosNinio['ApellidoR']=$apenomR['apellido'];
          
                 $resiNinio= $this->resiTable->findById($_GET['id']);
-                var_dump($resiNinio);
+              //  var_dump($resiNinio);
          
                                         }
     
