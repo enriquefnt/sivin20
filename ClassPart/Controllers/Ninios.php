@@ -49,8 +49,10 @@ class Ninios
 
 
 
+
+
 // -----------------------------------------------------
-// Metodo si es GET para beneficiario////// 
+// Metodo si es GET ////// 
 
 public function ninios($id=null) {
 	
@@ -78,7 +80,7 @@ public function ninios($id=null) {
                $datosNinio['NombreR']=$apenomR['nombres'];
                 $datosNinio['ApellidoR']=$apenomR['apellido'];
          
-                $resiNinio= $this->resiTable->findLast('ResiNinio');
+                $resiNinio= $this->resiTable->findById($_GET['id']);
                 var_dump($resiNinio);
          
                                         }

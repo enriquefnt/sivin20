@@ -175,7 +175,8 @@ var auto_complete = new Autocom(document.getElementById('Localidad'), {
     document.getElementById('ResiAo').value = selectedItem.value; // Asignar el valor del item seleccionado al input hidden
   }
 });
-
+</script>
+<script>
 var auto_complete = new Autocom(document.getElementById('ninio'), {
   data: <?php echo json_encode($dataNinio); ?>,
   maximumItems: 10,
