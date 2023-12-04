@@ -60,10 +60,15 @@ class Ninios
       // var_dump($_POST);
        
        $datosNinio = $this->niniosTable->findById($_POST['idNinio']);
+       $datosDomi= $this->resiTable->findOrder('ResiNinio',$_POST['idNinio']);
+       var_dump($datosDomi);
        $apenom = $this->separar_nombres($datosNinio['ApeNom']);
-       var_dump($apenom);
-     //  $datosNinio['Nombre']=$apenom['Nombre'];
-     //  $datosNinio['Apellido']=$apenom['Apellido'];
+       $apenomR = $this->separar_nombres($datosNinio['ApeResp']);
+     //  var_dump($apenom);
+       $datosNinio['Nombre']=$apenom['nombres'];
+       $datosNinio['Apellido']=$apenom['apellido'];
+       $datosNinio['NombreR']=$apenomR['nombres'];
+       $datosNinio['ApellidoR']=$apenomR['apellido'];
        $title = 'Caso';
       //  var_dump($datosNinio );
         

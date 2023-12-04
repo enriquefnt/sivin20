@@ -128,11 +128,11 @@ endif;
 
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NombreR">Nombre Responsable</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[NombreR]" id="NombreR" required="required" value="<?=$datosNinio['ApeResp'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Ninio[NombreR]" id="NombreR" required="required" value="<?=$datosNinio['NombreR'] ?? ''?>">
 </div>
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="ApellidoR">Apellido Responsable</label>
-			<input class="form-control form-control-sm" type="text" name="Ninio[ApellidoR]" id="ApellidoR" required="required" value="<?=$datosNinio['ApeResp'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Ninio[ApellidoR]" id="ApellidoR" required="required" value="<?=$datosNinio['ApellidoR'] ?? ''?>">
 </div>
 
 <div class="col-sm-2">	
@@ -142,7 +142,7 @@ endif;
 
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Domicilio">Domicilio</label>
-			<input class="form-control form-control-sm" type="text" name="Domicilio[Domicilio]" id="Domicilio" required="required" value="<?=$datosDomi['DniResp'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Domicilio[Domicilio]" id="Domicilio" required="required" value="<?=$datosDomi['ResiDire'] ?? ''?>">
 </div>
 <div class="col-sm-2">
   <label class="form-label-sm" for="Localidad">Localidad</label>

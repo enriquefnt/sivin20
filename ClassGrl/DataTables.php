@@ -56,7 +56,19 @@ public function find($field, $value) {
      
         return $stmt->fetchAll();
     }
+public function findOrder($field, $value) {
+        $query = 'SELECT * FROM `' . $this->table . '` WHERE `' . $field . '` = :value ORDER BY `' . $field . '` DESC';
 
+        $values = [
+            'value' => $value
+        ];
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($values);
+     
+        // Devuelve el primer registro de los resultados
+        return $stmt->fetch();
+    }
 
 private function insert($fields)
 	{
