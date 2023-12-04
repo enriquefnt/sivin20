@@ -33,6 +33,8 @@ public function ultimoReg()
     return $query->fetch();
 }
 
+
+
 public function findById($value)
 {
 	$query = 'SELECT * FROM `' . $this->table . '` WHERE `' .
@@ -56,6 +58,20 @@ public function find($field, $value) {
      
         return $stmt->fetchAll();
     }
+
+	public function findLast($field) {
+        $query = 'SELECT * FROM `' . $this->table . '` WHERE `' . $field . '` = :value`'.'` ORDER BY `' . $this->primaryKey . '` DESC LIMIT 1';
+
+        $values = [
+            'value' => $field
+        ];
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($values);
+     
+        return $stmt->fetchAll();
+    }
+
 
 
 private function insert($fields)
@@ -110,7 +126,7 @@ private function processDates($fields)
 	}
 	return $fields;
 	}
-public function save($record)
+/*public function save($record)
 	{
 	try {
 	if ($record[$this->primaryKey] == '') {
@@ -119,7 +135,18 @@ public function save($record)
 	$this->insert($record);
 	} catch (\PDOException $e) {
 	$this->update($record);
+} 
+} */
+
+public function save($record)
+{
+    $existingRecord = $this->findById($record[$this->primaryKey]);
+    if ($existingRecord) {
+        $this->update($record);
+    } else {
+        $this->insert($record);
+    }
 }
-}
+
 }
 

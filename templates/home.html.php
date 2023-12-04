@@ -16,18 +16,15 @@
           <div class="card-body d-flex flex-column">
             
             <ul class="list-group list-group-flush lh-1">
-   <li class="list-group-item "><i class="fa-solid fa-check"></i><b> Prescripción médica con diagnóstico clínico</b>, cuya fecha no supere los 30 días, al momento del ingreso del expediente </li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i><b> Negativa de Anses</b> actualizada (no debe tener obra social).</li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i><b> Incluir Salud</b> constancia de <u>no afiliación</u> actualizada.</li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i><b> Fotocopia de DNI</b> del paciente y familiar a cargo (en caso de ser menor de edad)</li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i><b> <a href="http://secretariadenutricion.salta.gob.ar/images/varias/Formularios/formulario_A1.pdf" target="_blank"> Formulario A1 </a></b>de pedido de fórmulas nutricionales completado por profesional nutricionista</li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i><b> Informe de Asistente social</b> en caso de contar con un profesional en Trabajo Social</li>
-    </ul>
-           
-          </div>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing.</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, nihil.</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit.</li>
+       </ul>
+                     </div>
             <div class="card-footer text-muted">
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Completar "todos" los datos solicitados en los formularios, el nº de telefono es necesario para contactar al paciente.</p>
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> El diagnóstico es requisito indispensable. Diagnósticos genéricos como "bajo peso" o "desnutrición" no serán considerados.</p>
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit amet consectetur.</p>
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit.</p>
             </div>
         </div>
       </div>
@@ -38,35 +35,32 @@
           <div class="card-body d-flex flex-column">
             
             <ul class="list-group list-group-flush lh-1">
-   <li class="list-group-item"><i class="fa-solid fa-check"></i><b> Prescripción médica</b> actualizada.</li>
-   <li class="list-group-item"><i class="fa-solid fa-check"></i><b> Negativa de Anses</b> actualizada</li>
-   <li class="list-group-item"><i class="fa-solid fa-check"></i><b> Fotocopia de DNI </b>del paciente y familiar a cargo (en caso de ser menor de edad)</li>
-   <li class="list-group-item"><i class="fa-solid fa-check"></i><b><a href="http://secretariadenutricion.salta.gob.ar/images/varias/Formularios/formulario_A2.pdf" target="_blank"> Formulario A2 </a></b>de pedido de fórmulas nutricionales (lo debe completar el/la nutricionista a cargo del paciente)</li>
-   <li class="list-group-item"><i class="fa-solid fa-check"></i><b> Informe de Asistente social</b> en caso de contar con un profesional en Trabajo Social</li>
+            <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing.</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, nihil.</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit.</li>
    
     </ul>
           </div>
           <div class="card-footer text-muted">
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Para<b> Pacientes generales</b> renovación cada 2 meses y para<b> Pacientes crónicos </b>cada 6 meses</p>
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Si no se renovó en término se debe iniciar <b> nuevo pedido </b></p>
+          <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit amet consectetur.</p>
+          <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit.</p>
   </div>
         </div>
       </div>
-      <!--ADD CLASSES HERE d-flex align-items-stretch-->
+      
       <div class="col-lg-4 mb-3 d-flex align-items-stretch">
         <div class="card">
           <h5 class="card-header text-center text-white bg-primary">Consultas</h5>
           <div class="card-body d-flex flex-column">
-<!--             
-            <ul class="list-group list-group-flush lh-1">
-    <li class="list-group-item"><i class="fa-solid fa-check"></i><b> Al iniciar</b> el tramite se debe confeccionar un EXPEDIENTE con la documentación completa, mediante el sistema SICE (sistema centralizado de expedientes),generando un número para seguimiento</li>
-    <li class="list-group-item"><i class="fa-solid fa-check"></i><b> Enviar </b>cada expediente con la CARATULA correspondiente con los datos del paciente completos</li>
-</ul>
+          <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, nihil.</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit.</li>
             </div>
-            <div class="card-footer text-muted"> -->
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> El programa gestiona la provisión de <b>fórmulas nutroterápicas</b>, los expedientes por pedidos de asistencia alimentaria deben gestionarse en los organismos que correspondan.</p>  
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Se confecciona con la documentación completa en el sistema SICE (Sistema Centralizado de Expedientes),generando un número para seguimiento</p>
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Genere un solo expediente inicial por paciente con sus sucesivos CORRESPONDES (1, 2, 3, Etc.) en caso de continuación.</p>
+            <div class="card-footer text-muted">
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit amet consectetur.</p>
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit.</p>
+            
         </div> 
         </div>
       </div>

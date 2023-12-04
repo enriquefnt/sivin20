@@ -46,55 +46,6 @@ class Ninios
             ]
         ];
     }
-/*
-    public function buscaSubmit()
-    {
-        $localidades = $this->locTable->findAll();
-        foreach($localidades as $localidad)
-        {
-            $data[] = array(
-                'label'     =>  $localidad['nombre_geo'],
-                'value'     =>  $localidad['gid']
-            );
-        }
-     var_dump($_POST);
-       if(isset($_POST)){
-              $datosNinio = $this->niniosTable->findById($_POST['idNinio']);
-      
-       $apenom = $this->separar_nombres($datosNinio['ApeNom']);
-       var_dump($apenom);
-      $datosNinio['Nombre']=$apenom['nombres'];
-       $datosNinio['Apellido']=$apenom['apellido'];
-
-       $apenomR = $this->separar_nombres($datosNinio['ApeResp']);
-       var_dump($apenomR);
-      $datosNinio['NombreR']=$apenomR['nombres'];
-       $datosNinio['ApellidoR']=$apenomR['apellido'];
-
-        $resiNinio= $this->resiTable->findById($_POST['id']);
-
-
-
-
-       $title = 'Caso';
-      
-        
-            
-    
-        return ['template' => 'ninios.html.php',
-                   'title' => $title ,
-               'variables' => [
-                 'data'  =>   $data,
-               'datosNinio' => $datosNinio  ?? ' '
-                               ]
-              ];
-    
-   // header('Location: /ninios/ninio');
-}
-}
-
-*/
-
 
 
 
@@ -127,7 +78,7 @@ public function ninios($id=null) {
                $datosNinio['NombreR']=$apenomR['nombres'];
                 $datosNinio['ApellidoR']=$apenomR['apellido'];
          
-                $resiNinio= $this->resiTable->findById($_GET['id']);
+                $resiNinio= $this->resiTable->findLast('ResiNinio');
                 var_dump($resiNinio);
          
                                         }
