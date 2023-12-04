@@ -16,14 +16,14 @@
           <div class="card-body d-flex flex-column">
             
             <ul class="list-group list-group-flush lh-1">
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Se debe identificar con usuario y contraseña asigados por los adminsitradores</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Se debe identificar con usuario y contraseña asignados </li>
    <li class="list-group-item "><i class="fa-solid fa-check"></i> Toda la actividad dentro del sistema queda registrada con el nombre del usuario identificado</li>
    <li class="list-group-item "><i class="fa-solid fa-check"></i> Controle en el encabezado que el usuario actual es Usted </li>
        </ul>
                      </div>
             <div class="card-footer text-muted">
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Si no recuerda la contraseña, comuiquese con los adminsitradores para crear una nueva.</p>
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> El sistema desconecta al usuario automaticamente despues de 30 minutos de inactividad, para continuar debe identificarse nuevamente..</p>
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Si no recuerda la contraseña, comuiquese con los administradores para crear una nueva.</p>
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> El sistema desconecta al usuario automaticamente despues de 30 minutos de inactividad, para continuar debe identificarse nuevamente.</p>
             </div>
         </div>
       </div>
@@ -34,9 +34,9 @@
           <div class="card-body d-flex flex-column">
             
             <ul class="list-group list-group-flush lh-1">
-            <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, nihil.</li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
+            <li class="list-group-item "><i class="fa-solid fa-check"></i> En la ventana de búsqueda, ingrese nombre u apellido. Si ya existe en el sistema, podrá seleccionarlo para continuar.</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Si el caso es cargado por primera vez, tiene la opción de cargar una notificación.</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Si el caso ya está en el sistema, puede notificarlo, cargar un control, una internación o un alta. </li>
    <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit.</li>
    
     </ul>
