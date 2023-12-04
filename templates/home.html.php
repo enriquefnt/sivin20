@@ -12,26 +12,25 @@
       <!--ADD CLASSES HERE d-flex align-items-stretch-->
       <div class="col-lg-4 mb-3 d-flex">
         <div class="card">
-        <p class="card-header text-center fs-5 bg-primary text-light">Identificación de casos</p>
+        <p class="card-header text-center fs-5 bg-primary text-light">Ingreso</p>
           <div class="card-body d-flex flex-column">
             
             <ul class="list-group list-group-flush lh-1">
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing.</li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, nihil.</li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit.</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Se debe identificar con usuario y contraseña asigados por los adminsitradores</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Toda la actividad dentro del sistema queda registrada con el nombre del usuario identificado</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Controle en el encabezado que el usuario actual es Usted </li>
        </ul>
                      </div>
             <div class="card-footer text-muted">
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit amet consectetur.</p>
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit.</p>
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Si no recuerda la contraseña, comuiquese con los adminsitradores para crear una nueva.</p>
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> El sistema desconecta al usuario automaticamente despues de 30 minutos de inactividad, para continuar debe identificarse nuevamente..</p>
             </div>
         </div>
       </div>
       <!--ADD CLASSES HERE d-flex align-items-stretch-->
       <div class="col-lg-4 mb-3 d-flex align-items-stretch">
         <div class="card">
-          <p class="card-header text-center fs-5 bg-primary text-light">Carga de Notificaciones</p>
+          <p class="card-header text-center fs-5 bg-primary text-light">Carga</p>
           <div class="card-body d-flex flex-column">
             
             <ul class="list-group list-group-flush lh-1">
@@ -51,7 +50,7 @@
       
       <div class="col-lg-4 mb-3 d-flex align-items-stretch">
         <div class="card">
-          <h5 class="card-header text-center text-white bg-primary">Consultas</h5>
+          <h5 class="card-header text-center text-white bg-primary">Consulta</h5>
           <div class="card-body d-flex flex-column">
           <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, nihil.</li>
    <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>

@@ -66,7 +66,7 @@ public function ninios($id=null) {
     }
     //var_dump($_GET);
             
-        if (isset($_GET['id'])) {
+        if ($_GET['id'] > 0) {
 
                 $datosNinio = $this->niniosTable->findById($_GET['id']);
       
@@ -82,13 +82,9 @@ public function ninios($id=null) {
          
                 $resiNinio= $this->resiTable->findById($_GET['id']);
               //  var_dump($resiNinio);
-         
-                                        }
-    
-                $title = 'Caso';
-    
-            
-    
+
+                $title = 'Ver Caso';
+                   
                   return ['template' => 'ninios.html.php',
                              'title' => $title ,
                          'variables' => [
@@ -97,7 +93,18 @@ public function ninios($id=null) {
                          'resiNinio'=> $resiNinio ?? ' '
                                          ]
                         ];
-                
+                    }
+        elseif ($_GET['id']<1) {
+                $title = 'Cargar Caso';
+            
+                  return ['template' => 'ninios.html.php',
+                             'title' => $title ,
+                         'variables' => [
+                           'data'  =>   $data
+                                        ]
+                        ];
+        }        
+               
     }
     
     /// Metodo si es con post para beneficiario//////   
@@ -134,14 +141,14 @@ public function niniosSubmit() {
        
        ///Datos del niño////
         $Ninio['IdNinio']=$Caso['IdNinio'];
-        $Ninio['ApeNom']=strtoupper($Caso['Apellido'].', '.$Caso['Nombre']);
+        $Ninio['ApeNom']=strtoupper(ltrim($Caso['Apellido']).', '.ltrim($Caso['Nombre']));
         $Ninio['Dni']=$Caso['Dni'];
         $Ninio['Indocu'] = ($Caso['Dni'] > 0) ? 'NO' : 'SI';
         $Ninio['FechaNto']=$Caso['FechaNto'];
         $Ninio['Sexo']=$Caso['Sexo'];
         $Ninio['Etnia']='Criol/Ori';
         $Ninio['TpoEtnia']=$Caso['TpoEtnia'];
-        $Ninio['ApeResp']=strtoupper($Caso['ApellidoR'].', '.$Caso['NombreR']);
+        $Ninio['ApeResp']=strtoupper(ltrim($Caso['ApellidoR']).', '.ltrim($Caso['NombreR']));
         $Ninio['DniResp']=$Caso['DniResp'];
         $Ninio['Indocures']=($Caso['DniResp'] > 0) ? 'NO' : 'SI';
         $Ninio['AlfaResp']='DESC';
