@@ -52,7 +52,7 @@ endif;
 <div class="col-sm-2">
   <label class="form-label-sm" for="tipo">Sexo</label>
   <select name="Ninio[Sexo]" id="Sexo" class="form-control form-control-sm">
-  	<option hidden selected><?=$datosUser['Sexo'] ?? '...'?></option>
+  	<option hidden selected><?=$datosNinio['Sexo'] ?? '...'?></option>
   <!--  <option value='1'>Administrador</option> -->
     <option value='Femenino'>Femenino</option>
     <option value='Masculino'>Masculino</option>
@@ -64,7 +64,7 @@ endif;
  <div class="col-sm-2">
   <label class="form-label-sm" for="tipo">Etnia</label>
   <select name="Ninio[TpoEtnia]" id="TpoEtnia" class="form-control form-control-sm">
-  	<option hidden selected><?=$datosUser['TpoEtnia'] ?? '...'?></option>
+  	<option hidden selected><?=$datosNinio['TpoEtnia'] ?? '...'?></option>
   <!--  <option value='1'>Administrador</option> -->
   	<option value=0>Criollo</option>
 	<option value=16>Wichis</option>
@@ -138,7 +138,8 @@ endif;
 <div class="col-sm-3">
 		    <!-- <button class="btn btn-primary" type="submit" name="submit">Enviar</button> -->
 
-<a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir sin cambiar</a>
+<a href="loginSuccess.html.php"  class="btn btn-primary btn-sm" role="button">Salir sin cambiar</a>
+<a href="/noticon/noti?id=<?=$datosNinio['IdNinio']?? ''?>"  class="btn btn-primary btn-sm" role="button">Notificación</a>
 <input type="submit" id="myButton"  name=submit class="btn btn-primary btn-sm" value="Guardar">
 </div>
 	</fieldset>

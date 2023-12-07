@@ -9,6 +9,8 @@ class SivinWebsite implements \ClassGrl\Website  {
 	private \ClassGrl\DataTables $tablaLoc;
 	private \ClassGrl\DataTables $tablaPrueba;
 	private \ClassGrl\DataTables $tablaResi;
+	private \ClassGrl\DataTables $tablaNoti;
+	private \ClassGrl\DataTables $tablaControl;
 	private \ClassGrl\Authentication $Authentication;
 	
 public function __construct() {
@@ -20,6 +22,8 @@ public function __construct() {
 	$this->tablaLoc = new \ClassGrl\DataTables($pdo,'Localidades', 'gid');
 	$this->tablaInsti = new \ClassGrl\DataTables($pdo,'instituciones', 'codi_esta');
 	$this->tablaResi = new \ClassGrl\DataTables($pdo,'NIÑOSRESIDENCIA', 'IdResi');
+	$this->tablaNoti = new \ClassGrl\DataTables($pdo,'notificacion', 'NotId');
+	$this->tablaControl = new \ClassGrl\DataTables($pdo,'control', 'IdCtrol');
 	$this->authentication = new \ClassGrl\Authentication($this->tablaUser,'user', 'password'); 
 	}
 
@@ -58,7 +62,14 @@ public function getController(string $controllerName): ?object {
 		$this->tablaResi, $this->authentication);
 
 		}
+	
+		else if ($controllerName === 'noticon') {
 
+			$controller = new  \ClassPart\Controllers\Noticon($this->tablaNinios,$this->tablaLoc, 
+			$this->tablaNoti, $this->tablaControl, $this->tablaResi, $this->tablaInsti, $this->authentication);
+	
+			}
+	
 
 	else if ($controllerName == 'login') {
 

@@ -7,26 +7,26 @@ use \AllowDynamicProperties;
 #[AllowDynamicProperties]
 class Ninios
 {
-    private $niniosTable;
-    private $locTable;
-    private $resiTable;
+    private $tablaNinios;
+    private $tablaLoc;
+    private $tablaResi;
     private $authentication;
 
-    public function __construct(\ClassGrl\DataTables $niniosTable,
-                                \ClassGrl\DataTables $locTable,
-                                \ClassGrl\DataTables $resiTable,
+    public function __construct(\ClassGrl\DataTables $tablaNinios,
+                                \ClassGrl\DataTables $tablaLoc,
+                                \ClassGrl\DataTables $tablaResi,
                                  \ClassGrl\Authentication $authentication)
     {
-        $this->niniosTable = $niniosTable;
-        $this->locTable = $locTable;
-        $this->resiTable = $resiTable;
+        $this->tablaNinios = $tablaNinios;
+        $this->tablaLoc = $tablaLoc;
+        $this->tablaResi = $tablaResi;
         $this->authentication = $authentication;
     }
 
 
     public function busca()
     {
-        $result = $this->niniosTable->findAll();
+        $result = $this->tablaNinios->findAll();
 
         foreach ($result as $ninio) {
             $dataNinio[] = array(
@@ -56,7 +56,7 @@ class Ninios
 
 public function ninios($id=null) {
 	
-    $localidades = $this->locTable->findAll();
+    $localidades = $this->tablaLoc->findAll();
     foreach($localidades as $localidad)
     {
         $data[] = array(
@@ -68,7 +68,7 @@ public function ninios($id=null) {
             
         if ($_GET['id'] > 0) {
 
-                $datosNinio = $this->niniosTable->findById($_GET['id']);
+                $datosNinio = $this->tablaNinios->findById($_GET['id']);
       
                 $apenom = $this->separar_nombres($datosNinio['ApeNom']);
                // var_dump($apenom);
@@ -80,7 +80,7 @@ public function ninios($id=null) {
                $datosNinio['NombreR']=$apenomR['nombres'];
                 $datosNinio['ApellidoR']=$apenomR['apellido'];
          
-                $resiNinio= $this->resiTable->findById($_GET['id']);
+                $resiNinio= $this->tablaResi->findById($_GET['id']);
               //  var_dump($resiNinio);
 
                 $title = 'Ver Caso';
@@ -110,7 +110,7 @@ public function ninios($id=null) {
     /// Metodo si es con post para beneficiario//////   
 
 public function niniosSubmit() {
-	$result = $this->niniosTable->findAll();
+	$result = $this->tablaNinios->findAll();
 
         foreach ($result as $ninio) {
             $dataNinio[] = array(
@@ -120,7 +120,7 @@ public function niniosSubmit() {
         }
 
 
-    $localidades = $this->locTable->findAll();
+    $localidades = $this->tablaLoc->findAll();
     foreach($localidades as $localidad)
     {
         $data[] = array(
@@ -168,14 +168,14 @@ public function niniosSubmit() {
         $Domicilio['ResiDire']=$Resi['Domicilio'];    
         $Domicilio['ResiLocal']=$Resi['Localidad'];
         $Domicilio['ResiUsu']=$usuario['id_usuario']; 
-       $Domicilio['ResiAo']=$this->locTable->findById($Resi['ResiAo'])['aop']; 
-       $Ninio['Aoresi']=$this->locTable->findById($Resi['ResiAo'])['aop']; 
+       $Domicilio['ResiAo']=$this->tablaLoc->findById($Resi['ResiAo'])['aop'] ?? ''; 
+       $Ninio['Aoresi']=$this->tablaLoc->findById($Resi['ResiAo'])['aop'] ?? ''; 
         $Domicilio['ResiFecha']=new \DateTime();  
       // var_dump($Domicilio);
         
         $errors = [];
         
-    if ( empty($_GET['id']) && count($this->niniosTable->find('Dni', $Ninio['Dni'])) > 0
+    if ( empty($_GET['id']) && count($this->tablaNinios->find('Dni', $Ninio['Dni'])) > 0
     && $Ninio['Dni'] > 0) {
     
     $errors[] = 'Un beneficiario con este DNI ya está registrado';
@@ -183,19 +183,19 @@ public function niniosSubmit() {
     
     if  (empty($errors)) {
         
-    $this->niniosTable->save($Ninio);
+    $this->tablaNinios->save($Ninio);
 
-    $ultimo = $this->niniosTable->ultimoReg();
+    $ultimo = $this->tablaNinios->ultimoReg();
 
      $Domicilio['ResiNinio']=$ultimo['IdNinio'];   
     // var_dump($Domicilio);
-     $this->resiTable->save($Domicilio);
+     $this->tablaResi->save($Domicilio);
     
     if (empty($_GET['id'])){
-    $datosNinio = $this->niniosTable->ultimoReg();
+    $datosNinio = $this->tablaNinios->ultimoReg();
     }
     else{
-        $datosNinio = $this->niniosTable->findById($_GET['id']);
+        $datosNinio = $this->tablaNinios->findById($_GET['id']);
     }
     
     return ['template' => 'registersuccess.html.php',
