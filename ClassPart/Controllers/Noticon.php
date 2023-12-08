@@ -10,24 +10,18 @@ class Noticon
     private $tablaNinios;
     private $tablaNoti;
 	private $tablaControl;
-    private $tablaLoc;
-    private $tablaResi;
     private $tablaInsti;
     private $authentication;
 
     public function __construct(\ClassGrl\DataTables $tablaNinios,
                                 \ClassGrl\DataTables $tablaNoti,
                                 \ClassGrl\DataTables $tablaControl,
-                                \ClassGrl\DataTables $tablaLoc,
-                                \ClassGrl\DataTables $tablaResi,
                                 \ClassGrl\DataTables $tablaInsti,
                                 \ClassGrl\Authentication $authentication)
     {
         $this->tablaNinios = $tablaNinios;
         $this->tablaNoti = $tablaNoti;
         $this->tablaControl = $tablaControl;
-        $this->tablaLoc = $tablaLoc;
-        $this->tablaResi = $tablaResi;
         $this->tablaInsti = $tablaInsti;
         $this->authentication = $authentication;
     }
@@ -50,10 +44,8 @@ public function noti($id=null){
 if (isset($_GET['id'])) {
 	
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
+	
 
-	var_dump($_GET['id']);
-				$datosNoti = $this->tablaNoti->findById($_GET['id']);
-			var_dump($datosNoti);
 						}
 			
 $title = 'Carga Noticons';
@@ -89,13 +81,13 @@ $instituciones = $this->tablaInsti->findAll();
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
 	
 	$Notifica=$_POST['Noticon'];
-	var_dump($Notifica);
-//	$Noticon['nombre'] =ltrim(ucwords(strtolower($Noticon['nombre'])));
-	$Notifica['NotNiño']=$this->tablaNinios->findById($_GET['id']);
-	$Notifica['NotUsuario'] = $usuario;
-	$Notifica['CtrolFechapc'] = new \DateTime();
+	$Notifica['NotNinio']=$datosNinio['IdNinio'];
+	//$Notifica['NotNinio']=$this->tablaNinios->findById($_GET['id'])['IdNinio'];
+	$Notifica['NotUsuario'] = $usuario['id_usuario'];
+	$Notifica['NotFechaSist'] = new \DateTime();
+	
 	$title = 'notificacion';
-
+	//var_dump($Notifica);
 
 	$errors = [];
 	/*if ($_SESSION['tipo'] > 2) {
@@ -130,13 +122,14 @@ $errors=[];
 
 if  (empty($errors)) {
 
+
 $this->tablaNoti->save($Notifica);
 
 header('Location: /ninios/home');
 }
 
 else {
-	$title = 'Noticons';
+	$title = 'Notificación';
 
 
  return ['template' => 'noticon.html.php',

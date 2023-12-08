@@ -6,9 +6,9 @@
    </legend>
 <form onkeydown="return event.key != 'Enter';" class="row g-3"  action=""  onsubmit="myButton.disabled = true; return true;" method="post" autocomplete="off" >
 		
+<input type="hidden"name="Noticon[NotId]" id="NotId" value=<?=$datosNoti['NotId'] ?? ''?> >
+	<input type="hidden" name="Noticon[NotNinio]"  id="NotNinio"   value=<?=$datosNinio['IdNinio'] ?? ''?>>
 	
-	<input type="hidden" name="Noticon[IdNinio]" value="<?=$datosNinio['IdNinio'] ?? ''?>">
-	<!-- <input type="hidden" name="Domicilio[IdResi]" value="<?=$datosDomi['IdResi'] ?? ''?>"> -->
           
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Nombre">Fecha</label>
@@ -21,7 +21,7 @@
 
 <div class="col-sm-2">
   <label class="form-label-sm" for="MotId">Motivo</label>
-  <select name="datosNoti[MotId]" id="MotId" class="form-control form-control-sm">
+  <select name="Noticon[NotMotivo]" id="MotId" class="form-control form-control-sm">
   	<option hidden selected><?=$datosNoti['MotId'] ?? '...'?></option>
     	<option value=1>Z score de P/E menor de -2</option>
 	<option value=2>Curva de crecimiento anormal</option>

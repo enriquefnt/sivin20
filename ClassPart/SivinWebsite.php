@@ -48,7 +48,6 @@ public function getDefaultRoute(): string {
 
 public function getController(string $controllerName): ?object {	
 
-	
 
     if ($controllerName === 'user') {
 
@@ -65,8 +64,8 @@ public function getController(string $controllerName): ?object {
 	
 		else if ($controllerName === 'noticon') {
 
-			$controller = new  \ClassPart\Controllers\Noticon($this->tablaNinios,$this->tablaLoc, 
-			$this->tablaNoti, $this->tablaControl, $this->tablaResi, $this->tablaInsti, $this->authentication);
+			$controller = new  \ClassPart\Controllers\Noticon( $this->tablaNinios,$this->tablaNoti,
+			$this->tablaControl,$this->tablaInsti, $this->authentication);
 	
 			}
 	
