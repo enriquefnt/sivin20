@@ -38,7 +38,7 @@
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NotZpe">Z P/E</label>
 			<input class="form-control form-control-sm" type="number" name="Noticon[NotZpe]"
-			 id="NotZpe" required="required" value="<?=$datosNoti['NotZpe'] ?? ''?>">
+			 id="NotZpe" required="required" value="<?=$datosNoti['NotZpe'] ?? 'ZSCORE(2, "p", 5.5, "2023-01-01", "2023-03-01");'?>">
 </div>
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NotTalla">Talla (cm)</label>
@@ -57,16 +57,10 @@
 </div>
 
 
-
-
-
-
-
-
 </fieldset>
 	<fieldset class="border p-2">       
 <div class="col-sm-3">
-		    <!-- <button class="btn btn-primary" type="submit" name="submit">Enviar</button> -->
+		    
 
 <a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir sin cambiar</a>
 <input type="submit" id="myButton"  name=submit class="btn btn-primary btn-sm" value="Guardar">
@@ -96,3 +90,59 @@
   // Calcule los Z scores iniciales
   calcularZScores();
 </script>
+<script>
+    // Función para calcular el Z score y actualizar el campo correspondiente
+    function calcularZScore() {
+        // Obtener los valores del formulario
+        var peso = document.getElementById('NotPeso').value;
+        var talla = document.getElementById('NotTalla').value;
+
+        // Puedes agregar más variables según sea necesario
+
+        // Realizar la llamada a la función en MySQL (puedes usar AJAX para esto)
+        var resultadoZPE = ZSCORE(2, 'p', peso, '2023-01-01', '2023-03-01');
+        var resultadoZTA = ZSCORE(2, 't', talla, '2023-01-01', '2023-03-01');
+
+        // Actualizar los campos correspondientes
+        document.getElementById('NotZpe').value = resultadoZPE;
+        document.getElementById('NotZtao').value = resultadoZTA;
+
+        // Puedes hacer lo mismo para otros campos Z si es necesario
+    }
+</script>
+<script>
+    // Función para calcular el Z score y actualizar el campo correspondiente
+    function calcularZScore() {
+        // Obtener los valores del formulario
+        var peso = document.getElementById('NotPeso').value;
+        var talla = document.getElementById('NotTalla').value;
+
+        // Realizar la llamada a la función en MySQL mediante AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Parsear la respuesta JSON
+                var respuesta = JSON.parse(xhr.responseText);
+
+                // Actualizar los campos correspondientes
+                document.getElementById('NotZpe').value = respuesta.ZPE;
+                document.getElementById('NotZtao').value = respuesta.ZTA;
+
+                // Puedes hacer lo mismo para otros campos Z si es necesario
+            }
+        };
+
+        // Configurar y enviar la solicitud AJAX
+        xhr.open("POST", "ruta-a-tu-script-php-que-ejecuta-la-funcion.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.send("peso=" + peso + "&talla=" + talla);
+    }
+</script>
+
+<!-- Llamada a la función cuando se cambian los valores de peso o talla -->
+<div class="col-sm-2">    
+    <label class="form-label-sm" for="NotPeso">Peso (kg)</label>
+    <input class="form-control form-control-sm" type="number" step="0.01" min="1" max="60" name="Noticon[NotPeso]"
+        id="NotPeso" required="required" value="<?=$datosNoti['NotPeso'] ?? ''?>" onchange="calcularZScore()">
+</div>
+<!-- Otros campos del formulario -->

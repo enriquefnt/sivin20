@@ -12,6 +12,10 @@ class SivinWebsite implements \ClassGrl\Website  {
 	private \ClassGrl\DataTables $tablaNoti;
 	private \ClassGrl\DataTables $tablaControl;
 	private \ClassGrl\Authentication $Authentication;
+	private \ClassGrl\DataTables $tablaAntro;
+
+	////tablas para
+	
 	
 public function __construct() {
 
@@ -25,6 +29,8 @@ public function __construct() {
 	$this->tablaNoti = new \ClassGrl\DataTables($pdo,'notificacion', 'NotId');
 	$this->tablaControl = new \ClassGrl\DataTables($pdo,'control', 'IdCtrol');
 	$this->authentication = new \ClassGrl\Authentication($this->tablaUser,'user', 'password'); 
+	$this->tablaAntro = new \ClassGrl\DataTables($pdo,'calc_antro', 'idAnt');
+	$pdoZSCORE = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2; charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N');
 	}
 
 
@@ -64,10 +70,17 @@ public function getController(string $controllerName): ?object {
 	
 		else if ($controllerName === 'noticon') {
 
-			$controller = new  \ClassPart\Controllers\Noticon( $this->tablaNinios,$this->tablaNoti,
+			$controller = new  \ClassPart\Controllers\Noticon($this->tablaNinios,$this->tablaNoti,
 			$this->tablaControl,$this->tablaInsti, $this->authentication);
 	
 			}
+	else if ($controllerName === 'antro') {
+
+				$controller = new  \ClassPart\Controllers\Antro($this->tablaAntro,
+				);
+		
+				}
+		
 	
 
 	else if ($controllerName == 'login') {

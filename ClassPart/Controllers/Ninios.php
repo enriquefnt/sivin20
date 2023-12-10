@@ -34,7 +34,7 @@ class Ninios
                 'value' => $ninio['IdNinio']
             );
         }
-
+        
         $title = 'Busca Niño';
 
         return [
