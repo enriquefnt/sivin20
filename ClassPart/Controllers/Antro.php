@@ -83,7 +83,15 @@ class Antro
       
      // `idAnt`,`idNoti`,`nombre`,`fecnac`,`Sexo`,`fecha`,`Peso`,`ZPE`,`Talla`,`ZTE`,`ZIMCE`,`sexo`
       
-      
+     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'ZPE' => $datos['ZPE'],
+            'ZTE' => $datos['ZTE'],
+            'ZIMCE' => $datos['ZIMCE'],
+        ]);
+        exit;
+    }
       
       
       

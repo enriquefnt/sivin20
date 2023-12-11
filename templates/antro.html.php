@@ -37,34 +37,74 @@
 			<input class="form-control form-control-sm" type="date" name="Antro[fecha]" id="Fecha" required="required" value="<?=$datosNinio['fecha'] ?? ''?>">
 </div>
 
-<div class="col-sm-2">	
-			<label class="form-label-sm" for="Peso">Peso (kg)</label>
-			<input class="form-control form-control-sm" type="number" step="0.01" min="1" max="60" name="Antro[Peso]"
-			 id="NotPeso" required="required" value="<?=$datosNinio['Peso'] ?? ''?>">
+<div class="col-sm-2">    
+    <label class="form-label-sm" for="Peso">Peso (kg)</label>
+    <input class="form-control form-control-sm peso-input" type="number" step="0.01" min="1" max="60" name="Antro[Peso]"
+         id="NotPeso" required="required" value="<?=$datosNinio['Peso'] ?? ''?>">
 </div>
-<div class="col-sm-2">	
-			<label class="form-label-sm" for="ZPE">Z P/E</label>
-			<input class="form-control form-control-sm" type="number" name="Antro[ZPE]"
-			 id="ZPE" required="required" value="<?=$datosNinio['ZPE'] ?? 'ZSCORE(2, "p", 5.5, "2023-01-01", "2023-03-01");'?>">
+
+<div class="col-sm-2">    
+    <label class="form-label-sm" for="Talla">Talla (cm)</label>
+    <input class="form-control form-control-sm talla-input" type="number" step="0.1" min="30" max="150" name="Antro[Talla]"
+         id="NotTalla" required="required" value="<?=$datosNinio['Talla'] ?? ''?>">
 </div>
-<div class="col-sm-2">	
-			<label class="form-label-sm" for="Talla">Talla (cm)</label>
-			<input class="form-control form-control-sm" type="number" step="0.1" min="30" max="150" name="Antro[Talla]"
-			 id="NotTalla" required="required" value="<?=$datosNinio['Talla'] ?? ''?>">
+<div class="col-sm-2">    
+    <label class="form-label-sm" for="ZPE">Z P/E</label>
+    <input class="form-control form-control-sm zpe-result" type="number" name="Antro[ZPE]"
+         id="ZPE" readonly>
 </div>
-<div class="col-sm-2">	
-			<label class="form-label-sm" for="ZTE">Z T/E</label>
-			<input class="form-control form-control-sm" type="number" name="Antro[ZTE]"
-			 id="ZTE" required="required" value="<?=$datosNinio['ZTE'] ?? ''?>">
+<div class="col-sm-2">    
+    <label class="form-label-sm" for="ZTE">Z T/E</label>
+    <input class="form-control form-control-sm zte-result" type="number" name="Antro[ZTE]"
+         id="ZTE" readonly>
 </div>
-<div class="col-sm-2">	
-			<label class="form-label-sm" for="ZIMCE">Z IMC/E</label>
-			<input class="form-control form-control-sm" type="number" name="Antro[ZIMCE]"
-			 id="ZIMCE" required="required" value="<?=$datosNinio['ZIMCE'] ?? ''?>">
+<div class="col-sm-2">    
+    <label class="form-label-sm" for="ZIMCE">Z IMC/E</label>
+    <input class="form-control form-control-sm zimce-result" type="number" name="Antro[ZIMCE]"
+         id="ZIMCE" readonly>
 </div>
+
 <div class="col-sm-12">
     <button class="btn btn-primary" type="submit" id="myButton" name="myButton" value="submit">Guardar</button>
  </div>
  </form>
  </fieldset>
  </div>
+
+ <script>
+$(document).ready(function() {
+    // Manejar el cambio en el campo de Peso
+    $('.peso-input').on('input', function() {
+        actualizarResultados();
+    });
+
+    // Manejar el cambio en el campo de Talla
+    $('.talla-input').on('input', function() {
+        actualizarResultados();
+    });
+
+    function actualizarResultados() {
+        var peso = $('.peso-input').val();
+        var talla = $('.talla-input').val();
+
+        // Realizar la solicitud AJAX al servidor
+        $.ajax({
+            type: 'POST',
+            url: '../ClassPart/Controllers/antro.php', // Reemplaza esto con la ruta correcta a tu controlador
+            data: {
+                Peso: peso,
+                Talla: talla
+            },
+            success: function(response) {
+                // Actualizar los campos de resultado con los valores devueltos por el servidor
+                $('#ZPE').val(response.ZPE);
+                $('#ZTE').val(response.ZTE);
+                $('#ZIMCE').val(response.ZIMCE);
+            },
+            error: function(error) {
+                console.error('Error en la solicitud AJAX', error);
+            }
+        });
+    }
+});
+</script>
