@@ -23,8 +23,8 @@
 
 <div class="col-sm-2">
   <label class="form-label-sm" for="tipo">Sexo</label>
-  <select name="Antro[Sexo]" id="Sexo" class="form-control form-control-sm">
-  	<option hidden selected><?=$datosNinio['Sexo'] ?? '...'?></option>
+  <select name="Antro[sexo]" id="Sexo" class="form-control form-control-sm">
+  	<option hidden selected><?=$datosNinio['exo'] ?? '...'?></option>
   <!--  <option value='1'>Administrador</option> -->
     <option value='Femenino'>Femenino</option>
     <option value='Masculino'>Masculino</option>

@@ -13,7 +13,7 @@ class SivinWebsite implements \ClassGrl\Website  {
 	private \ClassGrl\DataTables $tablaControl;
 	private \ClassGrl\Authentication $Authentication;
 	private \ClassGrl\DataTables $tablaAntro;
-
+	private $pdoZSCORE;
 	////tablas para
 	
 	
@@ -30,11 +30,8 @@ public function __construct() {
 	$this->tablaControl = new \ClassGrl\DataTables($pdo,'control', 'IdCtrol');
 	$this->authentication = new \ClassGrl\Authentication($this->tablaUser,'user', 'password'); 
 	$this->tablaAntro = new \ClassGrl\DataTables($pdo,'calc_antro', 'idAnt');
-	$pdoZSCORE = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2; charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N');
-	}
-
-
-
+	$this->pdoZSCORE = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2; charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N'); // Asignar el valor a la variable $pdoZSCORE
+}
 	public function getLayoutVariables(): array {
 
 	return [
@@ -76,8 +73,8 @@ public function getController(string $controllerName): ?object {
 			}
 	else if ($controllerName === 'antro') {
 
-				$controller = new  \ClassPart\Controllers\Antro($this->tablaAntro,
-				);
+				$controller = new \ClassPart\Controllers\Antro($this->tablaAntro, $this->pdoZSCORE);
+
 		
 				}
 		

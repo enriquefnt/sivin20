@@ -7,13 +7,13 @@ use \AllowDynamicProperties;
 class Antro
 {
     private $tablaAntro;
-    private $pdoZSCORE;
-    
+    private $pdoZSCORE;   
 
-    public function __construct(\ClassGrl\DataTables $tablaAntro) //,\ClassPart\Controllers\SivinWebsite $pdoZSCORE )
+
+    public function __construct(\ClassGrl\DataTables $tablaAntro, $pdoZSCORE) 
     {
         $this->tablaAntro = $tablaAntro;
-    //    $this->pdoZSCORE = $pdoZSCORE;
+        $this->pdoZSCORE = $pdoZSCORE;
     }
 
 
@@ -46,44 +46,76 @@ class Antro
 
     public function antroSubmit() {
        
-            $Antro=$_POST['Antro'];
-         $Antro['ZPE']= $this->calcularZScore(2, "p", 5.5, "2023-01-01", "2023-03-01") ;
-          //  $Antro['ZPE']=   $this->sumar(8,9);
-            $Antro['sexo'] = ($Antro['sexo'] ='Femenino') ? '2' : '1';
-        var_dump($Antro);
-        $this->tablaAntro->save($Antro);
+            $datosNinio=$_POST['Antro'];
+            $datos=[]; 
+            $imc=($datosNinio['Peso']/(($datosNinio['Talla']/100)*($datosNinio['Talla']/100)));
+            $datos['idAnt'] = $datosNinio['idAnt'];
+            $datos['idNoti'] = $datosNinio['idNoti'];
+            $datos['nombre'] = $datosNinio['nombre'];
+            $datos['fecnac'] = $datosNinio['fecnac'];
+            $datos['sexo'] = ($datosNinio['sexo'] ='Femenino') ? '2' : '1';
+            $datos['fecha'] = $datosNinio['fecha'];
+            $datos['Peso'] = $datosNinio['Peso'];
+            $datos['Talla'] = $datosNinio['Talla'];
+            $datos['ZPE']= $this->calcularZScore(
+                                                    $datos['sexo']  , 
+                                                    "p", 
+                                                    $datosNinio['Peso'], 
+                                                    $datosNinio['fecnac'], 
+                                                    $datosNinio['fecha']
+                                                    ) ;
+            $datos['ZTE']= $this->calcularZScore(
+                                                    $datos['sexo']  , 
+                                                    "t", 
+                                                    $datosNinio['Talla'], 
+                                                    $datosNinio['fecnac'], 
+                                                    $datosNinio['fecha']
+                                                    ) ;
+            $datos['ZIMCE'] = $this->calcularZScore(
+                                                    $datos['sexo']  , 
+                                                    "i", 
+                                                    $imc, 
+                                                    $datosNinio['fecnac'], 
+                                                    $datosNinio['fecha']
+                                                    ) ;
+    //  var_dump($datos);
+       
+      
+     // `idAnt`,`idNoti`,`nombre`,`fecnac`,`Sexo`,`fecha`,`Peso`,`ZPE`,`Talla`,`ZTE`,`ZIMCE`,`sexo`
+      
+      
+      
+      
+      
+      
+      $this->tablaAntro->save($datos);
         
-     //   header('Location: /ninios/home');
+       header('Location: /ninios/home');
        
 }
 public function calcularZScore($sexo, $bus, $valor, $fechaInicial, $fechaFinal) {
-  //  $this->conectar();
 
-    // Preparar la consulta con la llamada a la función ZSCORE
+    // Prepare the query with the call to the ZSCORE function
     $query = "SELECT ZSCORE($sexo, '$bus', $valor, '$fechaInicial', '$fechaFinal') AS resultado";
-
-    // Ejecutar la consulta
+  
+    // Execute the query
     $resultado = $this->pdoZSCORE->query($query);
+  //var_dump($resultado);
+    // Check if the query was successful
+  if ($resultado) {
+      // Get the result
+      $fila = $resultado->fetchColumn();
 
-    // Verificar si la consulta se ejecutó correctamente
-    if ($resultado) {
-        // Obtener el resultado
-        $fila = $resultado->fetch_assoc();
-        $resultadoZSCORE = $fila['resultado'];
-
-        // Desconectar de la base de datos
-        $this->desconectar();
-
-        return $resultadoZSCORE;
+  //    var_dump($fila);  
+            $resultadoZSCORE = $fila;
     } else {
-        // Manejar errores si la consulta no se ejecuta correctamente
-        echo "Error en la consulta: " . $this->conexion->error;
-        // Desconectar de la base de datos
-    //    $this->desconectar();
-
-        return null;
+      // Handle the case where no data is returned
+      $resultadoZSCORE = null;
     }
-}
+  
+   return $resultadoZSCORE;
+  }
+  
 
 private function sumar($num1, $num2) {
     $suma =$num1+ $num2;
