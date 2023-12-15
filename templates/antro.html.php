@@ -1,8 +1,12 @@
+<?php 
+    $zScoreP = $antro->calcularZScore(2,'p',15,'2020-01-01','2022-01-01');
+    echo "El ZScore calculado es: " . $zScoreP;
 
+    $zScoreT = $antro->calcularZScore(2,'t',70,'2020-01-01','2022-01-01');
+    echo "El ZScore calculado es: " . $zScoreT;
 
+?>
 <div class="container">
-
-
 <fieldset class="border p-2">
  <legend class="w-80 p-0 h-0 ">Notificación:
    </legend>
@@ -17,36 +21,34 @@
  <input class="form-control form-control-sm" type="text" name="Antro[nombre]" id="nombre" required="required" value="<?=$datosNinio['nombre'] ?? ''?>">
 </div>
     <div class="col-sm-2">	
-			<label class="form-label-sm" for="fecnac">Fecha de Nacimiento</label>
-			<input class="form-control form-control-sm" type="date" name="Antro[fecnac]" id="fecnac" required="required" min="2017-01-01"  max="<?=date('Y-m-d');?>"  value="<?=$datosNinio['fecnac'] ?? ''?>">
+			<label class="form-label-sm" for="fecha_nace">Fecha de Nacimiento</label>
+			<input class="form-control form-control-sm" type="date" name="Antro[fecha_nace]" id="fecha_nace" required="required" min="2017-01-01"  max="<?=date('Y-m-d');?>"  value="<?=$datosNinio['fecha_nace'] ?? ''?>">
 </div>
 
 <div class="col-sm-2">
-  <label class="form-label-sm" for="tipo">Sexo</label>
-  <select name="Antro[sexo]" id="Sexo" class="form-control form-control-sm">
-  	<option hidden selected><?=$datosNinio['exo'] ?? '...'?></option>
+  <label class="form-label-sm" for="sexo">sexo</label>
+  <select name="Antro[sexo]" id="sexo" class="form-control form-control-sm">
+  	<option hidden selected><?=$datosNinio['sexo'] ?? '...'?></option>
   <!--  <option value='1'>Administrador</option> -->
     <option value='Femenino'>Femenino</option>
     <option value='Masculino'>Masculino</option>
     <option value='No determinado'>No determinado</option>
         </select>
  </div>
-
 <div class="col-sm-2">	
-			<label class="form-label-sm" for="fecha">Fecha</label>
-			<input class="form-control form-control-sm" type="date" name="Antro[fecha]" id="Fecha" required="required" value="<?=$datosNinio['fecha'] ?? ''?>">
+			<label class="form-label-sm" for="fecha_control">Fecha</label>
+			<input class="form-control form-control-sm fecha_control" type="date" name="Antro[fecha_control]" id="fecha_control" 
+            required="required" value="<?=$datosNinio['fecha_control'] ?? ''?>">
 </div>
-
 <div class="col-sm-2">    
-    <label class="form-label-sm" for="Peso">Peso (kg)</label>
-    <input class="form-control form-control-sm peso-input" type="number" step="0.01" min="1" max="60" name="Antro[Peso]"
-         id="NotPeso" required="required" value="<?=$datosNinio['Peso'] ?? ''?>">
+    <label class="form-label-sm" for="peso">Peso (kg)</label>
+    <input class="form-control form-control-sm peso-input" type="number"  step="0.1" min="1" max="60" name="Antro[peso]"
+         id="peso" required="required" value="<?=$datosNinio['peso'] ?? ''?>">
 </div>
-
 <div class="col-sm-2">    
-    <label class="form-label-sm" for="Talla">Talla (cm)</label>
-    <input class="form-control form-control-sm talla-input" type="number" step="0.1" min="30" max="150" name="Antro[Talla]"
-         id="NotTalla" required="required" value="<?=$datosNinio['Talla'] ?? ''?>">
+    <label class="form-label-sm" for="talla">Talla (cm)</label>
+    <input class="form-control form-control-sm talla-input" type="number" step="0.1" min="30" max="150" name="Antro[talla]"
+         id="talla" required="required" value="<?=$datosNinio['talla'] ?? ''?>">
 </div>
 <div class="col-sm-2">    
     <label class="form-label-sm" for="ZPE">Z P/E</label>
@@ -71,40 +73,34 @@
  </fieldset>
  </div>
 
- <script>
-$(document).ready(function() {
-    // Manejar el cambio en el campo de Peso
-    $('.peso-input').on('input', function() {
-        actualizarResultados();
-    });
+ <!-- Bloque para definir la variable global 'antro' -->
 
-    // Manejar el cambio en el campo de Talla
-    $('.talla-input').on('input', function() {
-        actualizarResultados();
-    });
 
-    function actualizarResultados() {
-        var peso = $('.peso-input').val();
-        var talla = $('.talla-input').val();
 
-        // Realizar la solicitud AJAX al servidor
-        $.ajax({
-            type: 'POST',
-            url: '../ClassPart/Controllers/antro.php', // Reemplaza esto con la ruta correcta a tu controlador
-            data: {
-                Peso: peso,
-                Talla: talla
-            },
-            success: function(response) {
-                // Actualizar los campos de resultado con los valores devueltos por el servidor
-                $('#ZPE').val(response.ZPE);
-                $('#ZTE').val(response.ZTE);
-                $('#ZIMCE').val(response.ZIMCE);
-            },
-            error: function(error) {
-                console.error('Error en la solicitud AJAX', error);
-            }
-        });
-    }
+<script>
+var antroData = <?= json_encode(['antro' => $antro]); ?>;
+console.log(antroData);
+var calcularZScore = antroData.antro.calcularZScore;
+console.log(calcularZScore);
+$(document).ready(function () {
+  // Handle the change in the weight field
+  $('.peso-input, .talla-input').on('input', function () {
+    actualizarResultados();
+  });
+
+  function actualizarResultados() {
+    // Extract relevant data from the form
+    var peso = parseFloat($('#peso').val()) || 0;
+    var talla = parseFloat($('#talla').val()) || 0;
+    var sexo = $('#sexo').val() === "Femenino" ? 2 : 1;
+    var fecha_nace = $('#fecha_nace').val();
+    var fecha_control = $('#fecha_control').val();
+
+    // Calculate Z scores using the retrieved function
+    $('#ZPE').val(calcularZScore(sexo, 'p', peso, fecha_nace, fecha_control));
+    $('#ZTE').val(calcularZScore(sexo, 't', talla, fecha_nace, fecha_control));
+    $('#ZIMCE').val(calcularZScore(sexo, 'i', peso / (talla / 100 * talla / 100), fecha_nace, fecha_control));
+  }
 });
+
 </script>

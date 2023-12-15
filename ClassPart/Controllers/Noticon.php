@@ -81,8 +81,8 @@ $instituciones = $this->tablaInsti->findAll();
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
 	
 	$Notifica=$_POST['Noticon'];
+
 	$Notifica['NotNinio']=$datosNinio['IdNinio'];
-	//$Notifica['NotNinio']=$this->tablaNinios->findById($_GET['id'])['IdNinio'];
 	$Notifica['NotUsuario'] = $usuario['id_usuario'];
 	$Notifica['NotFechaSist'] = new \DateTime();
 	
@@ -90,35 +90,8 @@ $instituciones = $this->tablaInsti->findAll();
 	//var_dump($Notifica);
 
 	$errors = [];
-	/*if ($_SESSION['tipo'] > 2) {
-	$errors[] = 'Ud no está habilitado para crear Noticons';
-	header('Location:  /benef/home');
-	}
 
 
-	if (empty($Noticon['nombre'])) {
-	$errors[] = 'Debe indicar el nombre';
-	}
-
-	if (empty($Noticon['apellido'])) {
-	$errors[] = 'Debe indicar el Apellido';
-	}
-
-	if (filter_var($Noticon['email']) == false) {
-	
-	$errors[] = 'El formato del correo no es válido';
-	}
-
-	if (empty($_GET['id']) && count($this->userTable->find('email', $Noticon['email'])) > 0) {
-	$errors[] = 'Un Noticon con este e-mail ya está registrado';
-	}
-
-	if (empty($_GET['id']) && count($this->userTable->find('user', $Noticon['user'])) > 0) {
-	$errors[] = 'Un Noticon con este nombre de Noticon ya está registrado, carguelo nuevamente con otro nombre de Noticon';
-	} 
-
-*/
-$errors=[];
 
 if  (empty($errors)) {
 
@@ -152,24 +125,27 @@ return $edadDias;
 }
 
 
-public function calcularZPeso($peso, $talla) {
-    // Utilice la función ZSCORES de MySQL para calcular el Z score del peso
-    $z_peso = ZSCORES($peso, $talla, "Peso");
-    return $z_peso;
-  }
+public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control) {
 
-  public function calcularZTalla($talla) {
-    // Utilice la función ZSCORES de MySQL para calcular el Z score de la talla
-    $z_talla = ZSCORES($talla, "", "Talla");
-    return $z_talla;
-  }
+    // Prepare the query with the call to the ZSCORE function
+    $query = "SELECT ZSCORE($sexo, '$bus', $valor, '$fecha_nace', '$fecha_control') AS resultado";
+  
+    // Execute the query
+    $resultado = $this->pdoZSCORE->query($query);
+  //var_dump($resultado);
+    // Check if the query was successful
+  if ($resultado) {
+      // Get the result
+      $fila = $resultado->fetchColumn();
 
-  public function calcularZIMC($peso, $talla) {
-    // Calcule el IMC
-    $imc = $peso / pow($talla / 100, 2);
-
-    // Utilice la función ZSCORES de MySQL para calcular el Z score del IMC
-    $z_imc = ZSCORES($imc, "", "IMC");
-    return $z_imc;
+      var_dump($fila);  
+            $resultadoZSCORE = $fila;
+    } else {
+      // Handle the case where no data is returned
+      $resultadoZSCORE = null;
+    }
+  
+   return $resultadoZSCORE;
   }
+  
 }

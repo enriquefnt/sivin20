@@ -80,8 +80,8 @@ public function ninios($id=null) {
                $datosNinio['NombreR']=$apenomR['nombres'];
                 $datosNinio['ApellidoR']=$apenomR['apellido'];
          
-                $resiNinio= $this->tablaResi->findById($_GET['id']);
-              //  var_dump($resiNinio);
+                $resiNinio= $this->tablaResi->findLast('ResiNinio',$datosNinio['IdNinio']);
+         //    var_dump($resiNinio);
 
                 $title = 'Ver Caso';
                    
@@ -141,14 +141,14 @@ public function niniosSubmit() {
        
        ///Datos del niño////
         $Ninio['IdNinio']=$Caso['IdNinio'];
-        $Ninio['ApeNom']=strtoupper(ltrim($Caso['Apellido']).', '.ltrim($Caso['Nombre']));
+        $Ninio['ApeNom']=strtoupper(ltrim($Caso['Apellido']).' '.ltrim($Caso['Nombre']));
         $Ninio['Dni']=$Caso['Dni'];
         $Ninio['Indocu'] = ($Caso['Dni'] > 0) ? 'NO' : 'SI';
         $Ninio['FechaNto']=$Caso['FechaNto'];
         $Ninio['Sexo']=$Caso['Sexo'];
         $Ninio['Etnia']='Criol/Ori';
         $Ninio['TpoEtnia']=$Caso['TpoEtnia'];
-        $Ninio['ApeResp']=strtoupper(ltrim($Caso['ApellidoR']).', '.ltrim($Caso['NombreR']));
+        $Ninio['ApeResp']=strtoupper(ltrim($Caso['ApellidoR']).' '.ltrim($Caso['NombreR']));
         $Ninio['DniResp']=$Caso['DniResp'];
         $Ninio['Indocures']=($Caso['DniResp'] > 0) ? 'NO' : 'SI';
         $Ninio['AlfaResp']='DESC';
@@ -164,9 +164,11 @@ public function niniosSubmit() {
         
 ////Datos domicilio ////
 
-        $Domicilio['IdResi']=$Resi['IdResi'];    
-        $Domicilio['ResiDire']=$Resi['Domicilio'];    
-        $Domicilio['ResiLocal']=$Resi['Localidad'];
+        $Domicilio['IdResi']=$Resi['IdResi'];  
+     //   $Domicilio['ResiNinio']=$Caso['IdNinio'];
+        $Domicilio['ResiNinio']=$Caso['IdNinio'];
+        $Domicilio['ResiDire']=$Resi['ResiDire'];    
+        $Domicilio['ResiLocal']=$Resi['ResiLocal'];
         $Domicilio['ResiUsu']=$usuario['id_usuario']; 
        $Domicilio['ResiAo']=$this->tablaLoc->findById($Resi['ResiAo'])['aop'] ?? ''; 
        $Ninio['Aoresi']=$this->tablaLoc->findById($Resi['ResiAo'])['aop'] ?? ''; 
@@ -178,16 +180,16 @@ public function niniosSubmit() {
     if ( empty($_GET['id']) && count($this->tablaNinios->find('Dni', $Ninio['Dni'])) > 0
     && $Ninio['Dni'] > 0) {
     
-    $errors[] = 'Un beneficiario con este DNI ya está registrado';
+    $errors[] = 'Un niño con este DNI ya está registrado';
     }
     
     if  (empty($errors)) {
         
     $this->tablaNinios->save($Ninio);
 
-    $ultimo = $this->tablaNinios->ultimoReg();
+   // $ultimo = $this->tablaNinios->ultimoReg();
 
-     $Domicilio['ResiNinio']=$ultimo['IdNinio'];   
+  //   $Domicilio['ResiNinio']=$ultimo['IdNinio'];   
     // var_dump($Domicilio);
      $this->tablaResi->save($Domicilio);
     

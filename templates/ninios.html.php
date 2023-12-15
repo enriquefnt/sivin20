@@ -17,8 +17,9 @@
 <?php
 endif;
 ?>
-
-
+<?php
+var_dump($resiNinio);
+?>
 <div class="container">
 
 <fieldset class="border p-2">
@@ -118,13 +119,13 @@ endif;
 </div>
 
 <div class="col-sm-2">	
-			<label class="form-label-sm" for="Domicilio">Domicilio</label>
-			<input class="form-control form-control-sm" type="text" name="Domicilio[Domicilio]" id="Domicilio" required="required" value="<?=$resiNinio['ResiDire'] ?? ''?>">
+			<label class="form-label-sm" for="ResiDire">Domicilio</label>
+			<input class="form-control form-control-sm" type="text" name="Domicilio[ResiDire]" id="ResiDire" required="required" value="<?=$resiNinio['ResiDire'] ?? ''?>">
 </div>
 
 	<div class="col-sm-2">
-  <label class="form-label-sm" for="Localidad">Localidad</label>
-  <input type="text" name="Domicilio[Localidad]" id="Localidad" class="form-control form-control-sm" value="<?=$resiNinio['ResiLocal'] ?? ''?>" autocomplete="off" />
+  <label class="form-label-sm" for="ResiLocal">Localidad</label>
+  <input type="text" name="Domicilio[ResiLocal]" id="ResiLocal" class="form-control form-control-sm" value="<?=$resiNinio['ResiLocal'] ?? ''?>" autocomplete="off" />
   <input type="hidden" name="Domicilio[ResiAo]" id="ResiAo" value="<?=isset($data['value']) ? $data['value'] : ''?>" />
 </div>
 
@@ -148,7 +149,7 @@ endif;
 
 
 <script>
-var auto_complete = new Autocom(document.getElementById('Localidad'), {
+var auto_complete = new Autocom(document.getElementById('ResiLocal'), {
   data: <?php echo json_encode($data); ?>,
   maximumItems: 10,
   highlightTyped: true,

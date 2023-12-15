@@ -5,7 +5,7 @@ if (isset($_SESSION['inicio']) && (time() - $_SESSION['inicio'] > 1800)) {
     session_destroy();   
     header('Location: /login/login');
 }
-$_SESSION['inicio'] = time(); // update last activity time stamp
+$_SESSION['inicio'] = time(); // actualiza ultimo uso
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +25,9 @@ $_SESSION['inicio'] = time(); // update last activity time stamp
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+  <script>
+var antro = <?= json_encode($antro); ?>;
+</script>
 
 <!-- --------------bootstrap--------------------- -->
 
@@ -38,9 +41,7 @@ $_SESSION['inicio'] = time(); // update last activity time stamp
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.3/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.6/sb-1.3.3/sp-2.0.1/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
 
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"> -->
- <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"></script>
 
@@ -79,9 +80,9 @@ $_SESSION['establecimiento_nombre'];}
           <a class="navbar-brand mb-0 " href="/ninios/busca">Cargar</a>
           </li>
      
-          <!-- <li class="nav-item">
-          <a class="navbar-brand mb-0 " href="/ninios/ninios">Cargar casos</a>
-          </li> -->
+           <li class="nav-item">
+          <a class="navbar-brand mb-0 " href="/antro/antro">Antro</a>
+          </li> 
           <li class="nav-item dropdown">
             <a class="dropdown-toggle navbar-brand mb-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Usuarios
@@ -124,9 +125,9 @@ $_SESSION['establecimiento_nombre'];}
 
  
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script> -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> -->
+
 <script src="\datatable.js"> </script>
 <script src="\scripts.js"> </script>
 

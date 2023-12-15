@@ -18,98 +18,82 @@ class Antro
 
 
 
-    public function antro($id=null){
-
-        
+    public function antro($id=null){     
     
     if (isset($_GET['id'])) {
         
         $datosNinio=$this->tablaAntro->findById($_GET['id']);
-        
+      }
     
-                            }
+                            
                 
     $title = 'Carga Antro';
     
             
     
-                  return ['template' => 'antro.html.php',
-                             'title' => $title ,
-                         'variables' => [
-                         'datosNinio' =>$datosNinio  ?? ' '
-                                         ]
-    
-                        ];
+            return ['template' => 'antro.html.php',
+            'title' => $title,
+            'variables' => [
+                'datosNinio' => $datosNinio ?? '',
+                'antro' => $this // Pass the entire Antro class object
+                            ]
+                ];
     
     }
-
+  
 
     public function antroSubmit() {
+
+        error_reporting(E_ALL);
+        ini_set('display_errors', '1');
+        
+
        
             $datosNinio=$_POST['Antro'];
             $datos=[]; 
-            $imc=($datosNinio['Peso']/(($datosNinio['Talla']/100)*($datosNinio['Talla']/100)));
+            $imc=($datosNinio['peso']/(($datosNinio['talla']/100)*($datosNinio['talla']/100)));
             $datos['idAnt'] = $datosNinio['idAnt'];
             $datos['idNoti'] = $datosNinio['idNoti'];
             $datos['nombre'] = $datosNinio['nombre'];
-            $datos['fecnac'] = $datosNinio['fecnac'];
+            $datos['fecha_nace'] = $datosNinio['fecha_nace'];
             $datos['sexo'] = ($datosNinio['sexo'] ='Femenino') ? '2' : '1';
-            $datos['fecha'] = $datosNinio['fecha'];
-            $datos['Peso'] = $datosNinio['Peso'];
-            $datos['Talla'] = $datosNinio['Talla'];
+            $datos['fecha_control'] = $datosNinio['fecha_control'];
+            $datos['peso'] = $datosNinio['peso'];
+            $datos['talla'] = $datosNinio['talla'];
             $datos['ZPE']= $this->calcularZScore(
                                                     $datos['sexo']  , 
                                                     "p", 
-                                                    $datosNinio['Peso'], 
-                                                    $datosNinio['fecnac'], 
-                                                    $datosNinio['fecha']
+                                                    $datosNinio['peso'], 
+                                                    $datosNinio['fecha_nace'], 
+                                                    $datosNinio['fecha_control']
                                                     ) ;
             $datos['ZTE']= $this->calcularZScore(
                                                     $datos['sexo']  , 
                                                     "t", 
-                                                    $datosNinio['Talla'], 
-                                                    $datosNinio['fecnac'], 
-                                                    $datosNinio['fecha']
+                                                    $datosNinio['talla'], 
+                                                    $datosNinio['fecha_nace'], 
+                                                    $datosNinio['fecha_control']
                                                     ) ;
             $datos['ZIMCE'] = $this->calcularZScore(
                                                     $datos['sexo']  , 
                                                     "i", 
                                                     $imc, 
-                                                    $datosNinio['fecnac'], 
-                                                    $datosNinio['fecha']
-                                                    ) ;
-    //  var_dump($datos);
-       
-      
-     // `idAnt`,`idNoti`,`nombre`,`fecnac`,`Sexo`,`fecha`,`Peso`,`ZPE`,`Talla`,`ZTE`,`ZIMCE`,`sexo`
-      
-     if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-        header('Content-Type: application/json');
-        echo json_encode([
-            'ZPE' => $datos['ZPE'],
-            'ZTE' => $datos['ZTE'],
-            'ZIMCE' => $datos['ZIMCE'],
-        ]);
-        exit;
-    }
-      
-      
-      
-      
+                                                    $datosNinio['fecha_nace'], 
+                                                    $datosNinio['fecha_control']
+                                                    ) ;   
       $this->tablaAntro->save($datos);
         
        header('Location: /ninios/home');
        
 }
-public function calcularZScore($sexo, $bus, $valor, $fechaInicial, $fechaFinal) {
+public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control) {
 
-    // Prepare the query with the call to the ZSCORE function
-    $query = "SELECT ZSCORE($sexo, '$bus', $valor, '$fechaInicial', '$fechaFinal') AS resultado";
+    
+    $query = "SELECT ZSCORE($sexo, '$bus', $valor, '$fecha_nace', '$fecha_control') AS resultado";
   
-    // Execute the query
+    
     $resultado = $this->pdoZSCORE->query($query);
-  //var_dump($resultado);
-    // Check if the query was successful
+  
   if ($resultado) {
       // Get the result
       $fila = $resultado->fetchColumn();
@@ -123,12 +107,5 @@ public function calcularZScore($sexo, $bus, $valor, $fechaInicial, $fechaFinal) 
   
    return $resultadoZSCORE;
   }
-  
-
-private function sumar($num1, $num2) {
-    $suma =$num1+ $num2;
-    return $suma ;
-}
-
 }
 
