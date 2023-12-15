@@ -62,11 +62,11 @@ endif;
  </div>
 
 
- <div class="col-sm-2">
+ <!-- <div class="col-sm-2">
   <label class="form-label-sm" for="tipo">Etnia</label>
   <select name="Ninio[TpoEtnia]" id="TpoEtnia" class="form-control form-control-sm">
   	<option hidden selected><?=$datosNinio['TpoEtnia'] ?? '...'?></option>
-  <!--  <option value='1'>Administrador</option> -->
+
   	<option value=0>Criollo</option>
 	<option value=16>Wichis</option>
 	<option value=13>Toba</option>
@@ -86,7 +86,23 @@ endif;
 	<option value=15>Whenhayes (wichí)</option>
 	<option value=99>No determinada</option> 
         </select>
- </div>
+ </div> -->
+
+ <div class="col-sm-2">
+ 	<label class="form-label-sm" for="IdEtnia">Etnia</label>
+  <select name="Ninio[IdEtnia]" required="required"  id="IdEtnia"class="form-control form-control-sm">
+  <option hidden selected><?=$datosNinio['IdEtnia'] ?? '...'?></option>
+      <?php
+  $aop = [];
+    foreach ($etnias as $etnia) {
+   echo '<option value=' .  $etnia['IdEtnia'].'>' . $etnia['NomEtnia'] .'</option>';
+    }
+  ?>
+  </select>
+</div>
+
+
+
 
 
 <div class="col-sm-2">	

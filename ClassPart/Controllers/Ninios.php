@@ -8,16 +8,19 @@ use \AllowDynamicProperties;
 class Ninios
 {
     private $tablaNinios;
+    private $tablaEtnia;
     private $tablaLoc;
     private $tablaResi;
     private $authentication;
 
     public function __construct(\ClassGrl\DataTables $tablaNinios,
+                                \ClassGrl\DataTables $tablaEtnia,       
                                 \ClassGrl\DataTables $tablaLoc,
                                 \ClassGrl\DataTables $tablaResi,
                                  \ClassGrl\Authentication $authentication)
     {
         $this->tablaNinios = $tablaNinios;
+        $this->tablaEtnia = $tablaEtnia;
         $this->tablaLoc = $tablaLoc;
         $this->tablaResi = $tablaResi;
         $this->authentication = $authentication;
@@ -55,7 +58,7 @@ class Ninios
 // Metodo si es GET ////// 
 
 public function ninios($id=null) {
-	
+	$etnias=$this->tablaEtnia->findAll();
     $localidades = $this->tablaLoc->findAll();
     foreach($localidades as $localidad)
     {
@@ -90,7 +93,8 @@ public function ninios($id=null) {
                          'variables' => [
                            'data'  =>   $data,
                          'datosNinio' => $datosNinio  ?? ' ',
-                         'resiNinio'=> $resiNinio ?? ' '
+                         'resiNinio'=> $resiNinio ?? ' ',
+                         'etnias' => $etnias  ?? ' '
                                          ]
                         ];
                     }
@@ -100,6 +104,7 @@ public function ninios($id=null) {
                   return ['template' => 'ninios.html.php',
                              'title' => $title ,
                          'variables' => [
+                            'etnias' => $etnias  ?? ' ',
                            'data'  =>   $data
                                         ]
                         ];
@@ -129,7 +134,7 @@ public function niniosSubmit() {
         );
     }
       
-
+        $etnias=$this->tablaEtnia->findAll();
 
         $usuario = $this->authentication->getUser();
         $Resi=$_POST['Domicilio'];
@@ -138,7 +143,7 @@ public function niniosSubmit() {
         $Caso = $_POST['Ninio'];
         $Ninio =[];
         $Domicilio=[];
-       
+        var_dump($Caso);
        ///Datos del niño////
         $Ninio['IdNinio']=$Caso['IdNinio'];
         $Ninio['ApeNom']=strtoupper(ltrim($Caso['Apellido']).' '.ltrim($Caso['Nombre']));
@@ -147,7 +152,7 @@ public function niniosSubmit() {
         $Ninio['FechaNto']=$Caso['FechaNto'];
         $Ninio['Sexo']=$Caso['Sexo'];
         $Ninio['Etnia']='Criol/Ori';
-        $Ninio['TpoEtnia']=$Caso['TpoEtnia'];
+        $Ninio['TpoEtnia']=$Caso['IdEtnia'];
         $Ninio['ApeResp']=strtoupper(ltrim($Caso['ApellidoR']).' '.ltrim($Caso['NombreR']));
         $Ninio['DniResp']=$Caso['DniResp'];
         $Ninio['Indocures']=($Caso['DniResp'] > 0) ? 'NO' : 'SI';
@@ -216,7 +221,8 @@ public function niniosSubmit() {
                          'variables' => [
                                'errors'=> $errors,
                              'data'  =>   $data,
-                         'datosCaso' => $datosNinio  ?? ' '
+                         'datosCaso' => $datosNinio  ?? ' ',
+                         'etnias' => $etnias  ?? ' '
                                          ]
                         ];
     }
