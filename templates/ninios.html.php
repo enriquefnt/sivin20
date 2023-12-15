@@ -18,7 +18,7 @@
 endif;
 ?>
 <?php
-var_dump($resiNinio);
+//var_dump($resiNinio);
 ?>
 <div class="container">
 
@@ -132,14 +132,13 @@ var_dump($resiNinio);
 <div class="col-2">
 			<label class="form-label-sm" for="Fono"
 			title="Codigo de área (sin 0) - nùmero (sin 15)">Celular</label>
-			<input class="form-control form-control-sm"  type="text" id="Fono" name="Ninio[Fono]" placeholder="###-#######" data-llenar-campo="Fono" pattern="[0-9]{3}-[0-9]{7}"  value="<?=$datosCaso['Fono'] ?? ''?>" autocomplete="off" />
+			<input class="form-control form-control-sm"  type="text" id="Fono" name="Ninio[Fono]" placeholder="###-#######" data-llenar-campo="Fono" pattern="[0-9]{3}-[0-9]{7}"  value="<?=$datosNinio['Fono'] ?? ''?>" autocomplete="off" />
 	</div>
 	</fieldset>
 	<fieldset class="border p-2">       
 <div class="col-sm-3">
-		    <!-- <button class="btn btn-primary" type="submit" name="submit">Enviar</button> -->
-
-<a href="loginSuccess.html.php"  class="btn btn-primary btn-sm" role="button">Salir sin cambiar</a>
+		    
+<a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir sin modificar</a>
 <a href="/noticon/noti?id=<?=$datosNinio['IdNinio']?? ''?>"  class="btn btn-primary btn-sm" role="button">Notificación</a>
 <input type="submit" id="myButton"  name=submit class="btn btn-primary btn-sm" value="Guardar">
 </div>

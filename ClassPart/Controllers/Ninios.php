@@ -187,9 +187,9 @@ public function niniosSubmit() {
         
     $this->tablaNinios->save($Ninio);
 
-   // $ultimo = $this->tablaNinios->ultimoReg();
+    $ultimo = $this->tablaNinios->ultimoReg();
 
-  //   $Domicilio['ResiNinio']=$ultimo['IdNinio'];   
+     $Domicilio['ResiNinio']=$ultimo['IdNinio'];   
     // var_dump($Domicilio);
      $this->tablaResi->save($Domicilio);
     
