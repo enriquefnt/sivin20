@@ -7,12 +7,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Seleccione cargar un pedido a <b><?=$datosCaso['ApeNom'] ?></b> o salga al inicio.</p>
+        <p>Seleccione cargar una notificación a <b><?=$datosCaso['ApeNom'] ?></b> o salga al inicio.</p>
       </div>
-      <!-- <div class="modal-footer">
-                <a href="/pedido/pedido?id=<?=$datosCaso['id_datos_benef']?>" class="btn btn-info" role="button">Carga Pedido</a>
-                <a href="/" class="btn btn-info" role="button">Salir</a>
-      </div> -->
+ <div class="modal-footer">
+                <a href="/noticon/noti?id=<?=$datosCaso['IdNinio']?? ''?>"  class="btn btn-primary btn-sm" role="button">Notificación</a>
+                <a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir</a>
+      </div> 
     </div>
   </div>
 </div>

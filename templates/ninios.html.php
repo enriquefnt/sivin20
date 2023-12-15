@@ -138,9 +138,20 @@ endif;
 	<fieldset class="border p-2">       
 <div class="col-sm-3">
 		    
-<a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir sin modificar</a>
-<a href="/noticon/noti?id=<?=$datosNinio['IdNinio']?? ''?>"  class="btn btn-primary btn-sm" role="button">Notificación</a>
+
+
+<?php
+	if (empty($datosNinio)) : ?>
 <input type="submit" id="myButton"  name=submit class="btn btn-primary btn-sm" value="Guardar">
+
+<?php
+else: ?>
+<input type="submit" id="myButton"  name=submit class="btn btn-primary btn-sm" value="Guardar cambios">
+<a href="/noticon/noti?id=<?=$datosNinio['IdNinio']?? ''?>"  class="btn btn-primary btn-sm" role="button">Notificación</a>
+<?php
+endif;
+?>
+<a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir sin modificar</a>
 </div>
 	</fieldset>
  </form>
