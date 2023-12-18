@@ -194,10 +194,10 @@ public function niniosSubmit() {
         
     $this->tablaNinios->save($Ninio);
 
-    //$ultimo = $this->tablaNinios->ultimoReg();
-    //    $ultimo_dom= $this->tablaResi->findLast('ResiNinio',$Ninio['IdNinio']);
-    // $Domicilio['ResiNinio']=$ultimo_dom['IdNinio'];   
-    // var_dump($Domicilio);
+    $ultimo = $this->tablaNinios->ultimoReg();
+
+    $Domicilio['ResiNinio']=$ultimo['IdNinio'];   
+   // var_dump($Domicilio);
      $this->tablaResi->save($Domicilio);
     
     if (empty($_GET['id'])){

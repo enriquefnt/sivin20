@@ -62,32 +62,6 @@ endif;
  </div>
 
 
- <!-- <div class="col-sm-2">
-  <label class="form-label-sm" for="tipo">Etnia</label>
-  <select name="Ninio[TpoEtnia]" id="TpoEtnia" class="form-control form-control-sm">
-  	<option hidden selected><?=$datosNinio['TpoEtnia'] ?? '...'?></option>
-
-  	<option value=0>Criollo</option>
-	<option value=16>Wichis</option>
-	<option value=13>Toba</option>
-	<option value=1>Ava-guaraní</option>
-	<option value=2>Chané</option>
-	<option value=3>Chorotes</option>
-	<option value=4>Chulupí</option>
-	<option value=8>Kolla</option>
-	<option value=5>Diaguita calchaquí</option>
-	<option value=6>Guaraní</option>
-	<option value=7>Iogys (wichí)</option>
-	<option value=9>Lule</option>
-	<option value=10>Mocoví</option>
-	<option value=11>Tapieté</option>
-	<option value=12>Tastil</option>
-	<option value=14>Tupí guaraní</option>
-	<option value=15>Whenhayes (wichí)</option>
-	<option value=99>No determinada</option> 
-        </select>
- </div> -->
-
  <div class="col-sm-2">
  	<label class="form-label-sm" for="IdEtnia">Etnia</label>
   <select name="Ninio[IdEtnia]" required="required"  id="IdEtnia"class="form-control form-control-sm">
