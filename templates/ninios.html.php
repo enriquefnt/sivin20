@@ -91,7 +91,7 @@ endif;
  <div class="col-sm-2">
  	<label class="form-label-sm" for="IdEtnia">Etnia</label>
   <select name="Ninio[IdEtnia]" required="required"  id="IdEtnia"class="form-control form-control-sm">
-  <option hidden selected><?=$datosNinio['IdEtnia'] ?? '...'?></option>
+  <option hidden selected><?=$datosNinio['NomEtnia'] ?? '...'?></option>
       <?php
   $aop = [];
     foreach ($etnias as $etnia) {
@@ -100,9 +100,6 @@ endif;
   ?>
   </select>
 </div>
-
-
-
 
 
 <div class="col-sm-2">	

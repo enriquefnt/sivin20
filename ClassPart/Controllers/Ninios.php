@@ -82,7 +82,9 @@ public function ninios($id=null) {
                 
                $datosNinio['NombreR']=$apenomR['nombres'];
                 $datosNinio['ApellidoR']=$apenomR['apellido'];
-               // var_dump($datosNinio);
+                $datosNinio['NomEtnia']=$this->tablaEtnia->findById($datosNinio['TpoEtnia'])['NomEtnia'];
+
+             //   var_dump($datosNinio);
                 $resiNinio= $this->tablaResi->findLast('ResiNinio',$datosNinio['IdNinio']);
          //  var_dump($resiNinio);
 
