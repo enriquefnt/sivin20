@@ -82,9 +82,9 @@ public function ninios($id=null) {
                 
                $datosNinio['NombreR']=$apenomR['nombres'];
                 $datosNinio['ApellidoR']=$apenomR['apellido'];
-         
+               // var_dump($datosNinio);
                 $resiNinio= $this->tablaResi->findLast('ResiNinio',$datosNinio['IdNinio']);
-         //    var_dump($resiNinio);
+         //  var_dump($resiNinio);
 
                 $title = 'Ver Caso';
                    
@@ -143,7 +143,7 @@ public function niniosSubmit() {
         $Caso = $_POST['Ninio'];
         $Ninio =[];
         $Domicilio=[];
-        var_dump($Caso);
+     //   var_dump($Caso);
        ///Datos del niño////
         $Ninio['IdNinio']=$Caso['IdNinio'];
         $Ninio['ApeNom']=strtoupper(ltrim($Caso['Apellido']).' '.ltrim($Caso['Nombre']));
@@ -192,9 +192,9 @@ public function niniosSubmit() {
         
     $this->tablaNinios->save($Ninio);
 
-    $ultimo = $this->tablaNinios->ultimoReg();
-
-     $Domicilio['ResiNinio']=$ultimo['IdNinio'];   
+    //$ultimo = $this->tablaNinios->ultimoReg();
+    //    $ultimo_dom= $this->tablaResi->findLast('ResiNinio',$Ninio['IdNinio']);
+    // $Domicilio['ResiNinio']=$ultimo_dom['IdNinio'];   
     // var_dump($Domicilio);
      $this->tablaResi->save($Domicilio);
     
