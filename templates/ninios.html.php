@@ -42,7 +42,7 @@ endif;
 
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Dni">DNI</label>
-			<input class="form-control form-control-sm" type="number" name="Ninio[Dni]" id="Dni" min="1000000" max="99000000"  value="<?=$datosNinio['Dni'] ?? ''?>">
+			<input class="form-control form-control-sm" type="number" name="Ninio[Dni]" id="Dni" min="0" max="99999999"  value="<?=$datosNinio['Dni'] ?? ''?>">
 </div>
 
 <div class="col-sm-2">	
@@ -107,13 +107,14 @@ endif;
 
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="ResiDire">Domicilio</label>
-			<input class="form-control form-control-sm" type="text" name="Domicilio[ResiDire]" id="ResiDire" required="required" value="<?=$resiNinio['ResiDire'] ?? ''?>">
+			<input class="form-control form-control-sm" type="text" name="Domicilio[ResiDire]" id="ResiDire" required="required" value="<?=$datosDomi['ResiDire'] ?? ''?>">
 </div>
 
 	<div class="col-sm-2">
   <label class="form-label-sm" for="ResiLocal">Localidad</label>
-  <input type="text" name="Domicilio[ResiLocal]" id="ResiLocal" class="form-control form-control-sm" value="<?=$resiNinio['ResiLocal'] ?? ''?>" autocomplete="off" />
-  <input type="hidden" name="Domicilio[ResiAo]" id="ResiAo" value="<?=isset($data['value']) ? $data['value'] : ''?>" />
+  <input type="text" name="Domicilio[ResiLocal]" id="ResiLocal" class="form-control form-control-sm" autocomplete="off"  value="<?=$datosDomi['ResiLocal'] ?? ''?>" >
+   
+   <input type="hidden" name="Domicilio[Gid]" id="Gid" value="<?= $data['value'] ?? '' ?>" />
 </div>
 
 <div class="col-2">
@@ -125,8 +126,6 @@ endif;
 	<fieldset class="border p-2">       
 <div class="col-sm-3">
 		    
-
-
 <?php
 	if (empty($datosNinio)) : ?>
 <input type="submit" id="myButton"  name=submit class="btn btn-primary btn-sm" value="Guardar">
@@ -152,14 +151,14 @@ var auto_complete = new Autocom(document.getElementById('ResiLocal'), {
   highlightTyped: true,
   highlightClass: 'fw-bold text-primary',
   onSelectItem: function(selectedItem) {
-    document.getElementById('ResiAo').value = selectedItem.value; // Asignar el valor del item seleccionado al input hidden
+    document.getElementById('Gid').value = selectedItem.value; // Asignar el valor del item seleccionado al input hidden
   }
 });
 </script>
 <script>
 var auto_complete = new Autocom(document.getElementById('ninio'), {
   data: <?php echo json_encode($dataNinio); ?>,
-  maximumItems: 10,
+  maximumItems: 15,
   highlightTyped: true,
   highlightClass: 'fw-bold text-primary',
   onSelectItem: function(selectedItem) {

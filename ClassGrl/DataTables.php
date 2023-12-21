@@ -32,15 +32,7 @@ public function ultimoReg()
     $query = $this->query($sql);
     return $query->fetch();
 }
-/*
-public function ultimoReg()
-{
-    $sql = 'SELECT * FROM `?` ORDER BY `?` DESC LIMIT 1';
-    $query = $this->prepare($sql);
-    $query->execute([$this->table, $this->primaryKey]);
-    return $query->fetch();
-}
-*/
+
 public function findById($value)
 {
 	$query = 'SELECT * FROM `' . $this->table . '` WHERE `' .
@@ -49,7 +41,9 @@ public function findById($value)
 	'value' => $value
 	];
 	$query = $this->query($query, $parameters);
+	//echo $query->queryString; // Output the constructed query
 	return $query->fetch();
+	
 	}
 
 public function find($field, $value) {

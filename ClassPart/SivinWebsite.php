@@ -14,7 +14,6 @@ class SivinWebsite implements \ClassGrl\Website  {
 	private \ClassGrl\Authentication $Authentication;
 	private \ClassGrl\DataTables $tablaAntro;
 	private $pdoZSCORE;
-	////tablas para
 	
 	
 public function __construct() {
@@ -24,7 +23,7 @@ public function __construct() {
 	$this->tablaNinios = new \ClassGrl\DataTables($pdo,'Ninios', 'IdNinio');	
 	$this->tablaUser = new \ClassGrl\DataTables($pdo,'datos_usuarios', 'id_usuario');	
 	$this->tablaEtnia = new \ClassGrl\DataTables($pdo,'etnias', 'IdEtnia');
-	$this->tablaLoc = new \ClassGrl\DataTables($pdo,'Localidades', 'gid');
+	$this->tablaLoc = new \ClassGrl\DataTables($pdo,'localidades', 'gid');
 	$this->tablaInsti = new \ClassGrl\DataTables($pdo,'instituciones', 'codi_esta');
 	$this->tablaResi = new \ClassGrl\DataTables($pdo,'NIÑOSRESIDENCIA', 'IdResi');
 	$this->tablaNoti = new \ClassGrl\DataTables($pdo,'notificacion', 'NotId');
@@ -75,9 +74,7 @@ public function getController(string $controllerName): ?object {
 	else if ($controllerName === 'antro') {
 
 				$controller = new \ClassPart\Controllers\Antro($this->tablaAntro, $this->pdoZSCORE);
-
-		
-				}
+						}
 		
 	
 
@@ -87,20 +84,14 @@ public function getController(string $controllerName): ?object {
 
 		}	
 
-
-
  else {
 
             $controller = null;
 
         }
 
-		
 
 	return $controller;
-
-
-
   }
 
 
@@ -111,7 +102,7 @@ public function getController(string $controllerName): ?object {
 
 public function checkLogin(string $uri): ?string {
 
-        $restrictedPages = ['benef/edit', 'user/user', 'benef/listar'];
+        $restrictedPages = ['ninios/ninios', 'user/user', 'noticon/noticon'];
 
 
 

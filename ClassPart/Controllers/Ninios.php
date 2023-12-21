@@ -63,18 +63,21 @@ public function ninios($id=null) {
     foreach($localidades as $localidad)
     {
         $data[] = array(
-            'label'     =>  $localidad['nombre_geo'],
+            'label'     =>  $localidad['localidad'],
             'value'     =>  $localidad['gid']
         );
     }
-    //var_dump($_GET);
+ 
             
         if ($_GET['id'] > 0) {
 
                 $datosNinio = $this->tablaNinios->findById($_GET['id']);
-      
+          
+                $datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
+             //   $datosDomi['gid']=5555;//$this->tablaLoc->find('localidad', $datosDomi['ResiLocal'])['gid'];
+                var_dump($datosDomi);
                 $apenom = $this->separar_nombres($datosNinio['ApeNom']);
-               // var_dump($apenom);
+              
                $datosNinio['Nombre']=$apenom['nombres'];
                 $datosNinio['Apellido']=$apenom['apellido'];
          
@@ -84,18 +87,15 @@ public function ninios($id=null) {
                 $datosNinio['ApellidoR']=$apenomR['apellido'];
                 $datosNinio['NomEtnia']=$this->tablaEtnia->findById($datosNinio['TpoEtnia'])['NomEtnia'];
 
-             //   var_dump($datosNinio);
-                $resiNinio= $this->tablaResi->findLast('ResiNinio',$datosNinio['IdNinio']);
-         //  var_dump($resiNinio);
 
                 $title = 'Ver Caso';
                    
                   return ['template' => 'ninios.html.php',
                              'title' => $title ,
                          'variables' => [
-                           'data'  =>   $data,
+                           'data'  =>   $data,  //datos de la tabla localidades.
                          'datosNinio' => $datosNinio  ?? ' ',
-                         'resiNinio'=> $resiNinio ?? ' ',
+                         'datosDomi'=> $datosDomi ?? ' ',
                          'etnias' => $etnias  ?? ' '
                                          ]
                         ];
@@ -114,46 +114,28 @@ public function ninios($id=null) {
                
     }
     
-    /// Metodo si es con post para beneficiario//////   
+    /// Metodo si es con POST //////   
 
 public function niniosSubmit() {
-	$result = $this->tablaNinios->findAll();
-
-        foreach ($result as $ninio) {
-            $dataNinio[] = array(
-                'label' => $ninio['ApeNom'],
-                'value' => $ninio['IdNinio']
-            );
-        }
-
-
-    $localidades = $this->tablaLoc->findAll();
-    foreach($localidades as $localidad)
-    {
-        $data[] = array(
-            'label'     =>  $localidad['nombre_geo'],
-            'value'     =>  $localidad['gid']
-        );
-    }
-      
-        $etnias=$this->tablaEtnia->findAll();
-
+	
         $usuario = $this->authentication->getUser();
         $Resi=$_POST['Domicilio'];
 
-     //  var_dump($Resi);
+     
         $Caso = $_POST['Ninio'];
         $Ninio =[];
         $Domicilio=[];
-     //   var_dump($Caso);
-       ///Datos del niño////
+ //     var_dump($_POST['Domicilio']);
+       
+      ///Datos del niño////
+        
         $Ninio['IdNinio']=$Caso['IdNinio'];
         $Ninio['ApeNom']=strtoupper(ltrim($Caso['Apellido']).' '.ltrim($Caso['Nombre']));
         $Ninio['Dni']=$Caso['Dni'];
         $Ninio['Indocu'] = ($Caso['Dni'] > 0) ? 'NO' : 'SI';
         $Ninio['FechaNto']=$Caso['FechaNto'];
         $Ninio['Sexo']=$Caso['Sexo'];
-        $Ninio['Etnia']='Criol/Ori';
+        $Ninio['Etnia']=$Caso['IdEtnia'] > 0 ? 'Originario': 'Criollo';
         $Ninio['TpoEtnia']=$Caso['IdEtnia'];
         $Ninio['ApeResp']=strtoupper(ltrim($Caso['ApellidoR']).' '.ltrim($Caso['NombreR']));
         $Ninio['DniResp']=$Caso['DniResp'];
@@ -171,16 +153,22 @@ public function niniosSubmit() {
         
 ////Datos domicilio ////
 
-        $Domicilio['IdResi']=$Resi['IdResi'];  
-     //   $Domicilio['ResiNinio']=$Caso['IdNinio'];
+     if (empty($Caso['IdNinio'])){$Domicilio['IdResi']=$Resi['IdResi']?? '';                           }
+     else {$Domicilio['IdResi']='';}
+     var_dump($Resi);
+    // if ($Resi['Gid']=='0') {$Resi['Gid']=$this->tablaNinios->find('localidad', $Resi['localidad'])['gid'];}
+   //  if ($Resi['Gid']=='0') {$Resi['Gid']='10559';}
+     $Resi['Gid']=$this->tablaNinios->find('localidad', $Resi['ResiLocal'])['gid'];
+  // $Resi['Gid']='10559';
         $Domicilio['ResiNinio']=$Caso['IdNinio'];
         $Domicilio['ResiDire']=$Resi['ResiDire'];    
         $Domicilio['ResiLocal']=$Resi['ResiLocal'];
         $Domicilio['ResiUsu']=$usuario['id_usuario']; 
-       $Domicilio['ResiAo']=$this->tablaLoc->findById($Resi['ResiAo'])['aop'] ?? ''; 
-       $Ninio['Aoresi']=$this->tablaLoc->findById($Resi['ResiAo'])['aop'] ?? ''; 
+            var_dump($Resi);
+        $Domicilio['ResiAo']=$this->tablaLoc->findById($Resi['Gid'])['aop'] ?? ''; 
+        
+        $Ninio['Aoresi']=$Domicilio['ResiAo'];
         $Domicilio['ResiFecha']=new \DateTime();  
-      // var_dump($Domicilio);
         
         $errors = [];
         
@@ -194,10 +182,15 @@ public function niniosSubmit() {
         
     $this->tablaNinios->save($Ninio);
 
-    $ultimo = $this->tablaNinios->ultimoReg();
+        if (empty($Domicilio['ResiNinio'])){
+   $ultimo = $this->tablaNinios->ultimoReg();
+    $Domicilio['ResiNinio']=$ultimo['IdNinio'];  
+       }
 
-    $Domicilio['ResiNinio']=$ultimo['IdNinio'];   
-   // var_dump($Domicilio);
+
+        var_dump($Domicilio);
+        
+
      $this->tablaResi->save($Domicilio);
     
     if (empty($_GET['id'])){
@@ -210,7 +203,8 @@ public function niniosSubmit() {
     return ['template' => 'registersuccess.html.php',
                              'title' => 'Carga' ,
                          'variables' => [
-                            'datosCaso' => $datosNinio  ?? ' '
+                            'datosCaso' => $datosNinio  ?? ' ',
+                            'resiNinio'=> $Domicilio ?? ' ',
                                          ]
                         ];
     
@@ -223,7 +217,8 @@ public function niniosSubmit() {
                          'variables' => [
                                'errors'=> $errors,
                              'data'  =>   $data,
-                         'datosCaso' => $datosNinio  ?? ' ',
+                         'datosNinio' => $datosNinio  ?? ' ',
+                         'resiNinio'=> $Domicilio ?? ' ',
                          'etnias' => $etnias  ?? ' '
                                          ]
                         ];
@@ -255,5 +250,18 @@ public function niniosSubmit() {
         return ['template' => 'home.html.php', 'title' => $title, 'variables' => []];
     }
 
+
+    public function mi_error_handler($errno, $errstr, $errfile, $errline) {
+        if ($errno == E_USER_ERROR) {
+            header("HTTP/1.1 504 Gateway Time-out");
+            header("Content-Type: text/html");
+
+            echo "<html><head><title>Error</title></head><body>";
+            echo "<h1>La conexión está lenta, por favor, inténtelo de nuevo más tarde</h1>";
+            echo "</body></html>";
+        }
+    }
+      
+     
    
 }
