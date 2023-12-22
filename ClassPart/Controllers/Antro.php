@@ -35,7 +35,7 @@ class Antro
             'title' => $title,
             'variables' => [
                 'datosNinio' => $datosNinio ?? '',
-                'antro' => $this // Pass the entire Antro class object
+                'antro' => $this 
                             ]
                 ];
     
@@ -95,13 +95,13 @@ public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control)
     $resultado = $this->pdoZSCORE->query($query);
   
   if ($resultado) {
-      // Get the result
+      
       $fila = $resultado->fetchColumn();
 
   //    var_dump($fila);  
             $resultadoZSCORE = $fila;
     } else {
-      // Handle the case where no data is returned
+      
       $resultadoZSCORE = null;
     }
   

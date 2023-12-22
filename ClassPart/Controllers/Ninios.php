@@ -158,7 +158,8 @@ public function niniosSubmit() {
      var_dump($Resi);
     // if ($Resi['Gid']=='0') {$Resi['Gid']=$this->tablaNinios->find('localidad', $Resi['localidad'])['gid'];}
    //  if ($Resi['Gid']=='0') {$Resi['Gid']='10559';}
-     $Resi['Gid']=$this->tablaNinios->find('localidad', $Resi['ResiLocal'])['gid'];
+
+//     $Resi['Gid']=$this->tablaNinios->find('localidad', $Resi['ResiLocal'])['gid'];
   // $Resi['Gid']='10559';
         $Domicilio['ResiNinio']=$Caso['IdNinio'];
         $Domicilio['ResiDire']=$Resi['ResiDire'];    
@@ -193,12 +194,12 @@ public function niniosSubmit() {
 
      $this->tablaResi->save($Domicilio);
     
-    if (empty($_GET['id'])){
-    $datosNinio = $this->tablaNinios->ultimoReg();
-    }
-    else{
-        $datosNinio = $this->tablaNinios->findById($_GET['id']);
-    }
+    // if (empty($_GET['id'])){
+    // $datosNinio = $this->tablaNinios->ultimoReg();
+    // }
+    // else{
+    //     $datosNinio = $this->tablaNinios->findById($_GET['id']);
+    // }
     
     return ['template' => 'registersuccess.html.php',
                              'title' => 'Carga' ,
@@ -212,22 +213,35 @@ public function niniosSubmit() {
        
     
     else {
+        $localidades = $this->tablaLoc->findAll();
+    foreach($localidades as $localidad)
+    {
+        $data[] = array(
+            'label'     =>  $localidad['localidad'],
+            'value'     =>  $localidad['gid']
+        );
+    }
+    $etnias=$this->tablaEtnia->findAll();
+    $apenom = $this->separar_nombres($Ninio['ApeNom']);
+    $apenomR = $this->separar_nombres($Ninio['ApeResp']);
+    $Ninio['Nombre']=$apenom['nombres'];
+    $Ninio['Apellido']=$apenom['apellido'];
+    $Ninio['NombreR']=$apenomR['nombres'];
+    $Ninio['ApellidoR']=$apenomR['apellido'];
+
+var_dump($Ninio);
      return ['template' => 'ninios.html.php',
                              'title' => 'Revisar' ,
                          'variables' => [
                                'errors'=> $errors,
                              'data'  =>   $data,
-                         'datosNinio' => $datosNinio  ?? ' ',
-                         'resiNinio'=> $Domicilio ?? ' ',
+                         'datosNinio' => $Ninio  ?? ' ',
+                         'datosDomi'=> $Domicilio ?? ' ',
                          'etnias' => $etnias  ?? ' '
                                          ]
                         ];
     }
     
-
-
-
-
     
     }
     
