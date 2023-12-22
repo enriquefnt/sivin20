@@ -227,7 +227,8 @@ public function niniosSubmit() {
     $Ninio['Nombre']=$apenom['nombres'];
     $Ninio['Apellido']=$apenom['apellido'];
     $Ninio['NombreR']=$apenomR['nombres'];
-    $Ninio['ApellidoR']=$apenomR['apellido'];
+   // $Ninio['ApellidoR']=$apenomR['apellido'];
+    $Ninio['NomEtnia']=$this->tablaEtnia->findById($Ninio['TpoEtnia'])['NomEtnia'];
 
 var_dump($Ninio);
      return ['template' => 'ninios.html.php',
