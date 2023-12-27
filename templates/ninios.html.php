@@ -114,7 +114,8 @@ endif;
   <label class="form-label-sm" for="ResiLocal">Localidad</label>
   <input type="text" name="Domicilio[ResiLocal]" id="ResiLocal" class="form-control form-control-sm" autocomplete="off"  value="<?=$datosDomi['ResiLocal'] ?? ''?>" >
    
-   <input type="hidden" name="Domicilio[Gid]" id="Gid" value="<?= $data['value'] ?? '' ?>" />
+   <input type="hidden" name="Domicilio[Gid]" id="Gid" value="<?= $data['value'] ?? $datosDomi['gid'] ?>" />
+   
 </div>
 
 <div class="col-2">
@@ -132,7 +133,8 @@ endif;
 
 <?php
 else: ?>
-<input type="submit" id="myButton"  name=submit class="btn btn-primary btn-sm" value="Guardar cambios">
+<!-- <input type="submit" id="myButton"  name=submit class="btn btn-primary btn-sm" value="Guardar cambios"> -->
+<input type="submit" id="myButton" name="submit" class="btn btn-primary btn-sm" value="Guardar cambios" onclick="guardarCambios()">
 <a href="/noticon/noti?id=<?=$datosNinio['IdNinio']?? ''?>"  class="btn btn-primary btn-sm" role="button">Notificación</a>
 <?php
 endif;
@@ -166,3 +168,44 @@ var auto_complete = new Autocom(document.getElementById('ninio'), {
   }
 });
 </script>
+
+
+
+<!-- <script>
+function guardarCambios() {
+  // Obtén el valor del input de texto
+  var valorLocalidad = document.getElementById("ResiLocal").value;
+
+  // Busca el código correspondiente al valor del input de texto
+  var codigo = $.grep(data, function(item) {
+    return item.value === valorLocalidad;
+  })[0].first().code;
+
+  // Actualiza el valor del input oculto
+  document.getElementById("Gid").value = codigo;
+}
+</script>
+<script>
+$(document).ready(function(){
+    $("form").on("submit", function(e){
+        var gid = $("input[name='Domicilio[Gid]']").val();
+        if (Domicilio[Gid] === null || Domicilio[Gid] === '') {
+            var resiLocal = $("input[name='Domicilio[ResiLocal]']").val();
+            var found = false;
+            $.each(data, function(i, obj){
+                if (obj.ResiLocal === resiLocal) {
+                    gid = obj.Gid;
+                    found = true;
+                    return false; // break out of $.each loop
+                }
+            });
+            if (found) {
+                $("input[name='Domicilio[Gid]']").val(gid);
+            } else {
+                alert("ResiLocal not found in data.");
+                e.preventDefault(); // prevent form submission
+            }
+        }
+    });
+});
+</script>-->

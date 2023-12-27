@@ -74,7 +74,11 @@ public function ninios($id=null) {
                 $datosNinio = $this->tablaNinios->findById($_GET['id']);
           
                 $datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
-             //   $datosDomi['gid']=5555;//$this->tablaLoc->find('localidad', $datosDomi['ResiLocal'])['gid'];
+                $gidi=$this->tablaLoc->find('localidad', $datosDomi['ResiLocal']);
+                var_dump($gidi);
+
+             //   $datosDomi['gid']=$gidi['gid'];
+                $datosDomi['gid'] = $gidi[0]['gid'];//$this->tablaLoc->find('localidad', $datosDomi['ResiLocal'])['gid'];
                 var_dump($datosDomi);
                 $apenom = $this->separar_nombres($datosNinio['ApeNom']);
               
@@ -165,6 +169,7 @@ public function niniosSubmit() {
         $Domicilio['ResiDire']=$Resi['ResiDire'];    
         $Domicilio['ResiLocal']=$Resi['ResiLocal'];
         $Domicilio['ResiUsu']=$usuario['id_usuario']; 
+       // $Domicilio['Gid']=$Resi['Gid']; 
             var_dump($Resi);
         $Domicilio['ResiAo']=$this->tablaLoc->findById($Resi['Gid'])['aop'] ?? ''; 
         
@@ -194,12 +199,12 @@ public function niniosSubmit() {
 
      $this->tablaResi->save($Domicilio);
     
-    // if (empty($_GET['id'])){
-    // $datosNinio = $this->tablaNinios->ultimoReg();
-    // }
-    // else{
-    //     $datosNinio = $this->tablaNinios->findById($_GET['id']);
-    // }
+     if (empty($_GET['id'])){
+    $datosNinio = $this->tablaNinios->ultimoReg();
+    }
+    else{
+        $datosNinio = $this->tablaNinios->findById($_GET['id']);
+    }
     
     return ['template' => 'registersuccess.html.php',
                              'title' => 'Carga' ,
@@ -227,7 +232,7 @@ public function niniosSubmit() {
     $Ninio['Nombre']=$apenom['nombres'];
     $Ninio['Apellido']=$apenom['apellido'];
     $Ninio['NombreR']=$apenomR['nombres'];
-   // $Ninio['ApellidoR']=$apenomR['apellido'];
+   
     $Ninio['NomEtnia']=$this->tablaEtnia->findById($Ninio['TpoEtnia'])['NomEtnia'];
 
 var_dump($Ninio);
