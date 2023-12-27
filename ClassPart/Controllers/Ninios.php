@@ -193,13 +193,17 @@ public function niniosSubmit() {
 
      $this->tablaResi->save($Domicilio);
     
-     if (empty($_GET['id'])){
+    //  ver aca!!!  esto parece no tener sentido//
+    
+    if (empty($_GET['id'])){
     $datosNinio = $this->tablaNinios->ultimoReg();
     }
     else{
         $datosNinio = $this->tablaNinios->findById($_GET['id']);
     }
-    
+
+    ///////////////
+
     return ['template' => 'registersuccess.html.php',
                              'title' => 'Carga' ,
                          'variables' => [
