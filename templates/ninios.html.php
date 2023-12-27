@@ -29,7 +29,7 @@ endif;
 		
 	
 	<input type="hidden" name="Ninio[IdNinio]" value="<?=$datosNinio['IdNinio'] ?? ''?>">
-	<input type="hidden" name="Domicilio[IdResi]" value="<?=$datosDomi['IdResi'] ?? ''?>">
+	
           
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Nombre">Nombre</label>
@@ -114,7 +114,7 @@ endif;
   <label class="form-label-sm" for="ResiLocal">Localidad</label>
   <input type="text" name="Domicilio[ResiLocal]" id="ResiLocal" class="form-control form-control-sm" autocomplete="off"  value="<?=$datosDomi['ResiLocal'] ?? ''?>" >
    
-   <!-- <input type="hidden" name="Domicilio[Gid]" id="Gid" value="<?= $data['value'] ?? $datosDomi['gid'] ?>" /> -->
+  <input type="hidden" name="Domicilio[IdResi]" value="<?=$datosDomi['IdResi'] ?? ''?>">
    <input type="hidden" name="Domicilio[Gid]" id="Gid" value="<?= $data['value'] ?? $datosDomi['gid'] ?? '' ?>" />
    
 </div>

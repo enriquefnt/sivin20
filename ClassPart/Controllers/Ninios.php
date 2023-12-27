@@ -77,7 +77,7 @@ public function ninios($id=null) {
              
                 $datosDomi['gid']=$this->tablaLoc->find('localidad', $datosDomi['ResiLocal'])[0]['gid'];
                
-              //  var_dump($datosDomi);
+              // var_dump($datosDomi);
                 $apenom = $this->separar_nombres($datosNinio['ApeNom']);
               
                $datosNinio['Nombre']=$apenom['nombres'];
@@ -127,7 +127,7 @@ public function niniosSubmit() {
         $Caso = $_POST['Ninio'];
         $Ninio =[];
         $Domicilio=[];
- //     var_dump($_POST['Domicilio']);
+     
        
       ///Datos del niño////
         
@@ -158,7 +158,7 @@ public function niniosSubmit() {
      if (empty($Caso['IdNinio'])){$Domicilio['IdResi']=$Resi['IdResi']?? '';                           }
      else {$Domicilio['IdResi']='';}
    
-
+        $Domicilio['IdResi']=$Resi['IdResi']; 
         $Domicilio['ResiNinio']=$Caso['IdNinio'];
         $Domicilio['ResiDire']=$Resi['ResiDire'];    
         $Domicilio['ResiLocal']=$Resi['ResiLocal'];
@@ -188,7 +188,7 @@ public function niniosSubmit() {
        }
 
 
-     //   var_dump($Domicilio);
+      var_dump($Domicilio);
         
 
      $this->tablaResi->save($Domicilio);
