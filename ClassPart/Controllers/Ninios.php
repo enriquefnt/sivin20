@@ -74,12 +74,10 @@ public function ninios($id=null) {
                 $datosNinio = $this->tablaNinios->findById($_GET['id']);
           
                 $datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
-                $gidi=$this->tablaLoc->find('localidad', $datosDomi['ResiLocal']);
-                var_dump($gidi);
-
-             //   $datosDomi['gid']=$gidi['gid'];
-                $datosDomi['gid'] = $gidi[0]['gid'];//$this->tablaLoc->find('localidad', $datosDomi['ResiLocal'])['gid'];
-                var_dump($datosDomi);
+             
+                $datosDomi['gid']=$this->tablaLoc->find('localidad', $datosDomi['ResiLocal'])[0]['gid'];
+               
+              //  var_dump($datosDomi);
                 $apenom = $this->separar_nombres($datosNinio['ApeNom']);
               
                $datosNinio['Nombre']=$apenom['nombres'];
@@ -159,18 +157,14 @@ public function niniosSubmit() {
 
      if (empty($Caso['IdNinio'])){$Domicilio['IdResi']=$Resi['IdResi']?? '';                           }
      else {$Domicilio['IdResi']='';}
-     var_dump($Resi);
-    // if ($Resi['Gid']=='0') {$Resi['Gid']=$this->tablaNinios->find('localidad', $Resi['localidad'])['gid'];}
-   //  if ($Resi['Gid']=='0') {$Resi['Gid']='10559';}
+   
 
-//     $Resi['Gid']=$this->tablaNinios->find('localidad', $Resi['ResiLocal'])['gid'];
-  // $Resi['Gid']='10559';
         $Domicilio['ResiNinio']=$Caso['IdNinio'];
         $Domicilio['ResiDire']=$Resi['ResiDire'];    
         $Domicilio['ResiLocal']=$Resi['ResiLocal'];
         $Domicilio['ResiUsu']=$usuario['id_usuario']; 
-       // $Domicilio['Gid']=$Resi['Gid']; 
-            var_dump($Resi);
+       
+//            var_dump($Resi);
         $Domicilio['ResiAo']=$this->tablaLoc->findById($Resi['Gid'])['aop'] ?? ''; 
         
         $Ninio['Aoresi']=$Domicilio['ResiAo'];
@@ -194,7 +188,7 @@ public function niniosSubmit() {
        }
 
 
-        var_dump($Domicilio);
+     //   var_dump($Domicilio);
         
 
      $this->tablaResi->save($Domicilio);

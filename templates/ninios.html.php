@@ -114,7 +114,8 @@ endif;
   <label class="form-label-sm" for="ResiLocal">Localidad</label>
   <input type="text" name="Domicilio[ResiLocal]" id="ResiLocal" class="form-control form-control-sm" autocomplete="off"  value="<?=$datosDomi['ResiLocal'] ?? ''?>" >
    
-   <input type="hidden" name="Domicilio[Gid]" id="Gid" value="<?= $data['value'] ?? $datosDomi['gid'] ?>" />
+   <!-- <input type="hidden" name="Domicilio[Gid]" id="Gid" value="<?= $data['value'] ?? $datosDomi['gid'] ?>" /> -->
+   <input type="hidden" name="Domicilio[Gid]" id="Gid" value="<?= $data['value'] ?? $datosDomi['gid'] ?? '' ?>" />
    
 </div>
 
