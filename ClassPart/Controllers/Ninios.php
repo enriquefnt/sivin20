@@ -66,7 +66,7 @@ class Ninios
 
             $datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
 
-            $datosDomi['gid']=$this->tablaLoc->find('localidad', $datosDomi['ResiLocal'])[0]['gid'];
+            $datosDomi['gid']=$this->tablaLoc->find('localidad', $datosDomi['ResiLocal'])[0]['gid'] ?? '' ;
 
             $apenom = $this->separar_nombres($datosNinio['ApeNom']);
 

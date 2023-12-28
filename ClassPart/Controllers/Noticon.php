@@ -79,11 +79,12 @@ $instituciones = $this->tablaInsti->findAll();
 	}
 
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
-	
+	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
 
 	$Notifica['NotNinio']=$datosNinio['IdNinio'];
 	$Notifica['NotUsuario'] = $usuario['id_usuario'];
+	$Notifica['NotObserva'] = $Notifica['NotObserva'];
 	$Notifica['NotFechaSist'] = new \DateTime();
 	
 	$title = 'notificacion';

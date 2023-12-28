@@ -35,15 +35,16 @@
 			<input class="form-control form-control-sm" type="number" step="0.01" min="1" max="60" name="Noticon[NotPeso]"
 			 id="NotPeso" required="required" value="<?=$datosNoti['NotPeso'] ?? ''?>">
 </div>
-<div class="col-sm-2">	
-			<label class="form-label-sm" for="NotZpe">Z P/E</label>
-			<input class="form-control form-control-sm" type="number" name="Noticon[NotZpe]"
-			 id="NotZpe" required="required" value="<?=$datosNoti['NotZpe'] ?? 'ZSCORE(2, "p", 5.5, "2023-01-01", "2023-03-01");'?>">
-</div>
+
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NotTalla">Talla (cm)</label>
 			<input class="form-control form-control-sm" type="number" step="0.1" min="30" max="150" name="Noticon[NotTalla]"
 			 id="NotTalla" required="required" value="<?=$datosNoti['NotTalla'] ?? ''?>">
+</div>
+<div class="col-sm-2">	
+			<label class="form-label-sm" for="NotZpe">Z P/E</label>
+			<input class="form-control form-control-sm" type="number" name="Noticon[NotZpe]"
+			 id="NotZpe" required="required" value="<?=$datosNoti['NotZpe'] ?? 'ZSCORE(2, "p", 5.5, "2023-01-01", "2023-03-01");'?>">
 </div>
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NotZta">Z T/E</label>
@@ -55,6 +56,12 @@
 			<input class="form-control form-control-sm" type="number" name="Noticon[NotZimc]"
 			 id="NotZimc" required="required" value="<?=$datosNoti['NotZimc'] ?? ''?>">
 </div>
+<div class="form-group">
+			<label class="form-label-sm" for="NotObserva">Observaciones</label>
+			 <textarea class="form-control" rows="5" id="NotObserva" name="Noticon[NotObserva]"
+			 value="<?=$datosNoti['NotObserva'] ?? ''?>">
+			</textarea>
+</div> 
 
 
 </fieldset>
