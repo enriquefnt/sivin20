@@ -7,7 +7,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <!-- <p>Seleccione cargar una notificación a <b><?=$datosCaso['nombres'].' '.$datosCaso['apellido']?></b> o salga al inicio.</p> -->
+        <p>Seleccione cargar una notificación a <b><?=$datosCaso['ApeNom']?></b> o salga al inicio.</p> 
       </div>
  <div class="modal-footer">
                 <a href="/noticon/noti?id=<?=$datosCaso['IdNinio']?? ''?>"  class="btn btn-primary btn-sm" role="button">Notificación</a>
