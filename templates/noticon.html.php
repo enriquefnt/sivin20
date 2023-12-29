@@ -57,6 +57,52 @@
 			<input class="form-control form-control-sm" type="number" name="Noticon[NotZimc]"
 			 id="NotZimc" required="required" value="<?=$datosNoti['NotZimc'] ?? ''?>">
 </div> -->
+
+<!-- <div class="form-group"> -->
+	<div class="col-sm-2">
+	<label class="form-label-sm" for="NotEvo">Evolucion</label>
+	<select name="Noticon[NotEvo]" id="NotEvo" class="form-control form-control-sm">
+		<option hidden selected><?=$datosNoti['NotEvo'] ?? '...'?></option>
+		<option value=1>Agudo</option>
+		<option value=2>Crónico</option>
+		<option value=3>Crónico agudizado</option>
+		<option value=4>En estudio</option>
+		<option value=9>Sin determinar</option>
+		</select>
+	</div>
+	<div class="col-sm-2">
+	<label class="form-label-sm" for="NotClinica">Gravedad</label>
+	<select name="Noticon[NotClinica]" id="NotClinica" class="form-control form-control-sm">
+		<option hidden selected><?=$datosNoti['MotId'] ?? '...'?></option>
+		<option value=1>Marasmo</option>
+		<option value=2>Kwashiorkor</option>
+		<option value=3>Marasmo-Kwashiorkor</option>
+		<option value=4>Grave</option>
+		<option value=6>Moderada</option>
+		<option value=5>En estudio</option>
+		<option value=9>Sin determinar</option>
+		</select>
+	</div>
+	<div class="col-sm-2">
+	<label class="form-label-sm" for="NotEtio">Etiología</label>
+	<select name="Noticon[NotEtio]" id="NotEtio" class="form-control form-control-sm">
+		<option hidden selected><?=$datosNoti['NotEtio'] ?? '...'?></option>
+		<option value=1>Primaria</option>
+		<option value=2>Perinatal</option>
+		<option value=3>Congénita</option>
+		<option value=4>Infecciosa</option>
+		<option value=8>Gastrointestinal</option>
+		<option value=8>Neurológica</option>
+		<option value=8>Cardiovaslcular</option>
+		<option value=8>Respiratoria</option>
+		<option value=8>Otras (indicar en observaciones)</option>
+
+		</select>
+	</div>
+ <!-- </div> -->
+
+
+
 <div class="form-group">
 			<label class="form-label-sm" for="NotObserva">Observaciones</label>
 			 <textarea class="form-control" rows="5" id="NotObserva" name="Noticon[NotObserva]"

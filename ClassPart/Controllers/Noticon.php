@@ -83,7 +83,7 @@ $instituciones = $this->tablaInsti->findAll();
 //	var_dump($datosNinio);
 	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
-	var_dump($Notifica);
+//	var_dump($Notifica);
 	$Notificacion=[];
 	$Notificacion['NotId']=$Notifica['NotId'];
 	$Notificacion['NotFecha']=$Notifica['NotFecha'];
@@ -94,7 +94,9 @@ $instituciones = $this->tablaInsti->findAll();
 	$Notificacion['NotPeso'] = $Notifica['NotPeso'];
 	$Notificacion['NotTalla'] = $Notifica['NotTalla'];
 	$Notificacion['NotAo'] = $this->tablaInsti->findById($Notifica['establecimiento_id'])['AOP'] ?? '';
-
+	$Notificacion['NotEvo'] = $Notifica['NotEvo'];
+	$Notificacion['NotEtio'] = $Notifica['NotEtio'];
+	$Notificacion['NotClinica'] = $Notifica['NotClinica'];
 	
 	$Notificacion['NotObserva'] = $Notifica['NotObserva'];
 	$Notificacion['NotFechaSist'] = new \DateTime();
@@ -131,7 +133,7 @@ $instituciones = $this->tablaInsti->findAll();
 
 
 	$title = 'notificacion';
-	var_dump($Notificacion);
+//	var_dump($Notificacion);
 
 	$errors = [];
 
