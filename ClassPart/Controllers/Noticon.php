@@ -29,19 +29,16 @@ class Noticon
         $this->authentication = $authentication;
     }
 
-//$this->tablaNinios,$this->tablaNoti,
-//$this->tablaControl,$this->tablaInsti, $this->pdoZSCORE, $this->authentication);
 
 public function noti($id=null){
 
 	$instituciones = $this->tablaInsti->findAll();
 
-
 	foreach($instituciones as $institucion)
 	{
 	    $data_insti[] = array(
-	        'label'     =>  $institucion['establecimiento_nombre'],
-	        'value'     =>  $institucion['codi_esta']
+	        'label'     =>  $institucion['Nombre_aop'],
+	        'value'     =>  $institucion['establecimiento_id']
 	    );
 	}
 
@@ -77,8 +74,8 @@ $instituciones = $this->tablaInsti->findAll();
 	foreach($instituciones as $institucion)
 	{
 	    $data_insti[] = array(
-	        'label'     =>  $institucion['establecimiento_nombre'],
-	        'value'     =>  $institucion['codi_esta']
+	        'label'     =>  $institucion['Nombre_aop'],
+	        'value'     =>  $institucion['establecimiento_id']
 	    );
 	}
 
@@ -86,16 +83,19 @@ $instituciones = $this->tablaInsti->findAll();
 //	var_dump($datosNinio);
 	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
-	//var_dump($Notifica);
+	var_dump($Notifica);
 	$Notificacion=[];
 	$Notificacion['NotId']=$Notifica['NotId'];
 	$Notificacion['NotFecha']=$Notifica['NotFecha'];
 	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
 	$Notificacion['NotUsuario'] = $usuario['id_usuario'];
-	$Notificacion['NotEfec'] = $Notifica['codi_esta'];
+	$Notificacion['NotEfec'] = $Notifica['establecimiento_id'];
 	$Notificacion['NotMotivo'] = $Notifica['NotMotivo'];
 	$Notificacion['NotPeso'] = $Notifica['NotPeso'];
 	$Notificacion['NotTalla'] = $Notifica['NotTalla'];
+	$Notificacion['NotAo'] = $this->tablaInsti->findById($Notifica['establecimiento_id'])['AOP'] ?? '';
+
+	
 	$Notificacion['NotObserva'] = $Notifica['NotObserva'];
 	$Notificacion['NotFechaSist'] = new \DateTime();
 	/////////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@ $instituciones = $this->tablaInsti->findAll();
 
 
 	$title = 'notificacion';
-	//var_dump($Notificacion);
+	var_dump($Notificacion);
 
 	$errors = [];
 

@@ -17,7 +17,7 @@
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NotEfec">Efector</label>
 			<input class="form-control form-control-sm" type="text" name="Noticon[NotEfec]" id="NotEfec" required="required" value="<?=$datosNoti['NotEfec'] ?? ''?>">
-			<input type="hidden" name="Noticon[codi_esta]" id="codi_esta" value="<?= $data['value'] ?? $datosNoti['codi_esta'] ?? '' ?>" />
+			<input type="hidden" name="Noticon[establecimiento_id]" id="establecimiento_id" value="<?= $data['value'] ?? $datosNoti['establecimiento_id'] ?? '' ?>" />
 </div>
 
 <div class="col-sm-2">
@@ -84,7 +84,7 @@ var auto_complete = new Autocom(document.getElementById('NotEfec'), {
   highlightTyped: true,
   highlightClass: 'fw-bold text-primary',
   onSelectItem: function(selectedItem) {
-    document.getElementById('codi_esta').value = selectedItem.value; // Asignar el valor del item seleccionado al input hidden
+    document.getElementById('establecimiento_id').value = selectedItem.value; // Asignar el valor del item seleccionado al input hidden
   }
 });
 </script>

@@ -24,7 +24,7 @@ public function __construct() {
 	$this->tablaUser = new \ClassGrl\DataTables($pdo,'datos_usuarios', 'id_usuario');	
 	$this->tablaEtnia = new \ClassGrl\DataTables($pdo,'etnias', 'IdEtnia');
 	$this->tablaLoc = new \ClassGrl\DataTables($pdo,'localidades', 'gid');
-	$this->tablaInsti = new \ClassGrl\DataTables($pdo,'instituciones', 'codi_esta');
+	$this->tablaInsti = new \ClassGrl\DataTables($pdo,'institucion', 'establecimiento_id');
 	$this->tablaResi = new \ClassGrl\DataTables($pdo,'NIÑOSRESIDENCIA', 'IdResi');
 	$this->tablaNoti = new \ClassGrl\DataTables($pdo,'notificacion', 'NotId');
 	$this->tablaControl = new \ClassGrl\DataTables($pdo,'control', 'IdCtrol');
