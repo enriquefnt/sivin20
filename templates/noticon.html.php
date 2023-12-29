@@ -15,8 +15,9 @@
 			<input class="form-control form-control-sm" type="date" name="Noticon[NotFecha]" id="Fecha" required="required" value="<?=$datosNoti['NotFecha'] ?? ''?>">
 </div>
 <div class="col-sm-2">	
-			<label class="form-label-sm" for="NotAo">Efector</label>
-			<input class="form-control form-control-sm" type="number" name="Noticon[NotAo]" id="NotAo" required="required" value="<?=$datosNoti['NotAo'] ?? ''?>">
+			<label class="form-label-sm" for="NotEfec">Efector</label>
+			<input class="form-control form-control-sm" type="text" name="Noticon[NotEfec]" id="NotEfec" required="required" value="<?=$datosNoti['NotEfec'] ?? ''?>">
+			<input type="hidden" name="Noticon[codi_esta]" id="codi_esta" value="<?= $data['value'] ?? $datosNoti['codi_esta'] ?? '' ?>" />
 </div>
 
 <div class="col-sm-2">
@@ -41,7 +42,7 @@
 			<input class="form-control form-control-sm" type="number" step="0.1" min="30" max="150" name="Noticon[NotTalla]"
 			 id="NotTalla" required="required" value="<?=$datosNoti['NotTalla'] ?? ''?>">
 </div>
-<div class="col-sm-2">	
+<!-- <div class="col-sm-2">	
 			<label class="form-label-sm" for="NotZpe">Z P/E</label>
 			<input class="form-control form-control-sm" type="number" name="Noticon[NotZpe]"
 			 id="NotZpe" required="required" value="<?=$datosNoti['NotZpe'] ?? 'ZSCORE(2, "p", 5.5, "2023-01-01", "2023-03-01");'?>">
@@ -55,7 +56,7 @@
 			<label class="form-label-sm" for="NotZimc">Z IMC/E</label>
 			<input class="form-control form-control-sm" type="number" name="Noticon[NotZimc]"
 			 id="NotZimc" required="required" value="<?=$datosNoti['NotZimc'] ?? ''?>">
-</div>
+</div> -->
 <div class="form-group">
 			<label class="form-label-sm" for="NotObserva">Observaciones</label>
 			 <textarea class="form-control" rows="5" id="NotObserva" name="Noticon[NotObserva]"
@@ -76,3 +77,14 @@
  </form>
 </div>
 
+<script>
+var auto_complete = new Autocom(document.getElementById('NotEfec'), {
+  data: <?php echo json_encode($data_insti); ?>,
+  maximumItems: 10,
+  highlightTyped: true,
+  highlightClass: 'fw-bold text-primary',
+  onSelectItem: function(selectedItem) {
+    document.getElementById('codi_esta').value = selectedItem.value; // Asignar el valor del item seleccionado al input hidden
+  }
+});
+</script>

@@ -67,10 +67,13 @@ public function getController(string $controllerName): ?object {
 	
 		else if ($controllerName === 'noticon') {
 
-			$controller = new  \ClassPart\Controllers\Noticon($this->tablaNinios,$this->tablaNoti,
-			$this->tablaControl,$this->tablaInsti, $this->authentication);
-	
+			$controller = new  \ClassPart\Controllers\Noticon($this->tablaNinios, $this->tablaNoti, 
+			$this->tablaControl, $this->tablaInsti, $this->pdoZSCORE, $this->authentication);
 			}
+
+
+///$controller = new \ClassPart\Controllers\Noticon($this->tablaNinios, $this->tablaNoti, $this->tablaControl, $this->tablaInsti, $this->pdoZSCORE, $this->authentication);
+
 	else if ($controllerName === 'antro') {
 
 				$controller = new \ClassPart\Controllers\Antro($this->tablaAntro, $this->pdoZSCORE);

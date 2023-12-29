@@ -11,22 +11,26 @@ class Noticon
     private $tablaNoti;
 	private $tablaControl;
     private $tablaInsti;
+	private $pdoZSCORE;   
     private $authentication;
 
     public function __construct(\ClassGrl\DataTables $tablaNinios,
                                 \ClassGrl\DataTables $tablaNoti,
                                 \ClassGrl\DataTables $tablaControl,
                                 \ClassGrl\DataTables $tablaInsti,
+								$pdoZSCORE,
                                 \ClassGrl\Authentication $authentication)
     {
         $this->tablaNinios = $tablaNinios;
         $this->tablaNoti = $tablaNoti;
         $this->tablaControl = $tablaControl;
         $this->tablaInsti = $tablaInsti;
+		$this->pdoZSCORE = $pdoZSCORE;
         $this->authentication = $authentication;
     }
 
-
+//$this->tablaNinios,$this->tablaNoti,
+//$this->tablaControl,$this->tablaInsti, $this->pdoZSCORE, $this->authentication);
 
 public function noti($id=null){
 
@@ -79,16 +83,55 @@ $instituciones = $this->tablaInsti->findAll();
 	}
 
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
+//	var_dump($datosNinio);
 	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
-
-	$Notifica['NotNinio']=$datosNinio['IdNinio'];
-	$Notifica['NotUsuario'] = $usuario['id_usuario'];
-	$Notifica['NotObserva'] = $Notifica['NotObserva'];
-	$Notifica['NotFechaSist'] = new \DateTime();
-	
-	$title = 'notificacion';
 	//var_dump($Notifica);
+	$Notificacion=[];
+	$Notificacion['NotId']=$Notifica['NotId'];
+	$Notificacion['NotFecha']=$Notifica['NotFecha'];
+	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
+	$Notificacion['NotUsuario'] = $usuario['id_usuario'];
+	$Notificacion['NotEfec'] = $Notifica['codi_esta'];
+	$Notificacion['NotMotivo'] = $Notifica['NotMotivo'];
+	$Notificacion['NotPeso'] = $Notifica['NotPeso'];
+	$Notificacion['NotTalla'] = $Notifica['NotTalla'];
+	$Notificacion['NotObserva'] = $Notifica['NotObserva'];
+	$Notificacion['NotFechaSist'] = new \DateTime();
+	/////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////
+	$imc=($Notificacion['NotPeso']/(($Notificacion['NotTalla']/100)*($Notificacion['NotTalla']/100)));
+	$Notificacion['NotImc'] = $imc;
+	$sexo = ($datosNinio['sexo'] ='Femenino') ? '2' : '1';
+
+	$Notificacion['NotZpe']= $this->calcularZScore(
+		$sexo  , 
+		"p", 
+		$Notificacion['NotPeso'], 
+		$datosNinio['FechaNto'], 
+		$Notificacion['NotFecha']
+		) ;
+		$Notificacion['NotZta']= $this->calcularZScore(
+			$sexo  , 
+		"t", 
+		$Notificacion['NotTalla'], 
+		$datosNinio['FechaNto'], 
+		$Notificacion['NotFecha']
+		) ;
+		$Notificacion['NotZimc'] = $this->calcularZScore(
+		$sexo , 
+		"i", 
+		$imc, 
+		$datosNinio['FechaNto'], 
+		$Notificacion['NotFecha']
+		) ;   
+
+		/////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////
+
+
+	$title = 'notificacion';
+	//var_dump($Notificacion);
 
 	$errors = [];
 
@@ -97,7 +140,7 @@ $instituciones = $this->tablaInsti->findAll();
 if  (empty($errors)) {
 
 
-$this->tablaNoti->save($Notifica);
+$this->tablaNoti->save($Notificacion);
 
 header('Location: /ninios/home');
 }
@@ -139,7 +182,7 @@ public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control)
       // Get the result
       $fila = $resultado->fetchColumn();
 
-      var_dump($fila);  
+    //  var_dump($fila);  
             $resultadoZSCORE = $fila;
     } else {
       // Handle the case where no data is returned
