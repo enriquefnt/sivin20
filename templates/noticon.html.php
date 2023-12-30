@@ -1,8 +1,10 @@
+
+
 <div class="container">
-
-
+<legend class="w-80 p-0 h-0 ">Notificación:
+   </legend>
 <fieldset class="border p-2">
- <legend class="w-80 p-0 h-0 ">Notificación:
+<legend class="w-80 p-0 h-0 " style="font-size: 0.95rem;font-weight: bold;">  <?=$datosNinio['ApeNom'].' - '.$datosNinio['edad'].' - '. $datosDomi['ResiLocal'] ;?>
    </legend>
 <form onkeydown="return event.key != 'Enter';" class="row g-3"  action=""  onsubmit="myButton.disabled = true; return true;" method="post" autocomplete="off" >
 		

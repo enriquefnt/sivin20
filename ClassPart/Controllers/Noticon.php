@@ -12,13 +12,15 @@ class Noticon
 	private $tablaControl;
     private $tablaInsti;
 	private $pdoZSCORE;   
+	private $tablaResi;
     private $authentication;
 
     public function __construct(\ClassGrl\DataTables $tablaNinios,
                                 \ClassGrl\DataTables $tablaNoti,
                                 \ClassGrl\DataTables $tablaControl,
                                 \ClassGrl\DataTables $tablaInsti,
-								$pdoZSCORE,
+								$pdoZSCORE,	
+								\ClassGrl\DataTables $tablaResi,
                                 \ClassGrl\Authentication $authentication)
     {
         $this->tablaNinios = $tablaNinios;
@@ -26,6 +28,7 @@ class Noticon
         $this->tablaControl = $tablaControl;
         $this->tablaInsti = $tablaInsti;
 		$this->pdoZSCORE = $pdoZSCORE;
+		$this->tablaResi = $tablaResi;
         $this->authentication = $authentication;
     }
 
@@ -43,10 +46,13 @@ public function noti($id=null){
 	}
 
 if (isset($_GET['id'])) {
-	
-	$datosNinio=$this->tablaNinios->findById($_GET['id']);
-	
+	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
 
+	$datosNinio=$this->tablaNinios->findById($_GET['id']);
+
+	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d'));
+	$datosNinio['edad']=$edad;
+	
 						}
 			
 $title = 'Carga Noticons';
@@ -57,6 +63,8 @@ $title = 'Carga Noticons';
 					     'title' => $title ,
 					 'variables' => [
 			       'data_insti'  =>   $data_insti,
+				   'datosNinio'=> $datosNinio ?? ' ',
+				   'datosDomi'=> $datosDomi ?? ' ',
 					 'datosNoti' => $datosNoti  ?? ' '
 									 ]
 
@@ -170,6 +178,20 @@ return $edadDias;
 
 }
 
+public function calcularEdad($fechaNacimiento, $fechaActual) {
+	$nacimiento = new \DateTime($fechaNacimiento);
+	$actual = new \DateTime($fechaActual);
+	$edad = $nacimiento->diff($actual);
+		$anios = $edad->y;
+		$meses = $edad->m;
+		$dias = $edad->d;
+ if($anios>0){
+	return " $anios a $meses m    ";
+}
+else {
+	return "  $meses m $dias d   ";
+}
+}
 
 public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control) {
 

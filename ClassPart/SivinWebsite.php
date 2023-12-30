@@ -68,7 +68,7 @@ public function getController(string $controllerName): ?object {
 		else if ($controllerName === 'noticon') {
 
 			$controller = new  \ClassPart\Controllers\Noticon($this->tablaNinios, $this->tablaNoti, 
-			$this->tablaControl, $this->tablaInsti, $this->pdoZSCORE, $this->authentication);
+			$this->tablaControl, $this->tablaInsti, $this->pdoZSCORE, $this->tablaResi, $this->authentication);
 			}
 
 
