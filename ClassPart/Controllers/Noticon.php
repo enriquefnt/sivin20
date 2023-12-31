@@ -50,12 +50,12 @@ if (isset($_GET['id'])) {
 
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
 
-	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d'));
+	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
 	$datosNinio['edad']=$edad;
 	
 						}
 			
-$title = 'Carga Noticons';
+$title = 'Carga Notificación';
 
 		
 
@@ -88,11 +88,14 @@ $instituciones = $this->tablaInsti->findAll();
 	}
 
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
+	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d'));
+	$datosNinio['edad']=$edad;
 //	var_dump($datosNinio);
 	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
 //	var_dump($Notifica);
 	$Notificacion=[];
+
 	$Notificacion['NotId']=$Notifica['NotId'];
 	$Notificacion['NotFecha']=$Notifica['NotFecha'];
 	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
@@ -105,8 +108,8 @@ $instituciones = $this->tablaInsti->findAll();
 	$Notificacion['NotEvo'] = $Notifica['NotEvo'];
 	$Notificacion['NotEtio'] = $Notifica['NotEtio'];
 	$Notificacion['NotClinica'] = $Notifica['NotClinica'];
-	
 	$Notificacion['NotObserva'] = $Notifica['NotObserva'];
+	$Notificacion['NotObsantro'] = $Notifica['NotObsantro'];
 	$Notificacion['NotFechaSist'] = new \DateTime();
 	/////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////
@@ -152,7 +155,25 @@ if  (empty($errors)) {
 
 $this->tablaNoti->save($Notificacion);
 
-header('Location: /ninios/home');
+$Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
+var_dump($Notificacion);
+return ['template' => 'notisucess.html.php',
+'title' => 'Carga' ,
+'variables' => [
+	'Notificacion' => $Notificacion ?? ' ',
+	'datosNinio'=> $datosNinio ?? ' ',
+
+]
+];
+
+
+
+
+
+
+
+
+// header('Location: /ninios/home');
 }
 
 else {

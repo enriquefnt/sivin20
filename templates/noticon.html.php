@@ -16,13 +16,13 @@
 			<label class="form-label-sm" for="Nombre">Fecha</label>
 			<input class="form-control form-control-sm" type="date" name="Noticon[NotFecha]" id="Fecha" required="required" value="<?=$datosNoti['NotFecha'] ?? ''?>">
 </div>
-<div class="col-sm-2">	
+<div class="col-sm-3">	
 			<label class="form-label-sm" for="NotEfec">Efector</label>
 			<input class="form-control form-control-sm" type="text" name="Noticon[NotEfec]" id="NotEfec" required="required" value="<?=$datosNoti['NotEfec'] ?? ''?>">
 			<input type="hidden" name="Noticon[establecimiento_id]" id="establecimiento_id" value="<?= $data['value'] ?? $datosNoti['establecimiento_id'] ?? '' ?>" />
 </div>
 
-<div class="col-sm-2">
+<div class="col-sm-3">
   <label class="form-label-sm" for="MotId">Motivo</label>
   <select name="Noticon[NotMotivo]" id="MotId" class="form-control form-control-sm">
   	<option hidden selected><?=$datosNoti['MotId'] ?? '...'?></option>
@@ -61,7 +61,7 @@
 </div> -->
 
 <!-- <div class="form-group"> -->
-	<div class="col-sm-2">
+	<div class="col-sm-3">
 	<label class="form-label-sm" for="NotEvo">Evolucion</label>
 	<select name="Noticon[NotEvo]" id="NotEvo" class="form-control form-control-sm">
 		<option hidden selected><?=$datosNoti['NotEvo'] ?? '...'?></option>
@@ -72,7 +72,7 @@
 		<option value=9>Sin determinar</option>
 		</select>
 	</div>
-	<div class="col-sm-2">
+	<div class="col-sm-3">
 	<label class="form-label-sm" for="NotClinica">Gravedad</label>
 	<select name="Noticon[NotClinica]" id="NotClinica" class="form-control form-control-sm">
 		<option hidden selected><?=$datosNoti['MotId'] ?? '...'?></option>
@@ -85,7 +85,7 @@
 		<option value=9>Sin determinar</option>
 		</select>
 	</div>
-	<div class="col-sm-2">
+	<div class="col-sm-3">
 	<label class="form-label-sm" for="NotEtio">Etiología</label>
 	<select name="Noticon[NotEtio]" id="NotEtio" class="form-control form-control-sm">
 		<option hidden selected><?=$datosNoti['NotEtio'] ?? '...'?></option>
@@ -93,21 +93,40 @@
 		<option value=2>Perinatal</option>
 		<option value=3>Congénita</option>
 		<option value=4>Infecciosa</option>
-		<option value=8>Gastrointestinal</option>
-		<option value=8>Neurológica</option>
-		<option value=8>Cardiovaslcular</option>
+		<option value=5>Gastrointestinal</option>
+		<option value=6>Neurológica</option>
+		<option value=7>Cardiovaslcular</option>
 		<option value=8>Respiratoria</option>
-		<option value=8>Otras (indicar en observaciones)</option>
+		<option value=9>Otras (indicar en observaciones)</option>
 
 		</select>
 	</div>
  <!-- </div> -->
+ <div class="col-sm-3">
+	<label class="form-label-sm" for="NotObsantro">Acciones</label>
+	<select name="Noticon[NotObsantro]" id="NotObsantro" class="form-control form-control-sm">
+		<option hidden selected><?=$datosNoti['NotObsantro'] ?? '...'?></option>
+		<option value=1>Derivacion a equipo multidisciplinario</option>
+		<option value=2>CRENA</option>
+		<option value=3>CRENA con ATLU</option>
+		<option value=4>CRENI</option>
+		<option value=4>Internación por patologia</option>
+		<option value=5>Pendientes Estudios para diagnóstico etiológico</option>
+		<option value=6>Tratamiento etiológico</option>
+		<option value=7>Controles antropométricos</option>
+		<option value=8>Articulación</option>
+		<option value=9>Asistencia alimentaria</option>
+		<option value=10>Sin seguimiento específico</option>
+		<option value=11>Otras (indicar en observaciones)</option>
+
+		</select>
+	</div>
 
 
 
 <div class="form-group">
 			<label class="form-label-sm" for="NotObserva">Observaciones</label>
-			 <textarea class="form-control" rows="5" id="NotObserva" name="Noticon[NotObserva]"
+			 <textarea class="form-control" rows="3" id="NotObserva" name="Noticon[NotObserva]"
 			 value="<?=$datosNoti['NotObserva'] ?? ''?>">
 			</textarea>
 </div> 
