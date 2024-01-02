@@ -10,7 +10,7 @@
 		
 <input type="hidden"name="Noticon[NotId]" id="NotId" value=<?=$datosNoti['NotId'] ?? ''?> >
 	<input type="hidden" name="Noticon[NotNinio]"  id="NotNinio"   value=<?=$datosNinio['IdNinio'] ?? ''?>>
-	
+	<input type="hidden" name="Noticon[IdCtrol]"  id="IdCtrol"   value=<?=$datosNinio['IdCtrol'] ?? ''?>>
           
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="Nombre">Fecha</label>

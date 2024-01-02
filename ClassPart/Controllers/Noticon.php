@@ -93,8 +93,9 @@ $instituciones = $this->tablaInsti->findAll();
 //	var_dump($datosNinio);
 	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
-	var_dump($_POST['Noticon']);
+	// var_dump($_POST['Noticon']);
 	$Notificacion=[];
+	$Control=[];
 
 	$Notificacion['NotId']=$Notifica['NotId'];
 	$Notificacion['NotFecha']=$Notifica['NotFecha'];
@@ -112,6 +113,25 @@ $instituciones = $this->tablaInsti->findAll();
 	$Notificacion['NotObsantro'] = $Notifica['NotObsantro'];
 	$Notificacion['NotFechaSist'] = new \DateTime();
 	/////////////////////////////////////////////////////////////
+	$Control['IdCtrol']=$Notifica['IdCtrol'];
+	$Control['IdNoti']=$Notifica['NotId'];
+	$Control['CtrolFecha']=$Notifica['NotFecha'];
+	$Control['CtrolUsuario'] = $usuario['id_usuario'];
+	$Control['CtrolEfec'] = $Notifica['establecimiento_id'];
+	//$Control['NotMotivo'] = $Notifica['NotMotivo'];
+	$Control['CtrolPeso'] = $Notifica['NotPeso'];
+	$Control['CtrolTalla'] = $Notifica['NotTalla'];
+	$Control['CtrolAo'] = $this->tablaInsti->findById($Notifica['establecimiento_id'])['AOP'] ?? '';
+	$Control['CtrolEvo'] = $Notifica['NotEvo'];
+	$Control['CtrolEtio'] = $Notifica['NotEtio'];
+	$Control['CtrolClinica'] = $Notifica['NotClinica'];
+    $Control['CtrolObservaNutri'] = ltrim($Notifica['NotObserva']);
+	$Control['CtrolObserva'] = $Notifica['NotObsantro'];
+	$Control['CtrolFechapc'] = new \DateTime();
+	
+
+
+
 	////////////////////////////////////////////////////////
 	$imc=($Notificacion['NotPeso']/(($Notificacion['NotTalla']/100)*($Notificacion['NotTalla']/100)));
 	$Notificacion['NotImc'] = $imc;
@@ -141,10 +161,12 @@ $instituciones = $this->tablaInsti->findAll();
 
 		/////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////
-
+		$Control['CtrolZp']	= $Notificacion['NotZpe'];
+		$Control['CtrolZt']	= $Notificacion['NotZta'];
+		$Control['CtrolZimc']	= $Notificacion['NotZimc'];
 
 	$title = 'notificacion';
-	var_dump($Notificacion);
+	 var_dump($Control);
 
 	$errors = [];
 
@@ -153,7 +175,8 @@ $instituciones = $this->tablaInsti->findAll();
 if  (empty($errors)) {
 
 
-$this->tablaNoti->save($Notificacion);
+$this->tablaControl->save($Control);
+//$this->tablaNoti->save($Notificacion);
 
 $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
 //var_dump($Notificacion);
