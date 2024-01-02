@@ -60,7 +60,7 @@ public function getController(string $controllerName): ?object {
 
 	else if ($controllerName === 'ninios') {
 
-		$controller = new  \ClassPart\Controllers\Ninios($this->tablaNinios,$this->tablaEtnia,$this->tablaLoc, 
+		$controller = new  \ClassPart\Controllers\Ninios($this->tablaNinios,$this->tablaNoti,$this->tablaEtnia,$this->tablaLoc, 
 		$this->tablaResi, $this->authentication);
 
 		}

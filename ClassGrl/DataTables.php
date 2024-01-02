@@ -26,6 +26,24 @@ public function total()
 	return $row[0];
 }
 
+
+
+public function totalBy($field, $value)
+{
+    $query = 'SELECT COUNT(*) AS `TotalBy` FROM `' . $this->table . '` WHERE `' . $field . '` = :value';
+
+    $parameters = [
+        'value' => $value
+    ];
+
+    $stmt = $this->pdo->prepare($query);
+    $stmt->execute($parameters);
+
+    return $stmt->fetchColumn();
+}
+
+
+
 public function ultimoReg()
 {
     $sql = 'SELECT * FROM `' . $this->table . '` ORDER BY `' . $this->primaryKey . '` DESC LIMIT 1';

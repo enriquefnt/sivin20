@@ -8,18 +8,21 @@ use \AllowDynamicProperties;
 class Ninios
 {
     private $tablaNinios;
+    private $tablaNoti;
     private $tablaEtnia;
     private $tablaLoc;
     private $tablaResi;
     private $authentication;
 
     public function __construct(\ClassGrl\DataTables $tablaNinios,
+                                \ClassGrl\DataTables $tablaNoti,
                                 \ClassGrl\DataTables $tablaEtnia,      
                                 \ClassGrl\DataTables $tablaLoc,
                                 \ClassGrl\DataTables $tablaResi,
                                  \ClassGrl\Authentication $authentication)
     {
         $this->tablaNinios = $tablaNinios;
+        $this->tablaNoti = $tablaNoti;
         $this->tablaEtnia = $tablaEtnia;
         $this->tablaLoc = $tablaLoc;
         $this->tablaResi = $tablaResi;
@@ -80,6 +83,18 @@ class Ninios
             $datosNinio['NombreR']=$apenomR['nombres'];
             $datosNinio['ApellidoR']=$apenomR['apellido'];
             $datosNinio['NomEtnia']=$this->tablaEtnia->findById($datosNinio['TpoEtnia'])['NomEtnia'];
+            $datosNinio['totalnotificado']=$this->tablaNoti->totalBy('NotNinio',$_GET['id']);
+
+                if ($this->tablaNoti->totalBy('NotNinio',$_GET['id']) != 0) {
+                    $datosNinio['notificado']=true;
+                }
+                else {
+                    $datosNinio['notificado']=false;
+                }
+
+            //    var_dump($datosNinio);
+
+
 
             $title = 'Ver Caso';
 
@@ -207,6 +222,7 @@ class Ninios
             $Ninio['Nombre']=$apenom['nombres'];
             $Ninio['Apellido']=$apenom['apellido'];
             $Ninio['NombreR']=$apenomR['nombres'];
+            $Ninio['ApellidoR']=$apenomR['apellido'];
 
             $Ninio['NomEtnia']=$this->tablaEtnia->findById($Ninio['TpoEtnia'])['NomEtnia'];
 
@@ -240,7 +256,7 @@ class Ninios
 
         return ['template' => 'home.html.php', 'title' => $title, 'variables' => []];
     }
-
+/*
     public function mi_error_handler($errno, $errstr, $errfile, $errline) {
         if ($errno == E_USER_ERROR) {
             header("HTTP/1.1 504 Gateway Time-out");
@@ -250,6 +266,6 @@ class Ninios
             echo "<h1>La conexión está lenta, por favor, inténtelo de nuevo más tarde</h1>";
             echo "</body></html>";
         }
-    }
+    }*/
 
 }

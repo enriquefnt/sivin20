@@ -44,7 +44,7 @@ public function noti($id=null){
 	        'value'     =>  $institucion['establecimiento_id']
 	    );
 	}
-
+//var_dump($data_insti);
 if (isset($_GET['id'])) {
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
 
@@ -93,7 +93,7 @@ $instituciones = $this->tablaInsti->findAll();
 //	var_dump($datosNinio);
 	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
-//	var_dump($Notifica);
+	var_dump($_POST['Noticon']);
 	$Notificacion=[];
 
 	$Notificacion['NotId']=$Notifica['NotId'];
@@ -108,7 +108,7 @@ $instituciones = $this->tablaInsti->findAll();
 	$Notificacion['NotEvo'] = $Notifica['NotEvo'];
 	$Notificacion['NotEtio'] = $Notifica['NotEtio'];
 	$Notificacion['NotClinica'] = $Notifica['NotClinica'];
-	$Notificacion['NotObserva'] = $Notifica['NotObserva'];
+	$Notificacion['NotObserva'] = ltrim($Notifica['NotObserva']);
 	$Notificacion['NotObsantro'] = $Notifica['NotObsantro'];
 	$Notificacion['NotFechaSist'] = new \DateTime();
 	/////////////////////////////////////////////////////////////
@@ -144,7 +144,7 @@ $instituciones = $this->tablaInsti->findAll();
 
 
 	$title = 'notificacion';
-//	var_dump($Notificacion);
+	var_dump($Notificacion);
 
 	$errors = [];
 
@@ -156,7 +156,7 @@ if  (empty($errors)) {
 $this->tablaNoti->save($Notificacion);
 
 $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
-var_dump($Notificacion);
+//var_dump($Notificacion);
 return ['template' => 'notisucess.html.php',
 'title' => 'Carga' ,
 'variables' => [
@@ -167,13 +167,6 @@ return ['template' => 'notisucess.html.php',
 ];
 
 
-
-
-
-
-
-
-// header('Location: /ninios/home');
 }
 
 else {
@@ -216,21 +209,20 @@ else {
 
 public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control) {
 
-    // Prepare the query with the call to the ZSCORE function
+    
     $query = "SELECT ZSCORE($sexo, '$bus', $valor, '$fecha_nace', '$fecha_control') AS resultado";
   
-    // Execute the query
+    
     $resultado = $this->pdoZSCORE->query($query);
-  //var_dump($resultado);
-    // Check if the query was successful
+  
   if ($resultado) {
-      // Get the result
+      
       $fila = $resultado->fetchColumn();
 
-    //  var_dump($fila);  
+    
             $resultadoZSCORE = $fila;
     } else {
-      // Handle the case where no data is returned
+      echo("No se pudo calcular");
       $resultadoZSCORE = null;
     }
   

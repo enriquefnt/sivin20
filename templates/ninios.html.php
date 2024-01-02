@@ -17,9 +17,7 @@
 <?php
 endif;
 ?>
-<?php
-//var_dump($resiNinio);
-?>
+
 <div class="container">
 
 <fieldset class="border p-2">
@@ -125,24 +123,24 @@ endif;
 			<input class="form-control form-control-sm"  type="text" id="Fono" name="Ninio[Fono]" placeholder="###-#######" data-llenar-campo="Fono" pattern="[0-9]{3}-[0-9]{7}"  value="<?=$datosNinio['Fono'] ?? ''?>" autocomplete="off" />
 	</div>
 	</fieldset>
-	<fieldset class="border p-2">       
-<div class="col-sm-3">
-		    
-<?php
-	if (empty($datosNinio)) : ?>
-<input type="submit" id="myButton"  name=submit class="btn btn-primary btn-sm" value="Guardar">
 
-<?php
-else: ?>
-<!-- <input type="submit" id="myButton"  name=submit class="btn btn-primary btn-sm" value="Guardar cambios"> -->
-<input type="submit" id="myButton" name="submit" class="btn btn-primary btn-sm" value="Guardar cambios" onclick="guardarCambios()">
-<a href="/noticon/noti?id=<?=$datosNinio['IdNinio']?? ''?>"  class="btn btn-primary btn-sm" role="button">Notificación</a>
-<?php
-endif;
-?>
-<a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir sin modificar</a>
-</div>
-	</fieldset>
+<fieldset class="border p-2">
+    <div class="col-sm-3">
+        <?php if (empty($datosNinio)): ?>
+            <input type="submit" id="myButton" name="submit" class="btn btn-primary btn-sm" value="Guardar">
+        <?php elseif (isset($datosNinio)): ?>
+            <input type="submit" id="myButton" name="submit" class="btn btn-primary btn-sm" value="Guardar cambios">
+        <?php endif; ?>
+
+        <?php if (isset($datosNinio['notificado']) && $datosNinio['notificado'] === false): ?>
+            <a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>" class="btn btn-primary btn-sm" role="button">Notificación</a>
+        <?php elseif (isset($datosNinio['notificado']) && $datosNinio['notificado'] === true): ?>
+            <a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>" class="btn btn-primary btn-sm" role="button">Control</a>
+        <?php endif; ?>
+
+        <a href="/ninios/home" class="btn btn-primary btn-sm" role="button">Salir sin modificar</a>
+    </div>
+</fieldset>
  </form>
 </div>
 

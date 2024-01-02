@@ -144,14 +144,18 @@
  </form>
 </div>
 
+
 <script>
-var auto_complete = new Autocom(document.getElementById('NotEfec'), {
-  data: <?php echo json_encode($data_insti); ?>,
-  maximumItems: 10,
-  highlightTyped: true,
-  highlightClass: 'fw-bold text-primary',
-  onSelectItem: function(selectedItem) {
-    document.getElementById('establecimiento_id').value = selectedItem.value; // Asignar el valor del item seleccionado al input hidden
-  }
-});
+var options = {
+ data: <?php echo json_encode($data_insti); ?>,
+ maximumItems: 10,
+ highlightTyped: true,
+ highlightClass: 'fw-bold text-primary',
+ onSelectItem: function(selectedItem) {
+    document.getElementById('establecimiento_id').value = parseInt(selectedItem.value); // Asignar el valor del item seleccionado al input hidden
+ }
+};
+
+var auto_complete = new Autocom(document.getElementById('NotEfec'), options);
 </script>
+
