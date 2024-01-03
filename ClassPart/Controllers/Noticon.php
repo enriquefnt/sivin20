@@ -127,13 +127,14 @@ $instituciones = $this->tablaInsti->findAll();
 	$Notificacion['NotObsantro'] = $Notifica['NotObsantro'];
 	$Notificacion['NotFin'] = $Notifica['NotFin']?? 'NO ';
 	$Notificacion['NotFechaSist'] = new \DateTime();}
-	else{
+	else if ($_GET['tabla']=='cierrenoti') {
 	$Notificacion['NotFin'] = $Notifica['NotFin']?? 'SI ';
 	$Notificacion['NotFechaFin'] = $Notifica['NotFechaFin']?? ' ';
 	$Notificacion['NotAlta'] = $Notifica['NotAlta']?? ' ';
 	$Notificacion['NotObservafin'] = $Notifica['NotObservafin']?? ' ';
 	$Notificacion['NotFechaSist'] = new \DateTime();}
 	/////////////////////////////////////////////////////////////
+	else if ($_GET['tabla']=='control') {
 	$Control['IdCtrol']=$Notifica['IdCtrol'];
 	$Control['IdNoti']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
 	$Control['CtrolFecha']=$Notifica['NotFecha'];
@@ -148,11 +149,11 @@ $instituciones = $this->tablaInsti->findAll();
 	$Control['CtrolClinica'] = $Notifica['NotClinica'];
     $Control['CtrolObservaNutri'] = ltrim($Notifica['NotObserva']);
 	$Control['CtrolObserva'] = $Notifica['NotObsantro'];
-	$Control['CtrolFechapc'] = new \DateTime();
+	$Control['CtrolFechapc'] = new \DateTime();}
 	
 	
 
-
+	if ($_GET['tabla']!='cierrenoti') {
 	////////////////////////////////////////////////////////
 	$imc=($Notificacion['NotPeso']/(($Notificacion['NotTalla']/100)*($Notificacion['NotTalla']/100)));
 	$Notificacion['NotImc'] = $imc;
@@ -186,7 +187,7 @@ $instituciones = $this->tablaInsti->findAll();
 		$Control['CtrolZt']	= $Notificacion['NotZta'];
 		$Control['CtrolZimc']	= $Notificacion['NotZimc'];
 
-	$title = 'notificacion';
+	$title = 'notificacion';}
 	// var_dump($Control);
 
 	$errors = [];
