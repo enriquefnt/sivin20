@@ -22,8 +22,8 @@ public function user($id=null){
 	foreach($instituciones as $institucion)
 	{
 	    $data_insti[] = array(
-	        'label'     =>  $institucion['establecimiento_nombre'],
-	        'value'     =>  $institucion['codi_esta']
+	        'label'     =>  $institucion['Nombre_aop'],
+	        'value'     =>  $institucion['establecimiento_id']
 	    );
 	}
 
@@ -58,8 +58,8 @@ $instituciones = $this->tablaInsti->findAll();
 	foreach($instituciones as $institucion)
 	{
 	    $data_insti[] = array(
-	        'label'     =>  $institucion['establecimiento_nombre'],
-	        'value'     =>  $institucion['codi_esta']
+			'label'     =>  $institucion['Nombre_aop'],
+	        'value'     =>  $institucion['establecimiento_id']
 	    );
 	}
 

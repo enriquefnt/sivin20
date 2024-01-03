@@ -134,10 +134,10 @@ endif;
         <?php endif; ?>
 
         <?php if (isset($datosNinio['notificado']) && $datosNinio['notificado'] === false): ?>
-            <!-- <a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>" class="btn btn-primary btn-sm" role="button">Notificación</a> -->
-			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary btn-sm" role="button">Notificación</a>
+ 			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary btn-sm" role="button">Notificación</a>
 			<?php elseif (isset($datosNinio['notificado']) && $datosNinio['notificado'] === true): ?>
             <a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=control" class="btn btn-primary btn-sm" role="button">Control</a>
+			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=cierrenoti" class="btn btn-primary btn-sm" role="button">Cierre Notificación</a>
         <?php endif; ?>
 
         <a href="/ninios/home" class="btn btn-primary btn-sm" role="button">Salir sin modificar</a>
@@ -171,60 +171,3 @@ var auto_complete = new Autocom(document.getElementById('ninio'), {
 });
 </script>
 
-<!-- <script>
-	document.getElementById('formulario').onsubmit = function() {
-	// Actualizar el valor de 'gid' aquí
-	document.getElementById('Gid').value = document.getElementById('ResiLocal').value;
-
-	// Continuar con el envío del formulario
-	return true;
-};
-</script> -->
-<!-- <script>
-document.getElementById('formulario').onsubmit = function() {
- // Obtener el valor seleccionado de 'ResiLocal'
- var selectedValue = document.getElementById('ResiLocal').value;
-
- // Buscar el objeto seleccionado en la matriz '$data'
- var selectedItem = null;
- for (var i = 0; i < <?php echo json_encode($data); ?>.length; i++) {
-    if (<?php echo json_encode($data); ?>[i].value == selectedValue) {
-      selectedItem = <?php echo json_encode($data); ?>[i];
-      break;
-    }
- }
-
- // Actualizar el valor de 'gid' con el valor del objeto seleccionado
- if (selectedItem != null) {
-    document.getElementById('Gid').value = selectedItem.value;
- }
-
- // Continuar con el envío del formulario
- return true;
-};
-</script> -->
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('formulario').onsubmit = function() {
-        // Obtener el valor seleccionado de 'ResiLocal'
-        var selectedValue = document.getElementById('ResiLocal').value;
-
-        // Buscar el objeto seleccionado en la matriz '$data'
-        var selectedItem = null;
-        for (var i = 0; i < <?php echo json_encode($data); ?>.length; i++) {
-            if (<?php echo json_encode($data); ?>[i].value == selectedValue) {
-                selectedItem = <?php echo json_encode($data); ?>[i];
-                break;
-            }
-        }
-
-        // Actualizar el valor de 'gid' con el valor del objeto seleccionado
-        if (selectedItem != null) {
-            document.getElementById('Gid').value = selectedItem.value;
-        }
-
-        // Continuar con el envío del formulario
-        return true;
-    };
-});
-</script>

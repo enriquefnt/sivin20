@@ -13,8 +13,8 @@
 	<input type="hidden" name="Noticon[IdCtrol]"  id="IdCtrol"   value=<?=$datosNinio['IdCtrol'] ?? ''?>>
           
 <div class="col-sm-2">	
-			<label class="form-label-sm" for="Nombre">Fecha</label>
-			<input class="form-control form-control-sm" type="date" name="Noticon[NotFecha]" id="Fecha" required="required" value="<?=$datosNoti['NotFecha'] ?? ''?>">
+			<label class="form-label-sm" for="NotFecha">Fecha</label>
+			<input class="form-control form-control-sm" type="date" name="Noticon[NotFecha]" id="NotFecha" required="required" value="<?=$datosNoti['NotFecha'] ?? ''?>">
 </div>
 <div class="col-sm-3">	
 			<label class="form-label-sm" for="NotEfec">Efector</label>

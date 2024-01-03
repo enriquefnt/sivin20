@@ -10,8 +10,8 @@
         <p>Seleccione cargar una notificación a <b><?=$datosCaso['ApeNom']?></b> o salga al inicio.</p> 
       </div>
  <div class="modal-footer">
-                <a href="/noticon/noti?id=<?=$datosCaso['IdNinio']?? ''?>"  class="btn btn-primary btn-sm" role="button">Notificación</a>
-                <a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir</a>
+            <a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary btn-sm" role="button">Notificación</a>
+            <a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir</a>
       </div> 
     </div>
   </div>

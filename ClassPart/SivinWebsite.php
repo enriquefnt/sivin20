@@ -72,7 +72,6 @@ public function getController(string $controllerName): ?object {
 			}
 
 
-///$controller = new \ClassPart\Controllers\Noticon($this->tablaNinios, $this->tablaNoti, $this->tablaControl, $this->tablaInsti, $this->pdoZSCORE, $this->authentication);
 
 	else if ($controllerName === 'antro') {
 

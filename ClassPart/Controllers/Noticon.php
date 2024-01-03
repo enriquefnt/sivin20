@@ -51,11 +51,12 @@ if (isset($_GET['id'])) {
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
 
 	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
-	$datosNinio['edad']=$edad;
+	$datosNinio['edad']=$edad ?? ' ';
 	
 						}
 			
-$title = 'Carga Notificación';
+	if($_GET['tabla']=='notificacion'||$_GET['tabla']=='control')	{				
+	$title = 'Carga Notificación';
 
 		
 
@@ -68,11 +69,23 @@ $title = 'Carga Notificación';
 					 'datosNoti' => $datosNoti  ?? ' '
 									 ]
 
-					];
+					]; }
+	else {
+		$title = 'Cierre Notificación';
 
-}
+		
 
+		return ['template' => 'cierrenoti.html.php',
+				   'title' => $title ,
+			   'variables' => [
+			 'data_insti'  =>   $data_insti,
+			 'datosNinio'=> $datosNinio ?? ' ',
+			 'datosDomi'=> $datosDomi ?? ' ',
+			   'datosNoti' => $datosNoti  ?? ' '
+							   ]
 
+			  ]; }
+	}
 
 public function notiSubmit() {
 $usuario = $this->authentication->getUser();
@@ -98,6 +111,7 @@ $instituciones = $this->tablaInsti->findAll();
 	$Control=[];
 
 	$Notificacion['NotId']=$Notifica['NotId'];
+	if ($_GET['tabla']!='cierrenoti') {
 	$Notificacion['NotFecha']=$Notifica['NotFecha'];
 	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
 	$Notificacion['NotUsuario'] = $usuario['id_usuario'];
@@ -111,7 +125,14 @@ $instituciones = $this->tablaInsti->findAll();
 	$Notificacion['NotClinica'] = $Notifica['NotClinica'];
 	$Notificacion['NotObserva'] = ltrim($Notifica['NotObserva']);
 	$Notificacion['NotObsantro'] = $Notifica['NotObsantro'];
-	$Notificacion['NotFechaSist'] = new \DateTime();
+	$Notificacion['NotFin'] = $Notifica['NotFin']?? 'NO ';
+	$Notificacion['NotFechaSist'] = new \DateTime();}
+	else{
+	$Notificacion['NotFin'] = $Notifica['NotFin']?? 'SI ';
+	$Notificacion['NotFechaFin'] = $Notifica['NotFechaFin']?? ' ';
+	$Notificacion['NotAlta'] = $Notifica['NotAlta']?? ' ';
+	$Notificacion['NotObservafin'] = $Notifica['NotObservafin']?? ' ';
+	$Notificacion['NotFechaSist'] = new \DateTime();}
 	/////////////////////////////////////////////////////////////
 	$Control['IdCtrol']=$Notifica['IdCtrol'];
 	$Control['IdNoti']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
@@ -166,7 +187,7 @@ $instituciones = $this->tablaInsti->findAll();
 		$Control['CtrolZimc']	= $Notificacion['NotZimc'];
 
 	$title = 'notificacion';
-	 var_dump($Control);
+	// var_dump($Control);
 
 	$errors = [];
 
