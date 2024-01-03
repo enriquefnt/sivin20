@@ -114,7 +114,7 @@ $instituciones = $this->tablaInsti->findAll();
 	$Notificacion['NotFechaSist'] = new \DateTime();
 	/////////////////////////////////////////////////////////////
 	$Control['IdCtrol']=$Notifica['IdCtrol'];
-	$Control['IdNoti']=$Notifica['NotId'];
+	$Control['IdNoti']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0];
 	$Control['CtrolFecha']=$Notifica['NotFecha'];
 	$Control['CtrolUsuario'] = $usuario['id_usuario'];
 	$Control['CtrolEfec'] = $Notifica['establecimiento_id'];
@@ -129,7 +129,7 @@ $instituciones = $this->tablaInsti->findAll();
 	$Control['CtrolObserva'] = $Notifica['NotObsantro'];
 	$Control['CtrolFechapc'] = new \DateTime();
 	
-
+	
 
 
 	////////////////////////////////////////////////////////
