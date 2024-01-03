@@ -114,7 +114,7 @@ $instituciones = $this->tablaInsti->findAll();
 	$Notificacion['NotFechaSist'] = new \DateTime();
 	/////////////////////////////////////////////////////////////
 	$Control['IdCtrol']=$Notifica['IdCtrol'];
-	$Control['IdNoti']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0];
+	$Control['IdNoti']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
 	$Control['CtrolFecha']=$Notifica['NotFecha'];
 	$Control['CtrolUsuario'] = $usuario['id_usuario'];
 	$Control['CtrolEfec'] = $Notifica['establecimiento_id'];
@@ -174,9 +174,11 @@ $instituciones = $this->tablaInsti->findAll();
 
 if  (empty($errors)) {
 
-
-$this->tablaControl->save($Control);
-//$this->tablaNoti->save($Notificacion);
+if ($_GET['tabla']=='control'){
+$this->tablaControl->save($Control);}
+else {
+$this->tablaNoti->save($Notificacion);
+}
 
 $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
 //var_dump($Notificacion);
