@@ -112,8 +112,9 @@ $instituciones = $this->tablaInsti->findAll();
 
 	$Notificacion['NotId']=$Notifica['NotId'];
 	if ($_GET['tabla']!='cierrenoti') {
-	$Notificacion['NotFecha']=$Notifica['NotFecha'];
+	$Notificacion['NotId']=$Notifica['NotId'];
 	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
+	$Notificacion['NotFecha']=$Notifica['NotFecha'];
 	$Notificacion['NotUsuario'] = $usuario['id_usuario'];
 	$Notificacion['NotEfec'] = $Notifica['establecimiento_id'];
 	$Notificacion['NotMotivo'] = $Notifica['NotMotivo'];
@@ -126,33 +127,7 @@ $instituciones = $this->tablaInsti->findAll();
 	$Notificacion['NotObserva'] = ltrim($Notifica['NotObserva']);
 	$Notificacion['NotObsantro'] = $Notifica['NotObsantro'];
 	$Notificacion['NotFin'] = $Notifica['NotFin']?? 'NO ';
-	$Notificacion['NotFechaSist'] = new \DateTime();}
-	else{
-	$Notificacion['NotFin'] = $Notifica['NotFin']?? 'SI ';
-	$Notificacion['NotFechaFin'] = $Notifica['NotFechaFin']?? ' ';
-	$Notificacion['NotAlta'] = $Notifica['NotAlta']?? ' ';
-	$Notificacion['NotObservafin'] = $Notifica['NotObservafin']?? ' ';
-	$Notificacion['NotFechaSist'] = new \DateTime();}
-	/////////////////////////////////////////////////////////////
-	$Control['IdCtrol']=$Notifica['IdCtrol'];
-	$Control['IdNoti']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
-	$Control['CtrolFecha']=$Notifica['NotFecha'];
-	$Control['CtrolUsuario'] = $usuario['id_usuario'];
-	$Control['CtrolEfec'] = $Notifica['establecimiento_id'];
-	//$Control['NotMotivo'] = $Notifica['NotMotivo'];
-	$Control['CtrolPeso'] = $Notifica['NotPeso'];
-	$Control['CtrolTalla'] = $Notifica['NotTalla'];
-	$Control['CtrolAo'] = $this->tablaInsti->findById($Notifica['establecimiento_id'])['AOP'] ?? '';
-	$Control['CtrolEvo'] = $Notifica['NotEvo'];
-	$Control['CtrolEtio'] = $Notifica['NotEtio'];
-	$Control['CtrolClinica'] = $Notifica['NotClinica'];
-    $Control['CtrolObservaNutri'] = ltrim($Notifica['NotObserva']);
-	$Control['CtrolObserva'] = $Notifica['NotObsantro'];
-	$Control['CtrolFechapc'] = new \DateTime();
-	
-	
-
-
+	$Notificacion['NotFechaSist'] = new \DateTime();
 	////////////////////////////////////////////////////////
 	$imc=($Notificacion['NotPeso']/(($Notificacion['NotTalla']/100)*($Notificacion['NotTalla']/100)));
 	$Notificacion['NotImc'] = $imc;
@@ -186,8 +161,42 @@ $instituciones = $this->tablaInsti->findAll();
 		$Control['CtrolZt']	= $Notificacion['NotZta'];
 		$Control['CtrolZimc']	= $Notificacion['NotZimc'];
 
+	}
+
+	else if($_GET['tabla']=='cierrenoti'){
+	$Notificacion['NotId']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
+	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
+	$Notificacion['NotFin'] = $Notifica['NotFin']?? 'SI ';
+	$Notificacion['NotFechaFin'] = $Notifica['NotFechaFin']?? ' ';//
+	$Notificacion['NotAlta'] = $Notifica['NotAlta']?? ' ';
+	$Notificacion['NotObservafin'] = $Notifica['NotObservafin']?? ' ';
+	$Notificacion['NotFechaSist'] = new \DateTime();
+
+	}
+	/////////////////////////////////////////////////////////////
+	else if($_GET['tabla']=='control'){
+	$Control['IdCtrol']=$Notifica['IdCtrol'];
+	$Control['IdNoti']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
+	$Control['CtrolFecha']=$Notifica['NotFecha'];
+	$Control['CtrolUsuario'] = $usuario['id_usuario'];
+	$Control['CtrolEfec'] = $Notifica['establecimiento_id'];
+	//$Control['NotMotivo'] = $Notifica['NotMotivo'];
+	$Control['CtrolPeso'] = $Notifica['NotPeso'];
+	$Control['CtrolTalla'] = $Notifica['NotTalla'];
+	$Control['CtrolAo'] = $this->tablaInsti->findById($Notifica['establecimiento_id'])['AOP'] ?? '';
+	$Control['CtrolEvo'] = $Notifica['NotEvo'];
+	$Control['CtrolEtio'] = $Notifica['NotEtio'];
+	$Control['CtrolClinica'] = $Notifica['NotClinica'];
+    $Control['CtrolObservaNutri'] = ltrim($Notifica['NotObserva']);
+	$Control['CtrolObserva'] = $Notifica['NotObsantro'];
+	$Control['CtrolFechapc'] = new \DateTime();
+	}
+	
+
+
+	
 	$title = 'notificacion';
-	// var_dump($Control);
+// var_dump($Notificacion);
 
 	$errors = [];
 
