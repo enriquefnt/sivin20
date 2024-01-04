@@ -175,7 +175,7 @@ $instituciones = $this->tablaInsti->findAll();
 	}
 	/////////////////////////////////////////////////////////////
 	else if($_GET['tabla']=='control'){
-	$Control['IdCtrol']=$Notifica['IdCtrol'];
+	$Control['IdCtrol']=$Notifica['IdCtrol'] ?? ' ';
 	$Control['IdNoti']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
 	$Control['CtrolFecha']=$Notifica['NotFecha'];
 	$Control['CtrolUsuario'] = $usuario['id_usuario'];

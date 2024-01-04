@@ -84,19 +84,17 @@ class Ninios
             $datosNinio['NombreR']=$apenomR['nombres'];
             $datosNinio['ApellidoR']=$apenomR['apellido'];
             $datosNinio['NomEtnia']=$this->tablaEtnia->findById($datosNinio['TpoEtnia'])['NomEtnia'];
-            $datosNinio['totalnotificado']=$this->tablaNoti->totalBy('NotNinio',$_GET['id']);
+                     
+            $totalNotificaciones = $this->tablaNoti->totalBy('NotNinio', $_GET['id']) ;
+            
+            
 
-                if ($this->tablaNoti->totalBy('NotNinio',$_GET['id']) != 0) {
-                    $datosNinio['notificado']=true;
-                }
-                else {
-                    $datosNinio['notificado']=false;
-                }
+            $resultado = $this->tablaNoti->findLast('NotNinio', $_GET['id']);
+            $ultimaNotificacion = $resultado ? trim($resultado['NotFin']) : '';
 
-            //    var_dump($datosNinio);
-
-
-
+            $datosNinio['notificado'] = ($ultimaNotificacion === 'SI'||$totalNotificaciones === 0) ? 0 : 1;
+           
+           
             $title = 'Ver Caso';
 
             return ['template' => 'ninios.html.php',
