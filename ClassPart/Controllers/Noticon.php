@@ -54,9 +54,14 @@ if (isset($_GET['id'])) {
 	$datosNinio['edad']=$edad ?? ' ';
 	
 						}
-			
+						if ($_GET['tabla']=='notificacion'){
+							$title = 'Notificacion';}
+							else if ($_GET['tabla']=='control'){
+								$title = 'Control';	}
+								else if ($_GET['tabla']=='cierrenoti'){
+									$title = 'Cierre notificacion';	}	
 	if($_GET['tabla']=='notificacion'||$_GET['tabla']=='control')	{				
-	$title = 'Carga Notificación';
+//	$title = 'Carga Notificación';
 
 		
 
@@ -71,7 +76,7 @@ if (isset($_GET['id'])) {
 
 					]; }
 	else {
-		$title = 'Cierre Notificación';
+	//	$title = 'Cierre Notificación';
 
 		
 
@@ -111,6 +116,7 @@ $instituciones = $this->tablaInsti->findAll();
 	$Control=[];
 
 	$Notificacion['NotId']=$Notifica['NotId'];
+	//if ($_GET['tabla']=='notificacion') {
 	if ($_GET['tabla']=='notificacion') {
 	$Notificacion['NotId']=$Notifica['NotId'];
 	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
@@ -128,40 +134,8 @@ $instituciones = $this->tablaInsti->findAll();
 	$Notificacion['NotObsantro'] = $Notifica['NotObsantro'];
 	$Notificacion['NotFin'] = $Notifica['NotFin']?? 'NO ';
 	$Notificacion['NotFechaSist'] = new \DateTime();
-	////////////////////////////////////////////////////////
-	$imc=($Notificacion['NotPeso']/(($Notificacion['NotTalla']/100)*($Notificacion['NotTalla']/100)));
-	$Notificacion['NotImc'] = $imc;
-	$sexo = ($datosNinio['sexo'] ='Femenino') ? '2' : '1';
-
-	$Notificacion['NotZpe']= $this->calcularZScore(
-		$sexo  , 
-		"p", 
-		$Notificacion['NotPeso'], 
-		$datosNinio['FechaNto'], 
-		$Notificacion['NotFecha']
-		) ;
-		$Notificacion['NotZta']= $this->calcularZScore(
-			$sexo  , 
-		"t", 
-		$Notificacion['NotTalla'], 
-		$datosNinio['FechaNto'], 
-		$Notificacion['NotFecha']
-		) ;
-		$Notificacion['NotZimc'] = $this->calcularZScore(
-		$sexo , 
-		"i", 
-		$imc, 
-		$datosNinio['FechaNto'], 
-		$Notificacion['NotFecha']
-		) ;   
-
-		/////////////////////////////////////////////////////////////////////////////////
-		//////////////////////////////////////////////////////////////////////////////////////
-		$Control['CtrolZp']	= $Notificacion['NotZpe'];
-		$Control['CtrolZt']	= $Notificacion['NotZta'];
-		$Control['CtrolZimc']	= $Notificacion['NotZimc'];
-
-	}
+}
+	
 
 	else if($_GET['tabla']=='cierrenoti'){
 	$Notificacion['NotId']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
@@ -192,12 +166,52 @@ $instituciones = $this->tablaInsti->findAll();
 	$Control['CtrolFechapc'] = new \DateTime();
 	//var_dump($Control);
 	}
-	
+	////////////////////////////////////////////////////////
+	if ($_GET['tabla']!='cierrenoti'){
+	$imc=($Notifica['NotPeso']/(($Notifica['NotTalla']/100)*($Notifica['NotTalla']/100)));
+	$Notificacion['NotImc'] = $imc;
+	$sexo = ($datosNinio['sexo'] ='Femenino') ? '2' : '1';
 
+	$Notificacion['NotZpe']= $this->calcularZScore(
+		$sexo  , 
+		"p", 
+		$Notifica['NotPeso'], 
+		$datosNinio['FechaNto'], 
+		$Notifica['NotFecha']
+		) ;
+		$Notificacion['NotZta']= $this->calcularZScore(
+			$sexo  , 
+		"t", 
+		$Notifica['NotTalla'], 
+		$datosNinio['FechaNto'], 
+		$Notifica['NotFecha']
+		) ;
+		$Notificacion['NotZimc'] = $this->calcularZScore(
+		$sexo , 
+		"i", 
+		$imc, 
+		$datosNinio['FechaNto'], 
+		$Notifica['NotFecha']
+		) ;   
 
+		
+
+		$Control['CtrolZp']	= $Notificacion['NotZpe'];
+		$Control['CtrolZt']	= $Notificacion['NotZta'];
+		$Control['CtrolZimc']	= $Notificacion['NotZimc'];
+		}		
+	/////////////////////////////////////////////////////////////////////////////////
+		//////////////////////////////////////////////////////////////////////////////////////
+
+		if ($_GET['tabla']=='notificacion'){
+			$title = 'Notificacion';}
+			else if ($_GET['tabla']=='control'){
+				$title = 'Control';	}
+				else if ($_GET['tabla']=='cierrenoti'){
+					$title = 'Cierre notificacion';	}
 	
-	$title = 'notificacion';
-// var_dump($Notificacion);
+	
+//var_dump($Control);
 
 	$errors = [];
 
@@ -214,7 +228,7 @@ $this->tablaNoti->save($Notificacion);
 $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
 //var_dump($Notificacion);
 return ['template' => 'notisucess.html.php',
-'title' => 'Carga' ,
+'title' => $title ,
 'variables' => [
 	'Notificacion' => $Notificacion ?? ' ',
 	'datosNinio'=> $datosNinio ?? ' ',
@@ -226,7 +240,7 @@ return ['template' => 'notisucess.html.php',
 }
 
 else {
-	$title = 'Notificación';
+	//$title = 'Notificación';
 
 
  return ['template' => 'noticon.html.php',
