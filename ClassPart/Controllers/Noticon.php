@@ -108,6 +108,7 @@ $instituciones = $this->tablaInsti->findAll();
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
 	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d'));
 	$datosNinio['edad']=$edad;
+	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
 //	var_dump($datosNinio);
 	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
@@ -195,11 +196,22 @@ $instituciones = $this->tablaInsti->findAll();
 		) ;   
 
 		
+				$ColorText=[];
+				$ColorText['NotZpeColor'] = $this->getColorClass($Notificacion['NotZpe']);
+				$ColorText['NotZtaColor'] = $this->getColorClass($Notificacion['NotZta']);
+				$ColorText['NotZimcColor'] = $this->getColorClass($Notificacion['NotZimc']);
+
+	
+		
 
 		$Control['CtrolZp']	= $Notificacion['NotZpe'];
 		$Control['CtrolZt']	= $Notificacion['NotZta'];
 		$Control['CtrolZimc']	= $Notificacion['NotZimc'];
 		}		
+
+
+
+
 	/////////////////////////////////////////////////////////////////////////////////
 		//////////////////////////////////////////////////////////////////////////////////////
 
@@ -232,7 +244,8 @@ return ['template' => 'notisucess.html.php',
 'variables' => [
 	'Notificacion' => $Notificacion ?? ' ',
 	'datosNinio'=> $datosNinio ?? ' ',
-
+	'datosDomi' => $datosDomi,
+	'ColorText'=>	$ColorText
 ]
 ];
 
@@ -299,4 +312,15 @@ public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control)
    return $resultadoZSCORE;
   }
   
+  private function getColorClass($value) {
+    switch (true) {
+        case $value > 0:
+            return 'text-danger';
+        case $value < 0:
+            return 'text-primary';
+        default:
+            return 'text-success';
+    }
+}
+
 }
