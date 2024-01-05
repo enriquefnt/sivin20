@@ -14,7 +14,7 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <link rel="stylesheet" type="text/css" href="/styles.css"> 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 

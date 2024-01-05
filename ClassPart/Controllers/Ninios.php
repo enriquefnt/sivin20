@@ -90,7 +90,8 @@ class Ninios
             
 
             $resultado = $this->tablaNoti->findLast('NotNinio', $_GET['id']);
-            $ultimaNotificacion = $resultado ? trim($resultado['NotFin']) : '';
+            $ultimaNotificacion = $resultado ? trim($resultado['NotFin'] ?? '') : '';
+           
 
             $datosNinio['notificado'] = ($ultimaNotificacion === 'SI'||$totalNotificaciones === 0) ? 0 : 1;
            

@@ -21,6 +21,7 @@ endif;
 <div class="container">
 
 <fieldset class="border p-2">
+	
  <legend class="w-80 p-0 h-0 ">Datos personales 
    </legend>
 <form onkeydown="return event.key != 'Enter';" class="row g-3"  action=""  onsubmit="myButton.disabled = true;
@@ -104,12 +105,12 @@ endif;
 			<input class="form-control form-control-sm" type="number" name="Ninio[DniResp]" id="DniResp" required="required" value="<?=$datosNinio['DniResp'] ?? ''?>">
 </div>
 
-<div class="col-sm-2">	
+<div class="col-sm-4">	
 			<label class="form-label-sm" for="ResiDire">Domicilio</label>
 			<input class="form-control form-control-sm" type="text" name="Domicilio[ResiDire]" id="ResiDire" required="required" value="<?=$datosDomi['ResiDire'] ?? ''?>">
 </div>
 
-	<div class="col-sm-2">
+	<div class="col-sm-4">
   <label class="form-label-sm" for="ResiLocal">Localidad</label>
   <input type="text" name="Domicilio[ResiLocal]" id="ResiLocal" class="form-control form-control-sm" autocomplete="off"  value="<?=$datosDomi['ResiLocal'] ?? ''?>" >
    
@@ -118,7 +119,7 @@ endif;
    
 </div>
 
-<div class="col-2">
+<div class="col-3">
 			<label class="form-label-sm" for="Fono"
 			title="Codigo de área (sin 0) - nùmero (sin 15)">Celular</label>
 			<input class="form-control form-control-sm"  type="text" id="Fono" name="Ninio[Fono]" placeholder="###-#######" data-llenar-campo="Fono" pattern="[0-9]{3}-[0-9]{7}"  value="<?=$datosNinio['Fono'] ?? ''?>" autocomplete="off" />
@@ -126,22 +127,32 @@ endif;
 	</fieldset>
 
 <fieldset class="border p-2">
+	<div class="d-flex">
     <div class="col-sm-3">
         <?php if (empty($datosNinio)): ?>
-            <input type="submit" id="myButton" name="submit" class="btn btn-primary btn-sm" value="Guardar">
+            <input type="submit" id="myButton" name="submit" class="btn btn-primary" value="Guardar">
         <?php elseif (isset($datosNinio)): ?>
-            <input type="submit" id="myButton" name="submit" class="btn btn-primary btn-sm" value="Guardar cambios">
+            <input type="submit" id="myButton" name="submit" class="btn btn-primary" value="Guardar cambios">
         <?php endif; ?>
+		</div>
 
         <?php if (isset($datosNinio['notificado']) && $datosNinio['notificado'] === 0): ?>
- 			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary btn-sm" role="button">Notificación</a>
+		<div class="col-sm-3">
+ 			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary" role="button">Notificación</a>
+		</div>
 			<?php elseif (isset($datosNinio['notificado']) && $datosNinio['notificado'] === 1): ?>
-            <a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=control" class="btn btn-primary btn-sm" role="button">Control</a>
-			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=cierrenoti" class="btn btn-primary btn-sm" role="button">Cierre Notificación</a>
+		<div class="col-sm-3">		
+            <a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=control" class="btn btn-primary" role="button">Control</a>
+		</div>	
+		<div class="col-sm-3">
+			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=cierrenoti" class="btn btn-primary" role="button">Cierre Notificación</a>
+		</div>		
         <?php endif; ?>
-
-        <a href="/ninios/home" class="btn btn-primary btn-sm" role="button">Salir sin modificar</a>
-    </div>
+		<div class="col-sm-3">		
+        <a href="/ninios/home" class="btn btn-primary" role="button">Salir sin modificar</a>
+		</div>
+    	</div>
+	</div>
 </fieldset>
  </form>
 </div>

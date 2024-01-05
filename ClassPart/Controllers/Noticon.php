@@ -49,7 +49,7 @@ if (isset($_GET['id'])) {
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
 
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
-
+//var_dump($datosNinio);
 	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
 	$datosNinio['edad']=$edad ?? ' ';
 	
@@ -111,7 +111,7 @@ $instituciones = $this->tablaInsti->findAll();
 	$Control=[];
 
 	$Notificacion['NotId']=$Notifica['NotId'];
-	if ($_GET['tabla']!='cierrenoti') {
+	if ($_GET['tabla']=='notificacion') {
 	$Notificacion['NotId']=$Notifica['NotId'];
 	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
 	$Notificacion['NotFecha']=$Notifica['NotFecha'];
@@ -190,6 +190,7 @@ $instituciones = $this->tablaInsti->findAll();
     $Control['CtrolObservaNutri'] = ltrim($Notifica['NotObserva']);
 	$Control['CtrolObserva'] = $Notifica['NotObsantro'];
 	$Control['CtrolFechapc'] = new \DateTime();
+	//var_dump($Control);
 	}
 	
 
