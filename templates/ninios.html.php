@@ -135,7 +135,6 @@ endif;
             <input type="submit" id="myButton" name="submit" class="btn btn-primary" value="Guardar cambios">
         <?php endif; ?>
 		</div>
-
         <?php if (isset($datosNinio['notificado']) && $datosNinio['notificado'] === 0): ?>
 		<div class="col-sm-3">
  			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary" role="button">Notificación</a>

@@ -200,8 +200,12 @@ class Ninios
             else {
                 $datosCaso = $this->tablaNinios->findById($_GET['id']);
             }
-
-            return ['template' => 'registersuccess.html.php',
+            $datosCaso['Edad']=$this->calcularEdad($datosCaso['FechaNto'],date('Y-m-d'));
+            $datosCaso['Localidad']=$Resi['ResiLocal'];
+            var_dump($datosCaso);
+                
+            //    var_dump($datosNinio);
+            return ['template' => 'niniosuccess.html.php',
                     'title' => 'Carga' ,
                     'variables' => [
                         'datosCaso' => $datosCaso ?? ' ',
@@ -227,6 +231,7 @@ class Ninios
             $Ninio['Apellido']=$apenom['apellido'];
             $Ninio['NombreR']=$apenomR['nombres'];
             $Ninio['ApellidoR']=$apenomR['apellido'];
+            
 
             $Ninio['NomEtnia']=$this->tablaEtnia->findById($Ninio['TpoEtnia'])['NomEtnia'];
 
@@ -254,6 +259,20 @@ class Ninios
         ];
     }
 
+    private function calcularEdad($fechaNacimiento, $fechaActual) {
+        $nacimiento = new \DateTime($fechaNacimiento);
+        $actual = new \DateTime($fechaActual);
+        $edad = $nacimiento->diff($actual);
+            $anios = $edad->y;
+            $meses = $edad->m;
+            $dias = $edad->d;
+     if($anios>0){
+        return " $anios a $meses m    ";
+    }
+    else {
+        return "  $meses m $dias d   ";
+    }
+    }
     public function home()
     {
         $title = 'Instructivo';

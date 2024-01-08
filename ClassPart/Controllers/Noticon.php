@@ -238,14 +238,14 @@ $this->tablaNoti->save($Notificacion);
 }
 
 $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
-//var_dump($Notificacion);
+$Notificacion['colorIMC']=$this->getColorClass($Notificacion['NotZimc']);
+var_dump($Notificacion);
 return ['template' => 'notisucess.html.php',
 'title' => $title ,
 'variables' => [
 	'Notificacion' => $Notificacion ?? ' ',
 	'datosNinio'=> $datosNinio ?? ' ',
-	'datosDomi' => $datosDomi,
-	'ColorText'=>	$ColorText
+	'datosDomi' => $datosDomi
 ]
 ];
 
@@ -312,7 +312,7 @@ public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control)
    return $resultadoZSCORE;
   }
   
-  private function getColorClass($value) {
+  public function getColorClass($value) {
     switch (true) {
         case $value > 0:
             return 'text-danger';
