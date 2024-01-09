@@ -314,12 +314,12 @@ public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control)
   
   public function getColorClass($value) {
     switch (true) {
-        case $value > 0:
-            return 'text-danger';
-        case $value < 0:
-            return 'text-primary';
+        case $value > 2:
+            return 'red';
+        case $value < 2:
+            return 'red';
         default:
-            return 'text-success';
+            return 'blue';
     }
 }
 

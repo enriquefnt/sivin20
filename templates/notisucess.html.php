@@ -15,9 +15,9 @@
             ZTA/E=<?=number_format($Notificacion['NotZta'], 1);?> -
             ZIMC/E=<?=number_format($Notificacion['NotZimc'], 1);?> </p> 
         <!-- <p>    <span style="color: <?=$Notificacion['colorIMC']; ?>"> -->
-        <p>    <span style="color:red">
-        <?= number_format($Notificacion['NotZimc'], 1); ?> 
-    </span></p>
+        <p>    <span style="color:<?=$Notificacion['colorIMC']; ?>">
+        <?= number_format($Notificacion['NotZimc'], 1); ?> </span></p>
+    
       </div>
  <div class="modal-footer">
            
@@ -27,7 +27,7 @@
     </div>
   </div>
 </div>
-
+<?=$Notificacion['colorIMC']; ?>
 <script type="text/javascript">
 
 $(document).ready(function() {$('#SucessModal').modal('show');
