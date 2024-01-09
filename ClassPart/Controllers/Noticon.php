@@ -196,20 +196,16 @@ $instituciones = $this->tablaInsti->findAll();
 		) ;   
 
 		
-				$ColorText=[];
-				$ColorText['NotZpeColor'] = $this->getColorClass($Notificacion['NotZpe']);
-				$ColorText['NotZtaColor'] = $this->getColorClass($Notificacion['NotZta']);
-				$ColorText['NotZimcColor'] = $this->getColorClass($Notificacion['NotZimc']);
-
+				// $ColorText=[];
+				// $ColorText['NotZpeColor'] = $this->getColorClass($Notificacion['NotZpe']);
+				// $ColorText['NotZtaColor'] = $this->getColorClass($Notificacion['NotZta']);
+				// $ColorText['NotZimcColor'] = $this->getColorClass($Notificacion['NotZimc']);
 	
-		
 
 		$Control['CtrolZp']	= $Notificacion['NotZpe'];
 		$Control['CtrolZt']	= $Notificacion['NotZta'];
 		$Control['CtrolZimc']	= $Notificacion['NotZimc'];
 		}		
-
-
 
 
 	/////////////////////////////////////////////////////////////////////////////////
@@ -237,9 +233,15 @@ else {
 $this->tablaNoti->save($Notificacion);
 }
 
+//////////////////////para ventanas modales /////////////////////
+
+if ($_GET['tabla']=='notificacion'){
 $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
+
 $Notificacion['colorIMC']=$this->getColorClass($Notificacion['NotZimc']);
-var_dump($Notificacion);
+$Notificacion['colorPE']=$this->getColorClass($Notificacion['NotZpe']);
+$Notificacion['colorTA']=$this->getColorClass($Notificacion['NotZta']);
+
 return ['template' => 'notisucess.html.php',
 'title' => $title ,
 'variables' => [
@@ -248,7 +250,27 @@ return ['template' => 'notisucess.html.php',
 	'datosDomi' => $datosDomi
 ]
 ];
+     }
+	 else if ($_GET['tabla']=='control'){
 
+		
+		$Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
+		$Control=$this->tablaControl->findLast('IdNoti', ($Notificacion['NotId']));
+		//var_dump($Control);
+		$Control['colorIMC']=$this->getColorClass($Control['CtrolZimc']);
+		$Control['colorPE']=$this->getColorClass($Control['CtrolZp']);
+		$Control['colorTA']=$this->getColorClass($Control['CtrolZt']);
+		return ['template' => 'controlsucess.html.php',
+		'title' => $title ,
+		'variables' => [
+			'Control' => $Control ?? ' ',
+			'datosNinio'=> $datosNinio ?? ' ',
+			'datosDomi' => $datosDomi
+		]
+		];
+
+
+	 }
 
 }
 
@@ -316,10 +338,14 @@ public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control)
     switch (true) {
         case $value > 2:
             return 'red';
-        case $value < 2:
+        case $value < -2:
             return 'red';
+		case ($value >= -1.5 && $value <= 1.5):
+			return 'green';		
+				case ($value < -1.5 && $value >= -2):
+			return 'yellow';	
         default:
-            return 'blue';
+            return 'green';
     }
 }
 

@@ -1,8 +1,10 @@
 
 
 <div class="container">
-<legend class="w-80 p-0 h-0 ">Notificación:
-   </legend>
+   <legend class="w-80 p-0 h-0 ">
+    <p>Ficha de <?php echo $_GET['tabla']=='notificacion' ? 'Notificación' : 'Control'; ?>
+    </p>
+</legend>
 <fieldset class="border p-2">
 <legend class="w-80 p-0 h-0 " style="font-size: 0.95rem;font-weight: bold;">  <?=$datosNinio['ApeNom'].' - '.$datosNinio['edad'].' - '. $datosDomi['ResiLocal'] ;?>
    </legend>

@@ -42,7 +42,7 @@
     </ul>
           </div>
           <div class="card-footer text-muted">
-          <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit amet consectetur.</p>
+          <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Para desplazarse en los formularios utilice el puntero del mause o la tecla <TAB>. La tecla <ENTER> no está habilitada..</p>
           <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit.</p>
   </div>
         </div>

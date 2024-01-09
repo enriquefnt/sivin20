@@ -3,6 +3,7 @@ namespace ClassPart\Controllers;
 
 use \ClassGrl\DataTables;
 use \AllowDynamicProperties;
+use DateTimeImmutable;
 
 #[AllowDynamicProperties]
 class Ninios
@@ -31,14 +32,21 @@ class Ninios
 
     public function busca()
     {
+        
+        
+            
         $result = $this->tablaNinios->findAll();
-
+        
         foreach ($result as $ninio) {
+            if ($ninio['FechaNto'] >  date('Y-m-d', strtotime('-6 years'))){
             $dataNinio[] = array(
                 'label' => $ninio['ApeNom'],
                 'value' => $ninio['IdNinio']
-            );
+            ); 
+            }
         }
+
+
         
         $title = 'Busca Niño';
 
@@ -202,7 +210,7 @@ class Ninios
             }
             $datosCaso['Edad']=$this->calcularEdad($datosCaso['FechaNto'],date('Y-m-d'));
             $datosCaso['Localidad']=$Resi['ResiLocal'];
-            var_dump($datosCaso);
+            // var_dump($datosCaso);
                 
             //    var_dump($datosNinio);
             return ['template' => 'niniosuccess.html.php',
