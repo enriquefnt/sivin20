@@ -20,6 +20,7 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
 
 
 <script src="https://kit.fontawesome.com/f6cbba0704.js" crossorigin="anonymous"></script>
+
  <!-- -----------------jquery----------------- -->
  <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"

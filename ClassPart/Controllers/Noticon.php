@@ -196,12 +196,6 @@ $instituciones = $this->tablaInsti->findAll();
 		) ;   
 
 		
-				// $ColorText=[];
-				// $ColorText['NotZpeColor'] = $this->getColorClass($Notificacion['NotZpe']);
-				// $ColorText['NotZtaColor'] = $this->getColorClass($Notificacion['NotZta']);
-				// $ColorText['NotZimcColor'] = $this->getColorClass($Notificacion['NotZimc']);
-	
-
 		$Control['CtrolZp']	= $Notificacion['NotZpe'];
 		$Control['CtrolZt']	= $Notificacion['NotZta'];
 		$Control['CtrolZimc']	= $Notificacion['NotZimc'];
@@ -245,8 +239,8 @@ $Notificacion['colorTA']=$this->getColorClass($Notificacion['NotZta']);
 return ['template' => 'notisucess.html.php',
 'title' => $title ,
 'variables' => [
-	'Notificacion' => $Notificacion ?? ' ',
-	'datosNinio'=> $datosNinio ?? ' ',
+	'Notificacion' => $Notificacion ?? [],
+	'datosNinio'=> $datosNinio ?? [],
 	'datosDomi' => $datosDomi
 ]
 ];
@@ -268,8 +262,32 @@ return ['template' => 'notisucess.html.php',
 			'datosDomi' => $datosDomi
 		]
 		];
+	 }
+	 else if ($_GET['tabla']=='cierrenoti'){
+		
+		
+		$Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
+		$Control=$this->tablaControl->findLast('IdNoti', ($Notificacion['NotId']));
 
+		isset($Control[0]) ? $Control['colorIMC']=$this->getColorClass($Control['CtrolZimc']):
+		$Notificacion['colorIMC']=$this->getColorClass($Notificacion['NotZimc']);
 
+		isset($Control[0]) ?$Control['colorPE']=$this->getColorClass($Control['CtrolZp']):
+		$Notificacion['colorPE']=$this->getColorClass($Notificacion['NotZpe']);
+
+		isset($Control[0]) ?$Control['colorTA']=$this->getColorClass($Control['CtrolZt']):
+		$Notificacion['colorTA']=$this->getColorClass($Notificacion['NotZta']);
+
+		
+		return ['template' => 'cierreSucess.html.php',
+		'title' => 'Cierre noti',
+		'variables' => [
+			'Notificacion' => $Notificacion ?? [],
+			'Control' => $Control ?? [],
+			'datosNinio'=> $datosNinio ?? [],
+			'datosDomi' => $datosDomi ?? []
+		]
+		];
 	 }
 
 }
@@ -290,12 +308,12 @@ else {
 }
 }
 
-private function calculaEdaddias ($fnac,$fcontrol) {
+// private function calculaEdaddias ($fnac,$fcontrol) {
 	
-$edadDias = date_diff($fnac, $fcontrol)->days;
-return $edadDias;
+// $edadDias = date_diff($fnac, $fcontrol)->days;
+// return $edadDias;
 
-}
+// }
 
 public function calcularEdad($fechaNacimiento, $fechaActual) {
 	$nacimiento = new \DateTime($fechaNacimiento);
