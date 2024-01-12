@@ -165,7 +165,7 @@ $instituciones = $this->tablaInsti->findAll();
     $Control['CtrolObservaNutri'] = ltrim($Notifica['NotObserva']);
 	$Control['CtrolObserva'] = $Notifica['NotObsantro'];
 	$Control['CtrolFechapc'] = new \DateTime();
-var_dump($Control);
+//var_dump($Control);
 	}
 	////////////////////////////////////////////////////////
 	if ($_GET['tabla']!='cierrenoti'){

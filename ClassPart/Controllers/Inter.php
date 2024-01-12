@@ -80,7 +80,15 @@ class Inter
                     }   
     
     public function interSubmit() {
+        $instituciones = $this->tablaInsti->findAll();
     
+        foreach($instituciones as $institucion)
+        {
+            $data_insti[] = array(
+                'label'     =>  $institucion['Nombre_aop'],
+                'value'     =>  $institucion['establecimiento_id']
+            );
+        }
     
        $datosNinio=$this->tablaNinios->findById($_GET['id']);
        $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
@@ -88,26 +96,39 @@ class Inter
        $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
        $NOTIINTERNADOS=$_POST['NOTIINTERNADOS'];
        $Internacion=[];
- 
+        var_dump($_POST['NOTIINTERNADOS']);
     
-      $Internacion['Idint']=$NOTIINTERNADOS['Idint'];
+      $Internacion['Idint']=$NOTIINTERNADOS['Idint']??'';
       $Internacion['IdNotifica']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
       $Internacion['IntFecha']=$NOTIINTERNADOS['IntFecha'];
+      $Internacion['IntAo']=$this->tablaInsti->findById($NOTIINTERNADOS['establecimiento_id'])['AOP'] ?? '';
       $Internacion['IntEfec']=$NOTIINTERNADOS['establecimiento_id'];
-      $Internacion['IntAo']=$this->tablaInsti->findById($Internacion['IntEfec'])['AOP'] ?? '';
+      $Internacion['IntSala']=$NOTIINTERNADOS['IntSala'];
       $Internacion['IntAlta']=$NOTIINTERNADOS['IntAlta'];
+      $Internacion['IntFechalta']=$NOTIINTERNADOS['IntFechalta'];
       $Internacion['IntTipoAlta']=$NOTIINTERNADOS['IntTipoAlta'];
-     // $Internacion['IntDerivado']=$NOTIINTERNADOS['IntDerivado'];
-      $Internacion['IntObserva']=$NOTIINTERNADOS['IntObserva'];
-      $Internacion['Usuario_id']=$usuario['id_usuario'];
-      $Internacion['IntFechapc ']=new \DateTime();
+      $Internacion['IntDerivado']='';
+      $Internacion['IntObserva']=trim($NOTIINTERNADOS['IntObserva']);
+      $Internacion['IntUsuario']=$usuario['id_usuario'];
+      $Internacion['IntFechapc']=new \DateTime();
         
-    //  var_dump($Internacion);
-  
-    //  echo "tablaInter: ";
-    //  print_r($this->tablaInter);
-     
+         
      $this->tablaInter->save($Internacion);
+
+
+
+
+
+     $title = 'Internacion';
+
+                        return ['template' => 'interna.html.php',
+                                'title' => $title ,
+                                'variables' => [
+                                'data_insti'  =>   $data_insti?? [],
+                                'datosNinio'=> $datosNinio ?? [],
+                                'datosNoti' => $datosNoti  ?? []
+                                ]
+                        ];
     
     
   }

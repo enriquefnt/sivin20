@@ -91,7 +91,7 @@ class Ninios
 
             $datosNinio['NombreR']=$apenomR['nombres'];
             $datosNinio['ApellidoR']=$apenomR['apellido'];
-            $datosNinio['NomEtnia']=$this->tablaEtnia->findById($datosNinio['TpoEtnia'])['NomEtnia'];
+            $datosNinio['NomEtnia']=$this->tablaEtnia->findById($datosNinio['TpoEtnia'])['NomEtnia']??'';
                      
             $totalNotificaciones = $this->tablaNoti->totalBy('NotNinio', $_GET['id']) ;
             

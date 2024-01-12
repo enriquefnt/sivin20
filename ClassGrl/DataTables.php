@@ -107,7 +107,9 @@ private function insert($fields)
 	$query .= ')';
 	$fields = $this->processDates($fields);
 	$this->query($query, $fields);
+	//var_dump($query);var_dump($fields);
 	}
+
 private function update($fields)
 	{
 		$query = ' UPDATE `' . $this->table .'` SET ';
