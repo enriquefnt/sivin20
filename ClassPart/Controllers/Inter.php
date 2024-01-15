@@ -94,17 +94,17 @@ class Inter
             );
         }
 
-     // var_dump($_POST['valores']); 
-      
+      var_dump($_POST['valores']); 
+      echo($_POST['valores']);
        $datosNinio=$this->tablaNinios->findById($_POST['NOTIINTERNADOS']['IdNinio']) ?? ' ';
        $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
        $usuario = $this->authentication->getUser();
        $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_POST['NOTIINTERNADOS']['IdNinio']));
 
       
-     // $valores = $_POST['valores'];
+      $valores = $_POST['valores'];
        $NOTIINTERNADOS = $_POST['NOTIINTERNADOS'];
-       //var_dump($valores);
+       var_dump($valores);
        $Internacion=[];
        $MotivoInter=[];
        
@@ -128,19 +128,35 @@ class Inter
      // var_dump($MotivoInter);
      $this->tablaInter->save($Internacion);
 
-    
-    
-     // header('Location: /user/listar');
-    
+     $Internacion['Nombre_aop']=$this->tablaInsti->findById($NOTIINTERNADOS['establecimiento_id'])['Nombre_aop'] ?? '';
+     switch ($Internacion['IntSala']) {
+        case 2:
+            $Internacion['Sala'] ='Guardia';
+          break;
+        case 3:
+            $Internacion['Sala'] ='Terapia intensiva';
+          break;
+        case 9:
+            $Internacion['Sala'] ='Internación común';
+          break;
+          case 10:
+            $Internacion['Sala'] ='CRENI';
+          break;
+          case 10:
+            $Internacion['Sala'] ='Recuperación Nutricional';
+          break;
+        default:
+        $Internacion['Sala'] ='Otra';
+      }
+      
+        $datosInter=$Internacion;
       $title='Internación';
-     $title='internacion';
-                  return ['template' => 'interna.html.php',
+     
+                  return ['template' => 'ingreSucess.html.php',
                   'title' => $title ,
               'variables' => [
-            'data_insti'  =>   $data_insti?? [],
-            'datosNinio'=> $datosNinio?? []
-          ,
-            'datosNoti' => $datosNoti  ?? []
+              'datosNinio'=> $datosNinio?? [],
+            'datosInter' => $datosInter  ?? []
                               ]
 
              ]; 
