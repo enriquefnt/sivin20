@@ -7,10 +7,11 @@
 <legend class="w-80 p-0 h-0 " style="font-size: 0.95rem;font-weight: bold;">  <?=$datosNinio['ApeNom'].' - '. $datosNinio['edad'] ;?>
    </legend>
 <!-- <form onkeydown="return event.key != 'Enter';" class="row g-3"  action=""  onsubmit="myButton.disabled = true; return true;" method="post" autocomplete="off" > -->
-<form onkeydown="return event.key != 'Enter';" class="row g-3"   onsubmit="myButton.disabled = true; return true;" method="post" autocomplete="off" > 
+<form onkeydown="return event.key != 'Enter';" class="row g-3" action=""   id="interFormulario" method="post" autocomplete="off" >
+<!-- <form onkeydown="return event.key != 'Enter';" class="row g-3" action=""  onsubmit="myButton.disabled = false; return true;" id="interFormulario" method="post" autocomplete="off" >   -->
 <input type="hidden"name="NOTIINTERNADOS[Idint]" id="Idint" value=<?=$datosInter['Idint'] ?? ''?> >
 <input type="hidden" name="NOTIINTERNADOS[IdNotifica]"  id="IdNotifica"   value=<?=$datosNoti['IdNotifica'] ?? ''?>>
-<input type="hidden" name="NOTIINTERNADOS[Id]"  id="IdNotifica"   value=<?=$datosNinio['ApeNom'];?>>	          
+<input type="hidden" name="NOTIINTERNADOS[IdNinio]"  id="IdNinio"   value=<?=$datosNinio['IdNinio'];?>>	          
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="IntFecha">Fecha Ingreso</label>
 			<input class="form-control form-control-sm" type="date" name="NOTIINTERNADOS[IntFecha]" id="IntFecha" required="required" value="<?=$datosInter['IntFecha'] ?? ''?>">
@@ -35,14 +36,15 @@
     <option value=4>Recuperacion nutricional</option>
 	</select>
  </div>
+
  <div class="col-sm-4">
  <label class="form-label-sm" for="valor-input">Motivos de ingreso</label>
- <input type="text" id="valor-input" class="form-control form-control-sm" name="NOTIINTERNADOS['MA_Motivo']" placeholder="Ingrese un motivo de ingreso" /><br>
-      <input type="button" value="Agregar valor" id="agregarValor" class="btn btn-primary" />
+ <input type="text" id="valor-input" class="form-control form-control-sm" name="valores[]" placeholder="Ingrese un motivo de ingreso" /><br>
+      <input type="button" value="Agregar motivo" id="agregarValor" class="btn btn-primary" />
   </div>
-
-  <ul class="valores-mostrados"></ul>
-
+  <div class="col-sm-4">
+  <ul class="valores-mostrados"></ul> 
+  </div> 
 
  <!-- <div class="col-sm-1">
   <label class="form-label-sm" for="IntAlta">Alta</label>
@@ -110,7 +112,7 @@ var auto_complete = new Autocom(document.getElementById('IntEfec'), options);
 </script>
 
 
-<script>
+  <script>
 $(document).ready(function() {
   var valores = [];
 
@@ -124,20 +126,27 @@ $(document).ready(function() {
   });
 
   $("#interFormulario").submit(function(event) {
-    event.preventDefault();
-    console.log("Enviando valores:", valores); // Agrega esta línea para verificar si los valores se están capturando correctamente antes de la solicitud AJAX
+    //event.preventDefault();
+
+    // Add the valores array to the form data
+    var formData = new FormData(this);
+    //formData.append('valores', JSON.stringify(valores));
+    formData.append('valores[]', JSON.stringify(valores));
+    console.log("Enviando valores:", valores);
+
     $.ajax({
       type: "POST",
       url: "/interna/inter",
-      data: {
-        valores: valores
-      },
+      data: formData,
+      processData: false,
+      contentType: false,
       success: function(response) {
         console.log(response);
       },
       error: function(jqXHR, textStatus, errorThrown) {
-    console.log("Error: ", textStatus, errorThrown);
-  }
+        console.log("Error: ", textStatus, errorThrown);
+        console.log(jqXHR.responseText);
+      }
     });
   });
 
@@ -148,4 +157,4 @@ $(document).ready(function() {
     }
   }
 });
-	</script>
+	</script> 

@@ -43,9 +43,8 @@ class Inter
         }
        
         $datosNinio=$this->tablaNinios->findById($_GET['id'])?? [];
-        
         $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
-       
+        $datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
 
 
         if (isset($_GET['id'])) {
@@ -59,8 +58,8 @@ class Inter
                          'variables' => [
                        'data_insti'  =>   $data_insti?? [],
                        'datosNinio'=> $datosNinio?? []
-                    //    ,
-                    //    'datosNoti' => $datosNoti  ?? []
+                     ,
+                       'datosNoti' => $datosNoti  ?? []
                                          ]
     
                         ]; }
@@ -74,8 +73,8 @@ class Inter
                                 'variables' => [
                                 'data_insti'  =>   $data_insti?? [],
                                 'datosNinio'=> $datosNinio ?? []
-                                // ,
-                                // 'datosNoti' => $datosNoti  ?? []
+                               ,
+                                'datosNoti' => $datosNoti  ?? []
                                 ]
                         ];
 
@@ -94,19 +93,25 @@ class Inter
                 'value'     =>  $institucion['establecimiento_id']
             );
         }
-       //$id = isset($_GET['id']) ? $_GET['id'] : $_POST['NOTIINTERNADOS']['id'];
-       $datosNinio=$this->tablaNinios->findById($_GET['id']);
+
+     // var_dump($_POST['valores']); 
+      
+       $datosNinio=$this->tablaNinios->findById($_POST['NOTIINTERNADOS']['IdNinio']) ?? ' ';
        $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
        $usuario = $this->authentication->getUser();
-       $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
-       $NOTIINTERNADOS=$_POST['NOTIINTERNADOS'];
+       $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_POST['NOTIINTERNADOS']['IdNinio']));
+
+      
+     // $valores = $_POST['valores'];
+       $NOTIINTERNADOS = $_POST['NOTIINTERNADOS'];
+       //var_dump($valores);
        $Internacion=[];
        $MotivoInter=[];
        
       
     
       $Internacion['Idint']=$NOTIINTERNADOS['Idint']??'';
-      $Internacion['IdNotifica']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
+      $Internacion['IdNotifica']=$Notificacion['NotId'] ?? ' ';
       $Internacion['IntFecha']=$NOTIINTERNADOS['IntFecha'];
       $Internacion['IntAo']=$this->tablaInsti->findById($NOTIINTERNADOS['establecimiento_id'])['AOP'] ?? '';
       $Internacion['IntEfec']=$NOTIINTERNADOS['establecimiento_id'];
@@ -118,25 +123,29 @@ class Inter
       $Internacion['IntObserva']=trim($NOTIINTERNADOS['IntObserva'])?? '';
       $Internacion['IntUsuario']=$usuario['id_usuario'];
       $Internacion['IntFechapc']=new \DateTime();
-        
-         
+     //var_dump($Internacion);
+     // $MotivoInter['MA_Motivo']=$valores ?? '';;
+     // var_dump($MotivoInter);
      $this->tablaInter->save($Internacion);
 
-     $MotivoInter['MA_Motivo']=$NOTIINTERNADOS['MA_Motivo']?? '';;
+    
+    
+     // header('Location: /user/listar');
+    
+      $title='Internación';
+     $title='internacion';
+                  return ['template' => 'interna.html.php',
+                  'title' => $title ,
+              'variables' => [
+            'data_insti'  =>   $data_insti?? [],
+            'datosNinio'=> $datosNinio?? []
+          ,
+            'datosNoti' => $datosNoti  ?? []
+                              ]
 
-        var_dump($MotivoInter);
+             ]; 
 
 
-     $title = 'Internacion';
-
-                        return ['template' => 'interna.html.php',
-                                'title' => $title ,
-                                'variables' => [
-                                'data_insti'  =>   $data_insti?? [],
-                                'datosNinio'=> $datosNinio ?? [],
-                                'datosNoti' => $datosNoti  ?? []
-                                ]
-                        ];
     
     
   }
