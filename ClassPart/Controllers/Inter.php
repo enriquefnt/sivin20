@@ -53,7 +53,7 @@ class Inter
           
           $title='Internación';
     
-                  return ['template' => 'interna.html.php',
+                  return ['template' => 'inter2.html.php',
                              'title' => $title ,
                          'variables' => [
                        'data_insti'  =>   $data_insti?? [],
@@ -68,7 +68,7 @@ class Inter
                     
                         $title = 'Internacion';
 
-                        return ['template' => 'interna.html.php',
+                        return ['template' => 'inter2.html.php',
                                 'title' => $title ,
                                 'variables' => [
                                 'data_insti'  =>   $data_insti?? [],
@@ -82,8 +82,8 @@ class Inter
     
     public function interSubmit() {
 
-       // var_dump($_POST['NOTIINTERNADOS']);
-
+       var_dump($_POST['NOTIINTERNADOS']);
+     
         $instituciones = $this->tablaInsti->findAll();
     
         foreach($instituciones as $institucion)
@@ -94,17 +94,17 @@ class Inter
             );
         }
 
-      var_dump($_POST['valores']); 
-      echo($_POST['valores']);
+      
+     
        $datosNinio=$this->tablaNinios->findById($_POST['NOTIINTERNADOS']['IdNinio']) ?? ' ';
        $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
        $usuario = $this->authentication->getUser();
        $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_POST['NOTIINTERNADOS']['IdNinio']));
 
       
-      $valores = $_POST['valores'];
+      
        $NOTIINTERNADOS = $_POST['NOTIINTERNADOS'];
-       var_dump($valores);
+      
        $Internacion=[];
        $MotivoInter=[];
        
