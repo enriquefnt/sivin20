@@ -1,3 +1,5 @@
+
+
 <div class="container">
    <legend class="w-80 p-0 h-0 ">
     <p>Ficha de internación 
@@ -10,13 +12,14 @@
 <form onkeydown="return event.key != 'Enter';" class="row g-3" action=""   id="interFormulario" method="post" autocomplete="off" >
 
 <input type="hidden"name="NOTIINTERNADOS[Idint]" id="Idint" value=<?=$datosInter['Idint'] ?? ''?> >
-<input type="hidden" name="NOTIINTERNADOS[IdNotifica]"  id="IdNotifica"   value=<?=$datosNoti['IdNotifica'] ?? ''?>>
+<input type="hidden" name="NOTIINTERNADOS[IdNotifica]"  id="IdNotifica"   value=<?=$datosNoti['NotId'] ?? ''?>>
 <input type="hidden" name="NOTIINTERNADOS[IdNinio]"  id="IdNinio"   value=<?=$datosNinio['IdNinio'];?>>	          
+   
+
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="IntFecha">Fecha Ingreso</label>
 			<input class="form-control form-control-sm" type="date" name="NOTIINTERNADOS[IntFecha]" id="IntFecha" required="required" value="<?=$datosInter['IntFecha'] ?? ''?>">
 </div>
-
 
 <div class="col-sm-3">	
 			<label class="form-label-sm" for="IntEfec">Efector</label>
@@ -37,24 +40,21 @@
 	</select>
  </div>
 
- <div class="col-sm-4">
- <label class="form-label-sm" for="valor-input">Motivos de ingreso</label>
- <input type="text" id="valor-input" class="form-control form-control-sm" name="diagnosticos[]" placeholder="Ingrese un motivo de ingreso" /><br>
-      <input type="button" value="Agregar motivo" id="agregarValor" class="btn btn-primary" />
-  </div>
-  <div class="col-sm-4">
-  <ul class="valores-mostrados"></ul> 
-  </div> 
+ 
 
- <!-- <div class="col-sm-1">
-  <label class="form-label-sm" for="IntAlta">Alta</label>
-  <select name="NOTIINTERNADOS[IntAlta]" id="IntAlta" class="form-control form-control-sm">
-  	<option hidden selected><?=$datosInter['IntAlta'] ?? '...'?></option>
-    	<option value=NO>NO</option>
-	<option value=SI>SI</option>
-		</select>
- </div> -->
- <?php
+<div class="col-sm-4">
+    <label class="form-label-sm" for="diagnosticos">Motivos de ingreso</label>
+    <input type="text" id="diagnosticos" class="form-control form-control-sm" placeholder="Ingrese un motivo de ingreso" /><br>
+    <input type="button" value="Agregar motivo" id="agregar-diagnostico" class="btn btn-primary" />
+    <ul id="lista-diagnosticos"></ul>
+    <input type="hidden" name="NOTIINTERNADOS[diagnosticos]" id="hidden-diagnosticos" value="" />
+</div>
+
+  <div class="col-sm-4">
+  <ul id="lista-diagnosticos"></ul> 
+  </div> 
+ 
+  <?php
  if ($_GET['tabla']!='ingreso'){ ?>
  
  <div class="col-sm-2">	
@@ -111,50 +111,23 @@ var options = {
 var auto_complete = new Autocom(document.getElementById('IntEfec'), options);
 </script>
 
+<script>
+var NOTIINTERNADOS = {
+    diagnosticos: []
+};
+</script>
 
-  <script>
+<script>
 $(document).ready(function() {
-  var valores = [];
+  
+    $("#agregar-diagnostico").click(function() {
+        var diagnosticos = $("#diagnosticos").val();
+        NOTIINTERNADOS.diagnosticos.push(diagnosticos);
+        $("#lista-diagnosticos").append("<li>" + diagnosticos + "</li>");
+        $("#diagnosticos").val("");
 
-  $("#agregarValor").click(function() {
-    var valor = $("#valor-input").val();
-    if (valor !== "") {
-      valores.push(valor);
-      $("#valor-input").val("");
-      mostrarValores();
-    }
-  });
-
-  $("#interFormulario").submit(function(event) {
-    //event.preventDefault();
-
-    // Add the valores array to the form data
-    var formData = new FormData(this);
-    //formData.append('valores', JSON.stringify(valores));
-    formData.append('valores[]', JSON.stringify(valores));
-    console.log("Enviando valores:", valores);
-
-    $.ajax({
-      type: "POST",
-      url: "/interna/inter",
-      data: formData,
-      processData: false,
-      contentType: false,
-      success: function(response) {
-        console.log(response);
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        console.log("Error: ", textStatus, errorThrown);
-        console.log(jqXHR.responseText);
-      }
+        // Actualiza array de diagnósticos
+        $("#hidden-diagnosticos").val(JSON.stringify(NOTIINTERNADOS.diagnosticos));
     });
-  });
-
-  function mostrarValores() {
-    $(".valores-mostrados").empty();
-    for (var i = 0; i < valores.length; i++) {
-      $(".valores-mostrados").append("<li>" + valores[i] + "</li>");
-    }
-  }
 });
-	</script> 
+</script>

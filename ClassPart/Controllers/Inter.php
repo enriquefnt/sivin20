@@ -45,7 +45,7 @@ class Inter
         $datosNinio=$this->tablaNinios->findById($_GET['id'])?? [];
         $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
         $datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
-
+     //  var_dump($datosNoti) ;
 
         if (isset($_GET['id'])) {
            
@@ -53,12 +53,11 @@ class Inter
           
           $title='Internación';
     
-                  return ['template' => 'inter2.html.php',
+                  return ['template' => 'interna.html.php',
                              'title' => $title ,
                          'variables' => [
                        'data_insti'  =>   $data_insti?? [],
-                       'datosNinio'=> $datosNinio?? []
-                     ,
+                       'datosNinio'=> $datosNinio?? [],
                        'datosNoti' => $datosNoti  ?? []
                                          ]
     
@@ -68,12 +67,11 @@ class Inter
                     
                         $title = 'Internacion';
 
-                        return ['template' => 'inter2.html.php',
+                        return ['template' => 'interna.html.php',
                                 'title' => $title ,
                                 'variables' => [
                                 'data_insti'  =>   $data_insti?? [],
-                                'datosNinio'=> $datosNinio ?? []
-                               ,
+                                'datosNinio'=> $datosNinio ?? [],
                                 'datosNoti' => $datosNoti  ?? []
                                 ]
                         ];
@@ -84,15 +82,15 @@ class Inter
 
        var_dump($_POST['NOTIINTERNADOS']);
      
-        $instituciones = $this->tablaInsti->findAll();
+        // $instituciones = $this->tablaInsti->findAll();
     
-        foreach($instituciones as $institucion)
-        {
-            $data_insti[] = array(
-                'label'     =>  $institucion['Nombre_aop'],
-                'value'     =>  $institucion['establecimiento_id']
-            );
-        }
+        // foreach($instituciones as $institucion)
+        // {
+        //     $data_insti[] = array(
+        //         'label'     =>  $institucion['Nombre_aop'],
+        //         'value'     =>  $institucion['establecimiento_id']
+        //     );
+        // }
 
       
      
@@ -123,7 +121,7 @@ class Inter
       $Internacion['IntObserva']=trim($NOTIINTERNADOS['IntObserva'])?? '';
       $Internacion['IntUsuario']=$usuario['id_usuario'];
       $Internacion['IntFechapc']=new \DateTime();
-     //var_dump($Internacion);
+     var_dump($Internacion);
      // $MotivoInter['MA_Motivo']=$valores ?? '';;
      // var_dump($MotivoInter);
      $this->tablaInter->save($Internacion);
