@@ -27,6 +27,7 @@
 			<input type="hidden" name="NOTIINTERNADOS[establecimiento_id]" id="establecimiento_id" value="<?= $data['value'] ?? $datosNoti['establecimiento_id'] ?? '' ?>" />
 </div>
 
+
 <div class="col-sm-2">
   <label class="form-label-sm" for="IntSala">Sala</label>
   <select name="NOTIINTERNADOS[IntSala]" id="IntSala" class="form-control form-control-sm">
