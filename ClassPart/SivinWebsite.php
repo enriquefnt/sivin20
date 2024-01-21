@@ -12,6 +12,7 @@ class SivinWebsite implements \ClassGrl\Website  {
 	private \ClassGrl\DataTables $tablaNoti;
 	private \ClassGrl\DataTables $tablaControl;
 	private \ClassGrl\DataTables $tablaInter;
+	private \ClassGrl\DataTables $tablaMotIng;
 	private \ClassGrl\Authentication $Authentication;
 	private \ClassGrl\DataTables $tablaAntro;
 	private $pdoZSCORE;
@@ -30,6 +31,7 @@ public function __construct() {
 	$this->tablaNoti = new \ClassGrl\DataTables($pdo,'notificacion', 'NotId');
 	$this->tablaControl = new \ClassGrl\DataTables($pdo,'NOTICONTROL', 'IdCtrol');
 	$this->tablaInter = new \ClassGrl\DataTables($pdo,'NOTIINTERNADOS', 'Idint');
+	$this->tablaMotIng = new \ClassGrl\DataTables($pdo , 'NOTIMOTIVOINTERNACION', 'MI_Id');
 	$this->authentication = new \ClassGrl\Authentication($this->tablaUser,'user', 'password'); 
 	$this->tablaAntro = new \ClassGrl\DataTables($pdo,'calc_antro', 'idAnt');
 	$this->pdoZSCORE = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2; charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N'); // Asignar el valor a la variable $pdoZSCORE
@@ -76,7 +78,7 @@ public function getController(string $controllerName): ?object {
 			else if ($controllerName === 'interna') {
 
 				$controller = new  \ClassPart\Controllers\Inter($this->tablaInter, $this->tablaNinios, $this->tablaNoti, 
-				$this->tablaControl, $this->tablaInsti, $this->authentication);
+				$this->tablaMotIng, $this->tablaInsti, $this->authentication);
 				}
 	
 

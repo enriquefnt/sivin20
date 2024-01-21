@@ -84,6 +84,7 @@
 		<option value=7>Cardiovaslcular</option>
 		<option value=8>Respiratoria</option>
 		<option value=9>Otras (indicar en observaciones)</option>
+		<option value=10>En estudio</option>
 
 		</select>
 	</div>

@@ -48,7 +48,7 @@
     <input type="text" id="diagnosticos" class="form-control form-control-sm" placeholder="Ingrese un motivo de ingreso" /><br>
     <input type="button" value="Agregar motivo" id="agregar-diagnostico" class="btn btn-primary" />
     <ul id="lista-diagnosticos"></ul>
-    <input type="hidden" name="NOTIINTERNADOS[diagnosticos]" id="hidden-diagnosticos" value="" />
+    <input type="hidden" name="NOTIINTERNADOS[diagnosticos][]" id="hidden-diagnosticos" value="" />
 </div>
 
   <div class="col-sm-4">
@@ -128,7 +128,9 @@ $(document).ready(function() {
         $("#diagnosticos").val("");
 
         // Actualiza array de diagnósticos
-        $("#hidden-diagnosticos").val(JSON.stringify(NOTIINTERNADOS.diagnosticos));
+     //   $("#hidden-diagnosticos").val(JSON.stringify(NOTIINTERNADOS.diagnosticos));
+        $("#hidden-diagnosticos").val(NOTIINTERNADOS.diagnosticos.join(','));
     });
 });
 </script>
+
