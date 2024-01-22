@@ -13,6 +13,8 @@ class Noticon
     private $tablaInsti;
 	private $pdoZSCORE;   
 	private $tablaResi;
+	private $tablEvol;
+	private $tablaClin;
     private $authentication;
 
     public function __construct(\ClassGrl\DataTables $tablaNinios,
@@ -21,6 +23,8 @@ class Noticon
                                 \ClassGrl\DataTables $tablaInsti,
 								$pdoZSCORE,	
 								\ClassGrl\DataTables $tablaResi,
+								\ClassGrl\DataTables $tablaEvol,
+								\ClassGrl\DataTables $tablaClin,
                                 \ClassGrl\Authentication $authentication)
     {
         $this->tablaNinios = $tablaNinios;
@@ -29,6 +33,8 @@ class Noticon
         $this->tablaInsti = $tablaInsti;
 		$this->pdoZSCORE = $pdoZSCORE;
 		$this->tablaResi = $tablaResi;
+		$this->tablaEvol = $tablaEvol;
+		$this->tablaClin =$tablaClin;
         $this->authentication = $authentication;
     }
 
@@ -49,7 +55,9 @@ if (isset($_GET['id'])) {
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
 
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
-//var_dump($datosNinio);
+	$segunevol=$this->tablaEvol->findAll();
+	$segunclin=$this->tablaClin->findAll();
+    //  var_dump($segunclin);
 	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
 	$datosNinio['edad']=$edad ?? ' ';
 	
@@ -71,6 +79,8 @@ if (isset($_GET['id'])) {
 			       'data_insti'  =>   $data_insti,
 				   'datosNinio'=> $datosNinio ?? ' ',
 				   'datosDomi'=> $datosDomi ?? ' ',
+				   'segunevol'=> $segunevol,
+				   'segunclin'=> $segunclin,
 					 'datosNoti' => $datosNoti  ?? ' '
 									 ]
 
@@ -86,6 +96,8 @@ if (isset($_GET['id'])) {
 			 'data_insti'  =>   $data_insti,
 			 'datosNinio'=> $datosNinio ?? ' ',
 			 'datosDomi'=> $datosDomi ?? ' ',
+			 'segunevol'=> $segunevol,
+			 'segunclin'=> $segunclin,
 			   'datosNoti' => $datosNoti  ?? ' '
 							   ]
 

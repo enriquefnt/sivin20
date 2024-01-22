@@ -1,11 +1,11 @@
 <?php $title="Instructivo" ;?>
 
 <main>
-<section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+<section class="d-flex justify-content-center justify-content-lg-between ">
  <div class="conteiner container-sm">
     <div class="row pt-2">
       <div class="col-12">
-        <p  class="text-center fs-4 fw-bold"> Uso del sistema  </p>
+        <h6  class="text-center fs-5 fw-bold"> Instrucciones  </h6>
       </div>
     </div>
     <div class="row">

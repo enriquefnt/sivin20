@@ -47,7 +47,7 @@
 			 id="NotTalla" required="required" value="<?=$datosNoti['NotTalla'] ?? ''?>">
 </div>
 
-	<div class="col-sm-3">
+	<!-- <div class="col-sm-3">
 	<label class="form-label-sm" for="NotEvo">Evolucion</label>
 	<select name="Noticon[NotEvo]" id="NotEvo" class="form-control form-control-sm">
 		<option hidden selected><?=$datosNoti['NotEvo'] ?? '...'?></option>
@@ -57,20 +57,34 @@
 		<option value=4>En estudio</option>
 		<option value=9>Sin determinar</option>
 		</select>
+	</div> -->
+
+	<div class="col-sm-3">
+	<label class="form-label-sm" for="NotEvo">Evolucion</label>
+	<select name="Noticon[NotEvo]" id="NotEvo" class="form-control form-control-sm">
+		<option hidden selected><?=$datosNoti['NotEvo'] ?? '...'?></option>
+			<?php
+			$sEvo = [];
+			foreach ($segunevol as $sEvo) {
+			echo '<option value=' .  $sEvo['SevoId'].'>' . $sEvo['SevoNom'] .'</option>';
+			}
+			?>
+		</select>
 	</div>
+
+
 
 	
 	<div class="col-sm-3">
 	<label class="form-label-sm" for="NotClinica">Gravedad</label>
 	<select name="Noticon[NotClinica]" id="NotClinica" class="form-control form-control-sm">
-		<option hidden selected><?=$datosNoti['MotId'] ?? '...'?></option>
-		<option value=1>Marasmo</option>
-		<option value=2>Kwashiorkor</option>
-		<option value=3>Marasmo-Kwashiorkor</option>
-		<option value=4>Grave</option>
-		<option value=6>Moderada</option>
-		<option value=5>En estudio</option>
-		<option value=9>Sin determinar</option>
+		<option hidden selected><?=$datosNoti['NotClinica'] ?? '...'?></option>
+		<?php
+			$sCli = [];
+			foreach ($segunclin as $sCli) {
+			echo '<option value=' .  $sCli['SclinId'].'>' . $sCli['SclinNom'] .'</option>';
+			}
+			?>
 		</select>
 	</div>
 	<div class="col-sm-3">

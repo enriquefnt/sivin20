@@ -12,6 +12,8 @@ class SivinWebsite implements \ClassGrl\Website  {
 	private \ClassGrl\DataTables $tablaNoti;
 	private \ClassGrl\DataTables $tablaControl;
 	private \ClassGrl\DataTables $tablaInter;
+	private \ClassGrl\DataTables $tablaEvol;
+	private \ClassGrl\DataTables $tablaClin;
 	private \ClassGrl\DataTables $tablaMotIng;
 	private \ClassGrl\Authentication $Authentication;
 	private \ClassGrl\DataTables $tablaAntro;
@@ -28,11 +30,13 @@ public function __construct() {
 	$this->tablaEtnia = new \ClassGrl\DataTables($pdo,'etnias', 'IdEtnia');
 	$this->tablaLoc = new \ClassGrl\DataTables($pdo,'localidades', 'gid');
 	$this->tablaInsti = new \ClassGrl\DataTables($pdo,'institucion', 'establecimiento_id');
-	$this->tablaResi = new \ClassGrl\DataTables($pdo,'NIÑOSRESIDENCIA', 'IdResi');
+	$this->tablaResi = new \ClassGrl\DataTables($pdo,'NIÑORESIDENCIA', 'IdResi');
 	$this->tablaNoti = new \ClassGrl\DataTables($pdo,'NOTIFICACION', 'NotId');
 	$this->tablaControl = new \ClassGrl\DataTables($pdo,'NOTICONTROL', 'IdCtrol');
 	$this->tablaInter = new \ClassGrl\DataTables($pdo,'NOTIINTERNADOS', 'Idint');
 	$this->tablaMotIng = new \ClassGrl\DataTables($pdo , 'NOTIMOTIVOINTERNACION', 'MI_Id');
+	$this->tablaEvol = new \ClassGrl\DataTables($pdo , 'SEGUNEVOLUCION', 'SevoId');
+	$this->tablaClin = new \ClassGrl\DataTables($pdo , 'SEGUNCLINICA', 'SclinId');
 	$this->authentication = new \ClassGrl\Authentication($this->tablaUser,'user', 'password'); 
 	$this->tablaAntro = new \ClassGrl\DataTables($pdo,'calc_antro', 'idAnt');
 	$this->pdoZSCORE = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2; charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N'); // Asignar el valor a la variable $pdoZSCORE
@@ -74,7 +78,8 @@ public function getController(string $controllerName): ?object {
 		else if ($controllerName === 'noticon') {
 
 			$controller = new  \ClassPart\Controllers\Noticon($this->tablaNinios, $this->tablaNoti, 
-			$this->tablaControl, $this->tablaInsti, $this->pdoZSCORE, $this->tablaResi, $this->authentication);
+			$this->tablaControl, $this->tablaInsti, $this->pdoZSCORE, $this->tablaResi,$this->tablaEvol,
+			$this->tablaClin, $this->authentication);
 			}
 
 			else if ($controllerName === 'interna') {
@@ -87,7 +92,7 @@ public function getController(string $controllerName): ?object {
 
 					$controller = new  \ClassPart\Controllers\Inter( $this->tablaNinios, $this->tablaNoti,$this->tablaResi, $this->tablaInsti, 
 					$this->authentication, 
-					$this->pdoZSCORE );
+					$this->pdoProc );
 					}
 	
 
