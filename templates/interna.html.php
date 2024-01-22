@@ -35,7 +35,7 @@
     	
 	<option value=2>Guardia</option>
 	<option value=3>Terapia intensiva</option>
-	<option value=9>Internacion comun</option>
+	<option value=9>Internación comun</option>
 	<option value=10>CRENI</option>
     <option value=4>Recuperacion nutricional</option>
 	</select>
@@ -127,8 +127,6 @@ $(document).ready(function() {
         $("#lista-diagnosticos").append("<li>" + diagnosticos + "</li>");
         $("#diagnosticos").val("");
 
-        // Actualiza array de diagnósticos
-     //   $("#hidden-diagnosticos").val(JSON.stringify(NOTIINTERNADOS.diagnosticos));
         $("#hidden-diagnosticos").val(NOTIINTERNADOS.diagnosticos.join(','));
     });
 });

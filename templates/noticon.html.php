@@ -58,6 +58,8 @@
 		<option value=9>Sin determinar</option>
 		</select>
 	</div>
+
+	
 	<div class="col-sm-3">
 	<label class="form-label-sm" for="NotClinica">Gravedad</label>
 	<select name="Noticon[NotClinica]" id="NotClinica" class="form-control form-control-sm">
