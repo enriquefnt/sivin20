@@ -14,10 +14,23 @@ public function __construct(\PDO $pdo, string $table, string $primaryKey)
 }
 private function query($sql, $parameters = [])
 {
+	////var_dump($sql);
+//var_dump($parameters);
 	$query = $this->pdo->prepare($sql);
 	$query->execute($parameters);
 	return $query;
 }
+
+// private function query($sql, $parameters = [])
+// {
+//    // $this->pdo->set_charset('UTF-8');
+// 	// $sql = mb_convert_encoding($sql, 'UTF-8', 'ISO-8859-1');
+// 	var_dump($sql);
+// 	$query = $this->pdo->prepare($sql);
+//     $query->execute($parameters);
+//     return $query;
+// }
+
 public function total()
 {
 	$query = $this->query('SELECT COUNT(*) FROM

@@ -25,8 +25,14 @@
       </div>
  <div class="modal-footer">
            
-           
-            <a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir</a>
+ 
+          <div class="col-sm-3">
+            <a href="/interna/inter?id=<?= $datosNinio['IdNinio'] ?? '' ?>&idNoti=<?=$notificacion['IdNotifica'] ?? '' ?>&tabla=ingreso" class="btn btn-primary" role="button">Internación</a>
+            </div>	
+            <div class="col-sm-3">		
+            <a href="/ninios/home"  class="btn btn-primary " role="button">Confirmar y salir</a>
+            </div>	
+
       </div> 
     </div>
   </div>
