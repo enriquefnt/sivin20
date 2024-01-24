@@ -58,9 +58,9 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
 <h4 class="text-white">Sistema de Vigilancia Nutricional SIVIN.2</h4>
 
 <?php if (isset($_SESSION['username'])) 
-{echo "Usuario: " . $_SESSION['nombre'] .' '.$_SESSION['apellido'].' - ' . 
+{echo  "<p> Usuario: <b>" . $_SESSION['nombre'] .' '.$_SESSION['apellido'].' </b>- ' . 
 
-$_SESSION['establecimiento_nombre'];}
+$_SESSION['establecimiento_nombre']. "</p>";}
 
  ?>
 </h5>

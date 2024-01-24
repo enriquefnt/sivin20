@@ -26,14 +26,19 @@
       </div>
   
  <div class="modal-footer">
-           
-            <div class="col-sm-3">		
-            <a href="/interna/inter?id=<?= $datosNinio['IdNinio'] ?? '' ?>&idNoti=<?=$notificacion['IdNotifica'] ?? '' ?>&tabla=ingreso" class="btn btn-primary" role="button">Internación</a>
-            <!-- <a href="/noticon/noti?id=<?= $datosCaso['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary" role="button">Notificar</a> -->
 
-            </div>	
+           <?php if ($datosInter['IntAlta']!="NO") { ?>
             <div class="col-sm-3">		
-            <a href="/ninios/home"  class="btn btn-primary " role="button">Salir</a>
+            <a href="/interna/inter?id=<?= $datosNinio['IdNinio'] ?? '' ?>&idNoti=<?=$notificacion['IdNotifica'] ?? '' ?>&tabla=egreso" class="btn btn-primary" role="button">Internación</a>
+             </div>	
+             <?php } else { ?>
+              <div class="col-sm-3">		
+            <a href="/interna/inter?id=<?= $datosNinio['IdNinio'] ?? '' ?>&idNoti=<?=$notificacion['IdNotifica'] ?? '' ?>&tabla=ingreso" class="btn btn-primary" role="button">Alta Internación</a>
+             </div>
+            <?php } ?>
+             
+             <div class="col-sm-3">		
+            <a href="/ninios/home"  class="btn btn-primary " role="button">Confirmar ysalir</a>
             </div>	
       </div> 
     </div>

@@ -10,6 +10,7 @@ class Noticon
     private $tablaNinios;
     private $tablaNoti;
 	private $tablaControl;
+	private $tablaInter;
     private $tablaInsti;
 	private $pdoZSCORE;   
 	private $tablaResi;
@@ -20,6 +21,7 @@ class Noticon
     public function __construct(\ClassGrl\DataTables $tablaNinios,
                                 \ClassGrl\DataTables $tablaNoti,
                                 \ClassGrl\DataTables $tablaControl,
+								\ClassGrl\DataTables $tablaInter,
                                 \ClassGrl\DataTables $tablaInsti,
 								$pdoZSCORE,	
 								\ClassGrl\DataTables $tablaResi,
@@ -30,6 +32,7 @@ class Noticon
         $this->tablaNinios = $tablaNinios;
         $this->tablaNoti = $tablaNoti;
         $this->tablaControl = $tablaControl;
+		$this->tablaInter = $tablaInter;
         $this->tablaInsti = $tablaInsti;
 		$this->pdoZSCORE = $pdoZSCORE;
 		$this->tablaResi = $tablaResi;
@@ -240,9 +243,12 @@ $this->tablaNoti->save($Notificacion);
 }
 
 //////////////////////para ventanas modales /////////////////////
+$Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
+$Control=$this->tablaControl->findLast('IdNoti', ($Notificacion['NotId'])) ?? [];
+$datosInter= $this->tablaInter->findLast('IdNotifica', ($Notificacion['NotId'])) ?? [];
 
 if ($_GET['tabla']=='notificacion'){
-$Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
+
 
 $Notificacion['colorIMC']=$this->getColorClass($Notificacion['NotZimc']);
 $Notificacion['colorPE']=$this->getColorClass($Notificacion['NotZpe']);
@@ -258,11 +264,8 @@ return ['template' => 'notisucess.html.php',
 ];
      }
 	 else if ($_GET['tabla']=='control'){
-
 		
-		$Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
-		$Control=$this->tablaControl->findLast('IdNoti', ($Notificacion['NotId']));
-		//var_dump($Control);
+		var_dump($datosInter);
 		$Control['colorIMC']=$this->getColorClass($Control['CtrolZimc']);
 		$Control['colorPE']=$this->getColorClass($Control['CtrolZp']);
 		$Control['colorTA']=$this->getColorClass($Control['CtrolZt']);
@@ -272,6 +275,7 @@ return ['template' => 'notisucess.html.php',
 			'Control' => $Control ?? ' ',
 			'Notificacion' => $Notificacion ?? [],
 			'datosNinio'=> $datosNinio ?? [],
+			'datosInter' => $datosInter ?? [],
 			'datosDomi' => $datosDomi
 		]
 		];
@@ -279,9 +283,8 @@ return ['template' => 'notisucess.html.php',
 	 else if ($_GET['tabla']=='cierrenoti'){
 		
 		
-		$Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
-		$Control=$this->tablaControl->findLast('IdNoti', ($Notificacion['NotId']));
-
+		
+		
 		isset($Control[0]) ? $Control['colorIMC']=$this->getColorClass($Control['CtrolZimc']):
 		$Notificacion['colorIMC']=$this->getColorClass($Notificacion['NotZimc']);
 
@@ -321,12 +324,7 @@ else {
 }
 }
 
-// private function calculaEdaddias ($fnac,$fcontrol) {
-	
-// $edadDias = date_diff($fnac, $fcontrol)->days;
-// return $edadDias;
 
-// }
 
 public function calcularEdad($fechaNacimiento, $fechaActual) {
 	$nacimiento = new \DateTime($fechaNacimiento);
