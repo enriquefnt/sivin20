@@ -18,7 +18,7 @@ class SivinWebsite implements \ClassGrl\Website  {
 	private \ClassGrl\Authentication $Authentication;
 	private \ClassGrl\DataTables $tablaAntro;
 	private $pdoZSCORE;
-	private $pdoProc;
+//	private $pdoProc;
 	
 	
 public function __construct() {
@@ -42,7 +42,7 @@ public function __construct() {
 	$this->authentication = new \ClassGrl\Authentication($this->tablaUser,'user', 'password'); 
 	$this->tablaAntro = new \ClassGrl\DataTables($pdo,'calc_antro', 'idAnt');
 	$this->pdoZSCORE = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2;charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N'); // Asignar el valor a la variable $pdoZSCORE
-	$this->pdoProc = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2;charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N'); // Asignar el valor a la variable $pdoZSCORE
+//	$this->pdoProc = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2;charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N'); // Asignar el valor a la variable $pdoZSCORE
 }
 	public function getLayoutVariables(): array {
 
@@ -80,7 +80,7 @@ public function getController(string $controllerName): ?object {
 		else if ($controllerName === 'noticon') {
 
 			$controller = new  \ClassPart\Controllers\Noticon($this->tablaNinios, $this->tablaNoti, 
-			$this->tablaControl, $this->tablaInsti, $this->pdoZSCORE, $this->tablaResi,$this->tablaEvol,
+			$this->tablaControl, $this->tablaInter, $this->tablaInsti, $this->pdoZSCORE, $this->tablaResi,$this->tablaEvol,
 			$this->tablaClin, $this->authentication);
 			}
 
@@ -90,12 +90,12 @@ public function getController(string $controllerName): ?object {
 				$this->tablaMotIng, $this->tablaInsti, $this->authentication);
 				}
 
-				else if ($controllerName === 'listas') {
+				// else if ($controllerName === 'listas') {
 
-					$controller = new  \ClassPart\Controllers\Inter( $this->tablaNinios, $this->tablaNoti,$this->tablaResi, $this->tablaInsti, 
-					$this->authentication, 
-					$this->pdoProc );
-					}
+				// 	$controller = new  \ClassPart\Controllers\Inter( $this->tablaNinios, $this->tablaNoti,$this->tablaResi, $this->tablaInsti, 
+				// 	$this->authentication
+				// 	 );
+				// 	}
 	
 
 	else if ($controllerName === 'antro') {

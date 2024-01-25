@@ -36,8 +36,8 @@
             <ul class="list-group list-group-flush lh-1">
             <li class="list-group-item "><i class="fa-solid fa-check"></i> En la ventana de búsqueda, ingrese nombre u apellido. Si ya existe en el sistema, podrá seleccionarlo para continuar y si no tendra un formulario en blanco para hacerlo..</li>
    <li class="list-group-item "><i class="fa-solid fa-check"></i> Si el caso es cargado por primera vez, tiene la opción de cargar una notificación.</li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Si el caso ya está en el sistema, puede notificarlo, cargar un control, una internación o un alta. </li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit.</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Si el caso ya está en el sistema, puede notificarlo y si ya tiene notificación, cargar un control o cerrar la notificacion. </li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> La carga de un ingreso o egreso a internación, se habilitan luego de cargar un control. No se pueden cargar internaciones ni dar altas si no tiene un control registrado ese dia.</li>
    
     </ul>
           </div>

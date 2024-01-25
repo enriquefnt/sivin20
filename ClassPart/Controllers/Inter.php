@@ -47,6 +47,7 @@ class Inter
         $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
         $datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
      //  var_dump($datosNoti) ;
+        $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['IdNotifica']);
 
         if (isset($_GET['id'])) {
            
@@ -115,7 +116,7 @@ class Inter
       $Internacion['IntAo']=$this->tablaInsti->findById($NOTIINTERNADOS['establecimiento_id'])['AOP'] ?? '';
       $Internacion['IntEfec']=$NOTIINTERNADOS['establecimiento_id'];
       $Internacion['IntSala']=$NOTIINTERNADOS['IntSala'];
-      $Internacion['IntAlta']=$NOTIINTERNADOS['IntAlta']??'NO';
+      $Internacion['IntAlta']=$NOTIINTERNADOS['IntAlta']??'';
       $Internacion['IntFechalta']=$NOTIINTERNADOS['IntFechalta']?? '';
       $Internacion['IntTipoAlta']=$NOTIINTERNADOS['IntTipoAlta']?? '';
       $Internacion['IntDerivado']='';
@@ -145,29 +146,40 @@ foreach ($motivosInterArray as $motivos) {
   }
 }
 
-     $Internacion['Nombre_aop']=$this->tablaInsti->findById($NOTIINTERNADOS['establecimiento_id'])['Nombre_aop'] ?? '';
+    $datosInter=$this->tablaInter->findLast('IdNotifica',  $Internacion['IdNotifica']);
+   // var_dump($datosInter);
+
+    $datosInter['Nombre_aop']=$this->tablaInsti->findById($NOTIINTERNADOS['establecimiento_id'])['Nombre_aop'] ?? '';
     
-     switch ($Internacion['IntSala']) {
+     switch ($datosInter['IntSala']) {
         case 2:
-            $Internacion['Sala'] ='Guardia';
+          $datosInter['Sala'] ='Guardia';
           break;
         case 3:
-            $Internacion['Sala'] ='Terapia intensiva';
+          $datosInter['Sala'] ='Terapia intensiva';
           break;
         case 9:
-            $Internacion['Sala'] ='Internación común';
+          $datosInter['Sala'] ='Internación común';
           break;
           case 10:
-            $Internacion['Sala'] ='CRENI';
+            $datosInter['Sala'] ='CRENI';
           break;
           case 10:
-            $Internacion['Sala'] ='Recuperación Nutricional';
+            $datosInter['Sala'] ='Recuperación Nutricional';
           break;
         default:
-        $Internacion['Sala'] ='Otra';
+        $datosInter['Sala'] ='Otra';
       }
       
-        $datosInter=$Internacion;
+   
+    // if (isset($datosInter['IntFechalta'])){$datosInter['IntAlta']="NO";} else{$datosInter['IntAlta']="SI";}
+     $datosInter['Alta'] = isset($datosInter['IntFechal']) ? 'NO' : 'SI';
+
+      //  $datosInter=$Internacion;
+
+
+        var_dump($datosInter);
+
       $title='Internación';
      
                   return ['template' => 'ingreSucess.html.php',
@@ -178,14 +190,10 @@ foreach ($motivosInterArray as $motivos) {
                               ]
 
              ]; 
-
-
-    
-    
+     
   }
         
-    
-    
+     
     
     
     public function calcularEdad($fechaNacimiento, $fechaActual) {
