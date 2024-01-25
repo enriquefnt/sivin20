@@ -380,4 +380,19 @@ public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control)
     }
 }
 
+public function getAlertClass($value) {
+    switch (true) {
+        case $value > 2:
+            return 'danger';
+        case $value < -2:
+            return 'danger';
+		case ($value >= -1.5 && $value <= 1.5):
+			return 'success';		
+				case ($value < -1.5 && $value >= -2):
+			return 'warning';	
+        default:
+            return 'primary';
+    }
+}
+
 }
