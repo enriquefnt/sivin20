@@ -76,7 +76,7 @@ class Ninios
             $datosNinio = $this->tablaNinios->findById($_GET['id']);
 
             $datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
-         //  var_dump($datosDomi);
+        
            if (is_null($datosDomi['ResiDpto'])){
             $datosDomi['gid']=$this->tablaLoc->find('localidad', $datosDomi['ResiLocal'])[0]['gid'] ?? '' ;
               }
@@ -210,10 +210,8 @@ class Ninios
             }
             $datosCaso['Edad']=$this->calcularEdad($datosCaso['FechaNto'],date('Y-m-d'));
             $datosCaso['Localidad']=$Resi['ResiLocal'];
-            // var_dump($datosCaso);
-                
-            //    var_dump($datosNinio);
-            return ['template' => 'niniosuccess.html.php',
+                           
+                       return ['template' => 'niniosuccess.html.php',
                     'title' => 'Carga' ,
                     'variables' => [
                         'datosCaso' => $datosCaso ?? ' ',

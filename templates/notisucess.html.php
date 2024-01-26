@@ -30,7 +30,7 @@
             <a href="/interna/inter?id=<?= $datosNinio['IdNinio'] ?? '' ?>&idNoti=<?=$notificacion['IdNotifica'] ?? '' ?>&tabla=ingreso" class="btn btn-primary" role="button">Internación</a>
             </div>	
             <div class="col-sm-3">		
-            <a href="/ninios/home"  class="btn btn-primary " role="button">Confirmar y salir</a>
+            <a href="/ninios/home"  class="btn btn-primary " role="button">Guardar</a>
             </div>	
 
       </div> 

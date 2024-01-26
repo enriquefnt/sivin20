@@ -43,12 +43,12 @@ class Inter
             );
         }
        
-        $datosNinio=$this->tablaNinios->findById($_GET['id'])?? [];
+        $datosNinio=$this->tablaNinios->findById($_GET['id'])?? '';
         $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
         $datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
      //  var_dump($datosNoti) ;
-        $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['IdNotifica']);
-
+        $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [] ;
+        var_dump($datosInter) ;
         if (isset($_GET['id'])) {
            
  
@@ -60,7 +60,8 @@ class Inter
                          'variables' => [
                        'data_insti'  =>   $data_insti?? [],
                        'datosNinio'=> $datosNinio?? [],
-                       'datosNoti' => $datosNoti  ?? []
+                       'datosNoti' => $datosNoti  ?? [],
+                       'datosInter' => $datosInter ?? []
                                          ]
     
                         ]; }
@@ -74,7 +75,8 @@ class Inter
                                 'variables' => [
                                 'data_insti'  =>   $data_insti?? [],
                                 'datosNinio'=> $datosNinio ?? [],
-                                'datosNoti' => $datosNoti  ?? []
+                                'datosNoti' => $datosNoti  ?? [],
+                                'datosInter' => $datosInter ?? []
                                 ]
                         ];
 
@@ -116,7 +118,7 @@ class Inter
       $Internacion['IntAo']=$this->tablaInsti->findById($NOTIINTERNADOS['establecimiento_id'])['AOP'] ?? '';
       $Internacion['IntEfec']=$NOTIINTERNADOS['establecimiento_id'];
       $Internacion['IntSala']=$NOTIINTERNADOS['IntSala'];
-      $Internacion['IntAlta']=$NOTIINTERNADOS['IntAlta']??'';
+      $Internacion['IntAlta']=isset($NOTIINTERNADOS['IntFechalta']) ? 'SI' : 'NO';
       $Internacion['IntFechalta']=$NOTIINTERNADOS['IntFechalta']?? '';
       $Internacion['IntTipoAlta']=$NOTIINTERNADOS['IntTipoAlta']?? '';
       $Internacion['IntDerivado']='';
@@ -173,12 +175,12 @@ foreach ($motivosInterArray as $motivos) {
       
    
     // if (isset($datosInter['IntFechalta'])){$datosInter['IntAlta']="NO";} else{$datosInter['IntAlta']="SI";}
-     $datosInter['Alta'] = isset($datosInter['IntFechal']) ? 'NO' : 'SI';
+     
 
       //  $datosInter=$Internacion;
 
 
-        var_dump($datosInter);
+    //    var_dump($datosInter);
 
       $title='Internación';
      

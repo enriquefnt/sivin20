@@ -14,8 +14,18 @@
 <input type="hidden"name="NOTIINTERNADOS[Idint]" id="Idint" value=<?=$datosInter['Idint'] ?? ''?> >
 <input type="hidden" name="NOTIINTERNADOS[IdNotifica]"  id="IdNotifica"   value=<?=$datosNoti['NotId'] ?? ''?>>
 <input type="hidden" name="NOTIINTERNADOS[IdNinio]"  id="IdNinio"   value=<?=$datosNinio['IdNinio'];?>>	          
-   
 
+<?php
+ if ($_GET['tabla']=='egreso'){ ?> 
+<input type="hidden"name="NOTIINTERNADOS[IntFecha]" id="Idint" value=<?=$datosInter['IntFecha'] ?? ''?> >
+<input type="hidden" name="NOTIINTERNADOS[IntAo]"  id="IdNotifica"   value=<?=$datosInter['IntAo'] ?? ''?>>
+<input type="hidden" name="NOTIINTERNADOS[IntEfec]"  id="IdNinio"   value=<?=$datosInter['IntEfec'];?>>	  
+<input type="hidden" name="NOTIINTERNADOS[IntSala]"  id="IdNinio"   value=<?=$datosInter['IntSala'];?>>	  
+ <?php } ?>
+
+
+<?php
+ if ($_GET['tabla']=='ingreso'){ ?>
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="IntFecha">Fecha Ingreso</label>
 			<input class="form-control form-control-sm" type="date" name="NOTIINTERNADOS[IntFecha]" id="IntFecha" required="required" value="<?=$datosInter['IntFecha'] ?? ''?>">
@@ -54,9 +64,8 @@
   <div class="col-sm-4">
   <ul id="lista-diagnosticos"></ul> 
   </div> 
- 
-  <?php
- if ($_GET['tabla']!='ingreso'){ ?>
+ <?php } else { ?>
+  
  
  <div class="col-sm-2">	
 			<label class="form-label-sm" for="IntFechalta">Fecha Egreso</label>

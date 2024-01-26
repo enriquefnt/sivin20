@@ -27,18 +27,18 @@
   
  <div class="modal-footer">
 
-           <?php if ($datosInter['IntAlta']!="NO") { ?>
+           <?php if ( $datosInter==false || $datosInter['IntAlta']=="SI") { ?>
             <div class="col-sm-3">		
-            <a href="/interna/inter?id=<?= $datosNinio['IdNinio'] ?? '' ?>&idNoti=<?=$notificacion['IdNotifica'] ?? '' ?>&tabla=egreso" class="btn btn-primary" role="button">Internación</a>
+            <a href="/interna/inter?id=<?= $datosNinio['IdNinio'] ?? '' ?>&idNoti=<?=$notificacion['IdNotifica'] ?? '' ?>&tabla=ingreso" class="btn btn-primary" role="button">Ingreso Internación</a>
              </div>	
              <?php } else { ?>
               <div class="col-sm-3">		
-            <a href="/interna/inter?id=<?= $datosNinio['IdNinio'] ?? '' ?>&idNoti=<?=$notificacion['IdNotifica'] ?? '' ?>&tabla=ingreso" class="btn btn-primary" role="button">Alta Internación</a>
+            <a href="/interna/inter?id=<?= $datosNinio['IdNinio'] ?? '' ?>&idNoti=<?=$notificacion['IdNotifica'] ?? '' ?>&tabla=egreso" class="btn btn-primary" role="button">Alta Internación</a>
              </div>
             <?php } ?>
              
              <div class="col-sm-3">		
-            <a href="/ninios/home"  class="btn btn-primary " role="button">Confirmar ysalir</a>
+            <a href="/ninios/home"  class="btn btn-primary " role="button">  Salir  </a>
             </div>	
       </div> 
     </div>

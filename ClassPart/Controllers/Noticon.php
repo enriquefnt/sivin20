@@ -53,7 +53,7 @@ public function noti($id=null){
 	        'value'     =>  $institucion['establecimiento_id']
 	    );
 	}
-//var_dump($data_insti);
+
 if (isset($_GET['id'])) {
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
 
@@ -265,7 +265,7 @@ return ['template' => 'notisucess.html.php',
      }
 	 else if ($_GET['tabla']=='control'){
 		
-		var_dump($datosInter);
+	//	var_dump($datosInter);
 		$Control['colorIMC']=$this->getColorClass($Control['CtrolZimc']);
 		$Control['colorPE']=$this->getColorClass($Control['CtrolZp']);
 		$Control['colorTA']=$this->getColorClass($Control['CtrolZt']);
