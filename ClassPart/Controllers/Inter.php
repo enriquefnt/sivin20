@@ -43,13 +43,17 @@ class Inter
             );
         }
        
-        $datosNinio=$this->tablaNinios->findById($_GET['id'])?? '';
-        $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
-        $datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
+        
+        if (isset($_GET['Idint'])) {
+  //        var_dump($_GET);
+          $datosNinio=$this->tablaNinios->findById($_GET['id'])?? '';
+          $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
+          $datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
      //  var_dump($datosNoti) ;
         $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [] ;
         var_dump($datosInter) ;
-        if (isset($_GET['id'])) {
+
+
            
  
           
@@ -75,28 +79,15 @@ class Inter
                                 'variables' => [
                                 'data_insti'  =>   $data_insti?? [],
                                 'datosNinio'=> $datosNinio ?? [],
-                                'datosNoti' => $datosNoti  ?? [],
-                                'datosInter' => $datosInter ?? []
+                                'datosNoti' => $datosNoti  ?? []//,
+                               // 'datosInter' => $datosInter ?? []
                                 ]
                         ];
 
                     }   
     
     public function interSubmit() {
-
-     //  var_dump($_POST['NOTIINTERNADOS']);
-     
-        // $instituciones = $this->tablaInsti->findAll();
-    
-        // foreach($instituciones as $institucion)
-        // {
-        //     $data_insti[] = array(
-        //         'label'     =>  $institucion['Nombre_aop'],
-        //         'value'     =>  $institucion['establecimiento_id']
-        //     );
-        // }
-
-      
+         
      
        $datosNinio=$this->tablaNinios->findById($_POST['NOTIINTERNADOS']['IdNinio']) ?? ' ';
        $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
@@ -106,6 +97,7 @@ class Inter
       // var_dump($ultimomotivo);
       
        $NOTIINTERNADOS = $_POST['NOTIINTERNADOS'];
+       $NOTIINTERNADOS['establecimiento_id']=$this->tablaInter->findLast('IdNotifica',  $Notificacion['NotId'])['IntEfec'] ?? '' ;
       
        $Internacion=[];
        $MotivoInter=[];
@@ -129,23 +121,22 @@ class Inter
 
      $this->tablaInter->save($Internacion);
 
-     $motivosInter = $_POST['NOTIINTERNADOS']['diagnosticos'];
-
+     if (isset($_POST['NOTIINTERNADOS']['diagnosticos'])){
+$motivosInter = $_POST['NOTIINTERNADOS']['diagnosticos'];
 $motivosInterArray = array_map(function($item) {
   return explode(',', $item);
 }, $motivosInter);
-
-
 foreach ($motivosInterArray as $motivos) {
   foreach ($motivos as $motivo) {
       $motivoInternacion = [
           'MI_Id' => '',
           'MI_IntId' => $this->tablaInter->ultimoReg()['Idint'],
-          'MI_Motivo' => $motivo
+          'MI_Motivo' => trim($motivo)
       ];
 
       $this->tablaMotIng->save($motivoInternacion);
   }
+ }
 }
 
     $datosInter=$this->tablaInter->findLast('IdNotifica',  $Internacion['IdNotifica']);
@@ -174,14 +165,7 @@ foreach ($motivosInterArray as $motivos) {
       }
       
    
-    // if (isset($datosInter['IntFechalta'])){$datosInter['IntAlta']="NO";} else{$datosInter['IntAlta']="SI";}
-     
-
-      //  $datosInter=$Internacion;
-
-
-    //    var_dump($datosInter);
-
+    
       $title='Internación';
      
                   return ['template' => 'ingreSucess.html.php',

@@ -72,9 +72,7 @@ if (isset($_GET['id'])) {
 								else if ($_GET['tabla']=='cierrenoti'){
 									$title = 'Cierre notificacion';	}	
 	if($_GET['tabla']=='notificacion'||$_GET['tabla']=='control')	{				
-//	$title = 'Carga Notificación';
-
-		
+	
 
 			  return ['template' => 'noticon.html.php',
 					     'title' => $title ,
@@ -89,9 +87,7 @@ if (isset($_GET['id'])) {
 
 					]; }
 	else {
-	//	$title = 'Cierre Notificación';
-
-		
+	
 
 		return ['template' => 'cierrenoti.html.php',
 				   'title' => $title ,
@@ -124,15 +120,15 @@ $instituciones = $this->tablaInsti->findAll();
 	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d'));
 	$datosNinio['edad']=$edad;
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
-//	var_dump($datosNinio);
+
 	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
-	// var_dump($_POST['Noticon']);
+
 	$Notificacion=[];
 	$Control=[];
 
-	$Notificacion['NotId']=$Notifica['NotId'];
-	//if ($_GET['tabla']=='notificacion') {
+	//$Notificacion['NotId']=$Notifica['NotId'];
+	
 	if ($_GET['tabla']=='notificacion') {
 	$Notificacion['NotId']=$Notifica['NotId'];
 	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
@@ -180,13 +176,17 @@ $instituciones = $this->tablaInsti->findAll();
     $Control['CtrolObservaNutri'] = ltrim($Notifica['NotObserva']);
 	$Control['CtrolObserva'] = $Notifica['NotObsantro'];
 	$Control['CtrolFechapc'] = new \DateTime();
-//var_dump($Control);
+
 	}
+
 	////////////////////////////////////////////////////////
+
 	if ($_GET['tabla']!='cierrenoti'){
 	$imc=($Notifica['NotPeso']/(($Notifica['NotTalla']/100)*($Notifica['NotTalla']/100)));
 	$Notificacion['NotImc'] = $imc;
 	$sexo = ($datosNinio['sexo'] ='Femenino') ? '2' : '1';
+
+////////////////////revisar esto//////////////////////////////////
 
 	$Notificacion['NotZpe']= $this->calcularZScore(
 		$sexo  , 
@@ -227,9 +227,6 @@ $instituciones = $this->tablaInsti->findAll();
 				else if ($_GET['tabla']=='cierrenoti'){
 					$title = 'Cierre notificacion';	}
 	
-	
-//var_dump($Control);
-
 	$errors = [];
 
 
@@ -243,6 +240,7 @@ $this->tablaNoti->save($Notificacion);
 }
 
 //////////////////////para ventanas modales /////////////////////
+
 $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
 $Control=$this->tablaControl->findLast('IdNoti', ($Notificacion['NotId'])) ?? [];
 $datosInter= $this->tablaInter->findLast('IdNotifica', ($Notificacion['NotId'])) ?? [];
