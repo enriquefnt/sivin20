@@ -47,7 +47,7 @@ endif;
 
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="FechaNto">Fecha de Nacimiento</label>
-			<input class="form-control form-control-sm" type="date" name="Ninio[FechaNto]" id="FechaNto" required="required" min="2017-01-01"  max="<?=date('Y-m-d');?>"  value="<?=$datosNinio['FechaNto'] ?? ''?>">
+			<input class="form-control form-control-sm" type="date" name="Ninio[FechaNto]" id="FechaNto" required="required" min="<?=$fechaInf ?? ''?>"  max="<?=date('Y-m-d');?>"  value="<?=$datosNinio['FechaNto'] ?? ''?>">
 </div>
 
 <div class="col-sm-2">
@@ -178,6 +178,19 @@ var auto_complete = new Autocom(document.getElementById('ninio'), {
 	onSelectItem: function(selectedItem) {
 		document.getElementById('idNinio').value = selectedItem.value; 
 	}
+});
+</script>
+
+<script>
+document.getElementById('FechaNto').addEventListener('input', function() {
+    var inputDate = new Date(this.value);
+    var minDate = new Date('<?= $fechaLimite ?>');
+
+    if (inputDate < minDate) {
+        document.getElementById('fechaError').textContent = 'La fecha debe ser al menos 6 años atrás.';
+    } else {
+        document.getElementById('fechaError').textContent = '';
+    }
 });
 </script>
 

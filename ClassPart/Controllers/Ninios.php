@@ -71,6 +71,8 @@ class Ninios
             );
         }
 
+        $fechaInf=$this->calcularFechaMenos(365*6+6);
+       // echo($menosDeSeis);
         if ($_GET['id'] > 0) {
 
             $datosNinio = $this->tablaNinios->findById($_GET['id']);
@@ -122,7 +124,8 @@ class Ninios
             return ['template' => 'ninios.html.php',
                     'title' => $title ,
                     'variables' => [
-                        'etnias' => $etnias ?? ' ',
+                     'fechaInf' => $fechaInf ?? '',
+                       'etnias' => $etnias ?? ' ',
                         'data' =>   $data
                     ]
             ];
@@ -285,6 +288,31 @@ class Ninios
 
         return ['template' => 'home.html.php', 'title' => $title, 'variables' => []];
     }
+
+    public function calcularFechaMenos($dias)
+{
+    // Obtener la fecha actual 
+    $hoy = new \DateTime();
+
+    // Restar el número de días
+    $hoy->sub(new \DateInterval("P{$dias}D"));
+
+    // Obtener la fecha resultante 
+    $fechaAnterior = $hoy->format('Y-m-d');
+
+    return $fechaAnterior;
+}
+
+// public function getDateMinusDays(\DateTimeInterface $date, int $days): \DateTimeInterface {
+//     $date->sub(new \DateInterval("P{$days}D"));
+//     return $date;
+// }
+
+// public function calcularFechaMenos($dias):
+//     $date = new \DateTime();
+//     return $this->getDateMinusDays($date, $dias);
+// }
+
 /*
     public function mi_error_handler($errno, $errstr, $errfile, $errline) {
         if ($errno == E_USER_ERROR) {
