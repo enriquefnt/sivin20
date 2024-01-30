@@ -115,7 +115,7 @@ $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [
       $Internacion['IntSala']=$NOTIINTERNADOS['IntSala'];
       $Internacion['IntAlta']=isset($NOTIINTERNADOS['IntFechalta']) ? 'SI' : 'NO';
       $Internacion['IntFechalta']=$NOTIINTERNADOS['IntFechalta']?? '';
-      $Internacion['IntTipoAlta']=$NOTIINTERNADOS['IntTipoAlta']?? '';
+      $Internacion['IntTipoAlta']=$NOTIINTERNADOS['IntTipoAlta']?? '...';
       $Internacion['IntDerivado']='';
       $Internacion['IntObserva']=trim($NOTIINTERNADOS['IntObserva'])?? '';
       $Internacion['IntUsuario']=$usuario['id_usuario'];
@@ -189,12 +189,15 @@ if (isset($_POST['NOTIINTERNADOS']['diag_egr'])){
         default:
         $datosInter['Sala'] ='Otra';
       }
-      
- //     var_dump($datosInter);
-    
+     
+      if(isset($datosInter['IntFechalta'])){
+        $datosInter['diasInter']=$this->calcularDias($datosInter['IntFecha'], $datosInter['IntFechalta']) ;}
+
+   //  var_dump($datosInter);
+ $template = ($datosInter['IntAlta'] == 'NO') ? 'ingreSucess.html.php' : 'altaSucess.html.php';
       $title='Internación';
      
-                  return ['template' => 'ingreSucess.html.php',
+                  return ['template' => $template,
                   'title' => $title ,
               'variables' => [
               'datosNinio'=> $datosNinio?? [],
@@ -203,8 +206,8 @@ if (isset($_POST['NOTIINTERNADOS']['diag_egr'])){
 
              ]; 
      
-  }
-        
+
+}    
      
     
     
@@ -221,8 +224,17 @@ if (isset($_POST['NOTIINTERNADOS']['diag_egr'])){
     else {
         return "  $meses m $dias d   ";
     }
-    }
+  }
 
+    private function calcularDias($fechaIni, $fechaFin) {
+      $inicio = new \DateTime($fechaIni);
+      $fin = new \DateTime($fechaFin);
+      $dias = $inicio->diff($fin);
+        
+          $ndias = $dias->days;
+   
+      return $ndias;
+  }
+  }
 
-
-}
+ 
