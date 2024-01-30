@@ -98,7 +98,7 @@
         
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
+          <h6 class="text-uppercase fw-bold mb-4"><i class="fas fa-gem me-3 text-primary"></i>Contacto</h6>
           <p><i class="fas fa-home me-3 text-secondary"></i> Belgrano 1349 -1º piso - Salta Capital - CP 4400</p>
           <p><i class="fas fa-envelope me-3 text-secondary"></i>observatorionutri@gmail.com </p>
           <p><i class="fas fa-phone me-3 text-secondary"></i> 0387-4370128/127 <br> &nbsp &nbsp &nbsp &nbsp  0387-152458570</p>
@@ -113,7 +113,7 @@
   <section class="d-flex justify-content-center justify-content-sm-between p-4 border-bottom">
     <!-- Left -->
     <div class="me-5 d-none d-lg-block">
-      <span>Nuestras redes sociales:</span>
+      <span><b>Nuestras redes sociales:</b></span>
     </div>
     <!-- Left -->
 

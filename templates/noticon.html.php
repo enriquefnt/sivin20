@@ -2,7 +2,7 @@
 
 <div class="container">
    <legend class="w-80 p-0 h-0 ">
-    <p>Ficha de <?php echo $_GET['tabla']=='notificacion' ? 'Notificación' : 'Control'; ?>
+    <p>Carga de  <?php echo $_GET['tabla']=='notificacion' ? 'Notificación' : 'Control'; ?>
     </p>
 </legend>
 <fieldset class="border p-2">

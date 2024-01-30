@@ -12,15 +12,15 @@
 <form onkeydown="return event.key != 'Enter';" class="row g-3" action=""   id="interFormulario" method="post" autocomplete="off" >
 
 <input type="hidden"name="NOTIINTERNADOS[Idint]" id="Idint" value=<?=$datosInter['Idint'] ?? ''?> >
-<input type="hidden" name="NOTIINTERNADOS[IdNotifica]"  id="IdNotifica"   value=<?=$datosNoti['NotId'] ?? ''?>>
+<input type="hidden" name="NOTIINTERNADOS[IdNotifica]"  id="IdNotifica"   value=<?=$Notificacion['NotId'] ?? ''?>>
 <input type="hidden" name="NOTIINTERNADOS[IdNinio]"  id="IdNinio"   value=<?=$datosNinio['IdNinio'];?>>	          
 
 <?php
  if ($_GET['tabla']=='egreso'){ ?> 
 <input type="hidden"name="NOTIINTERNADOS[IntFecha]" id="Idint" value=<?=$datosInter['IntFecha'] ?? ''?> >
 <input type="hidden" name="NOTIINTERNADOS[IntAo]"  id="IdNotifica"   value=<?=$datosInter['IntAo'] ?? ''?>>
-<input type="hidden" name="NOTIINTERNADOS[IntEfec]"  id="IdNinio"   value=<?=$datosInter['IntEfec'];?>>	  
-<input type="hidden" name="NOTIINTERNADOS[IntSala]"  id="IdNinio"   value=<?=$datosInter['IntSala'];?>>	  
+<input type="hidden" name="NOTIINTERNADOS[IntEfec]"  id="IntEfec"   value=<?=$datosInter['IntEfec'];?>>	  
+<input type="hidden" name="NOTIINTERNADOS[IntSala]"  id="IntSala"   value=<?=$datosInter['IntSala'];?>>	  
  <?php } ?>
 
 
@@ -32,9 +32,9 @@
 </div>
 
 <div class="col-sm-3">	
-			<label class="form-label-sm" for="IntEfec">Efector</label>
-			<input class="form-control form-control-sm" type="text" name="NOTIINTERNADOS[IntEfec]" id="IntEfec" required="required" value="<?=$datosInter['IntEfec'] ?? ''?>">
-			<input type="hidden" name="NOTIINTERNADOS[establecimiento_id]" id="establecimiento_id" value="<?= $data['value'] ?? $datosNoti['establecimiento_id'] ?? '' ?>" />
+			<label class="form-label-sm" for="Nombre_aop">Efector</label>
+			<input class="form-control form-control-sm" type="text" name="NOTIINTERNADOS[Nombre_aop]" id="Nombre_aop" required="required" value="<?=$datosInter['Nombre_aop'] ?? ''?>">
+			<input type="hidden" name="NOTIINTERNADOS[IntEfec]" id="IntEfec" value="<?= $data['value'] ?? $datosInter['IntEfec'] ?? '' ?>" />
 </div>
 
 
@@ -114,11 +114,11 @@ var options = {
  highlightTyped: true,
  highlightClass: 'fw-bold text-primary',
  onSelectItem: function(selectedItem) {
-    document.getElementById('establecimiento_id').value = parseInt(selectedItem.value); // Asignar el valor del item seleccionado al input hidden
+    document.getElementById('IntEfec').value = parseInt(selectedItem.value); // Asignar el valor del item seleccionado al input hidden
 }
 };
 
-var auto_complete = new Autocom(document.getElementById('IntEfec'), options);
+var auto_complete = new Autocom(document.getElementById('Nombre_aop'), options);
 </script>
 
 <script>
