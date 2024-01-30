@@ -10,28 +10,31 @@ class Inter
     private $tablaInter;
     private $tablaNinios;
     private $tablaNoti;
-    private $tablaMotIng;  
     private $tablaInsti;
-	  private $authentication;
+    private $tablaMotIng;  
+    private $tablaDiagEgr;
+    private $authentication;
 
     public function __construct(\ClassGrl\DataTables $tablaInter,
                                 \ClassGrl\DataTables $tablaNinios,
                                 \ClassGrl\DataTables $tablaNoti,
+                                \ClassGrl\DataTables $tablaInsti,
                                 \ClassGrl\DataTables $tablaMotIng,  
-                                 \ClassGrl\DataTables $tablaInsti,
+                                \ClassGrl\DataTables $tablaDiagEgr, 
 							                	\ClassGrl\Authentication $authentication)
     {
         $this->tablaInter = $tablaInter;
         $this->tablaNinios = $tablaNinios;
         $this->tablaNoti = $tablaNoti;
-        $this->tablaMotIng  = $tablaMotIng;
         $this->tablaInsti = $tablaInsti;
-		$this->authentication = $authentication;
+        $this->tablaMotIng  = $tablaMotIng;
+        $this->tablaDiagEgr  = $tablaDiagEgr;
+        $this->authentication = $authentication;
     }
 
 
 
-    public function inter($id=null){
+    public function inter($Idint=null){
 
         $instituciones = $this->tablaInsti->findAll();
     
@@ -49,20 +52,11 @@ class Inter
  $datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
 //  var_dump($datosNoti) ;
 $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [] ;
-//   var_dump($datosInter) ;
-
-
-
-
+ 
         
         if (isset($_GET['Idint'])) {
- 
-
-
-           
- 
-          
-          $title='Internación';
+      //    var_dump($datosInter) ;
+           $title='Internación';
     
                   return ['template' => 'interna.html.php',
                              'title' => $title ,
@@ -131,7 +125,7 @@ $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [
      $this->tablaInter->save($Internacion);
   
 
-
+/////////////////guarda motivos de ingreso /////////////////////
 
      if (isset($_POST['NOTIINTERNADOS']['diagnosticos'])){
 $motivosInter = $_POST['NOTIINTERNADOS']['diagnosticos'];
@@ -150,6 +144,27 @@ foreach ($motivosInterArray as $motivos) {
   }
  }
 }
+
+///////////////////guarda diagnosticos de alta ///////////////////
+if (isset($_POST['NOTIINTERNADOS']['diag_egr'])){
+  $diagEgreso = $_POST['NOTIINTERNADOS']['diag_egr'];
+  $diagEgresoArray = array_map(function($item) {
+    return explode(',', $item);
+  }, $diagEgreso);
+  foreach ($diagEgresoArray as $diags) {
+    foreach ($diags as $diag) {
+        $diagEgresos = [
+            'MA_Id' => '',
+            'MA_IntId' => $this->tablaInter->ultimoReg()['Idint'],
+            'MA_Motivo' => trim($diag)
+        ];
+  
+        $this->tablaDiagEgr->save($diagEgresos);
+    }
+   }
+  }
+////////////////////////////////////////////////////////////////
+
 
     $datosInter=$this->tablaInter->findLast('IdNotifica',  $Internacion['IdNotifica']);
 
@@ -175,7 +190,7 @@ foreach ($motivosInterArray as $motivos) {
         $datosInter['Sala'] ='Otra';
       }
       
-      var_dump($datosInter);
+ //     var_dump($datosInter);
     
       $title='Internación';
      
