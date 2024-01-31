@@ -10,7 +10,8 @@
 	          
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NotFechaFin">Fecha</label>
-			<input class="form-control form-control-sm" type="date" name="Noticon[NotFechaFin]" id="NotFechaFin" required="required" value="<?=$datosNoti['NotFecha'] ?? ''?>">
+			<input class="form-control form-control-sm" type="date" max="<?=date('Y-m-d');?>"
+			name="Noticon[NotFechaFin]" id="NotFechaFin" required="required" value="">
 </div>
 
 

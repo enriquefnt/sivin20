@@ -16,7 +16,8 @@
           
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NotFecha">Fecha</label>
-			<input class="form-control form-control-sm" type="date" name="Noticon[NotFecha]" id="NotFecha" required="required" value="<?=$datosNoti['NotFecha'] ?? ''?>">
+			<input class="form-control form-control-sm" type="date" min="<?= date('Y-m-d', strtotime('-60 days')); ?>" max="<?=date('Y-m-d');?>"
+			name="Noticon[NotFecha]" id="NotFecha" required="required" value="<?=$datosNoti['NotFecha'] ?? ''?>">
 </div>
 <div class="col-sm-3">	
 			<label class="form-label-sm" for="NotEfec">Efector</label>
