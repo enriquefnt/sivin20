@@ -104,7 +104,7 @@ class Ninios
            
 
             $datosNinio['notificado'] = ($ultimaNotificacion === 'SI'||$totalNotificaciones === 0) ? 0 : 1;
-           
+            $datosNinio['idNoti']=$resultado['NotId'] ?? '' ;
            
             $title = 'Ver Caso';
 

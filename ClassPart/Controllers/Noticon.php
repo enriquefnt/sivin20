@@ -56,12 +56,12 @@ public function noti($id=null){
 
 if (isset($_GET['id'])) {
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
-
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
+	$datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
+	//$datosCtrl=$this->tablaControl->findLast('IdNoti',$datosNoti['NotId']);
 	$segunevol=$this->tablaEvol->findAll();
 	$segunclin=$this->tablaClin->findAll();
-    //  var_dump($segunclin);
-	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
+   	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
 	$datosNinio['edad']=$edad ?? ' ';
 	
 						}
@@ -81,13 +81,13 @@ if (isset($_GET['id'])) {
 				   'datosNinio'=> $datosNinio ?? ' ',
 				   'datosDomi'=> $datosDomi ?? ' ',
 				   'segunevol'=> $segunevol,
-				   'segunclin'=> $segunclin,
-					 'datosNoti' => $datosNoti  ?? ' '
+				   'segunclin'=> $segunclin //,
+					// 'datosNoti' => $datosNoti  ?? ' '
 									 ]
 
 					]; }
 	else {
-	
+	//	var_dump($datosNoti);
 
 		return ['template' => 'cierrenoti.html.php',
 				   'title' => $title ,
@@ -120,6 +120,8 @@ $instituciones = $this->tablaInsti->findAll();
 	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d'));
 	$datosNinio['edad']=$edad;
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
+	
+
 
 	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
@@ -151,6 +153,7 @@ $instituciones = $this->tablaInsti->findAll();
 
 	else if($_GET['tabla']=='cierrenoti'){
 	$Notificacion['NotId']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
+	$Notificacion['NotFecha']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))['NotFecha'] ?? ' ';
 	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
 	$Notificacion['NotFin'] = $Notifica['NotFin']?? 'SI ';
 	$Notificacion['NotFechaFin'] = $Notifica['NotFechaFin']?? ' ';//

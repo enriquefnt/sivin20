@@ -137,7 +137,7 @@ endif;
 		</div>
         <?php if (isset($datosNinio['notificado']) && $datosNinio['notificado'] === 0): ?>
 		<div class="col-sm-3">
- 			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary" role="button">Notificación</a>
+ 			<a href="/noticon/noti?idNoti=<?= $datosNinio['idNoti'] ?? '' ?>&id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary" role="button">Notificación</a>
 		</div>
 			<?php elseif (isset($datosNinio['notificado']) && $datosNinio['notificado'] === 1): ?>
 		<div class="col-sm-3">		

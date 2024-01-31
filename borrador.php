@@ -1,80 +1,22 @@
-
-
-<div class="col-sm-4">
-    <label class="form-label-sm" for="diag_egr">Diagnósticos de egreso</label>
-    <input type="text" id="diag_egr" class="form-control form-control-sm" placeholder="Ingrese diagnóstico" /><br>
-    <input type="button" value="Agregar diagnóstico" id="agregar-diag_egr" class="btn btn-primary" />
-    <ul id="lista-diagnosticos"></ul>
-    <input type="hidden" name="NOTIINTERNADOS[diag_egr][]" id="hidden-diag_egr" value="" />
+<div class="col-sm-2">    
+    <label class="form-label-sm" for="FechaNto">Fecha de Nacimiento</label>
+    <?php
+    // Calcular la fecha correspondiente a 6 años atrás
+    $fechaLimite = date('Y-m-d', strtotime('-6 years'));
+    ?>
+    <input class="form-control form-control-sm" type="date" name="Ninio[FechaNto]" id="FechaNto" required="required" min="<?= $fechaLimite ?>"  max="<?= date('Y-m-d'); ?>"  value="<?= $datosNinio['FechaNto'] ?? '' ?>">
+    <span id="fechaError" style="color: red;"></span>
 </div>
 
-  <div class="col-sm-4">
-  <ul id="lista-diag_egr"></ul> 
-  </div> 
+<script>
+document.getElementById('FechaNto').addEventListener('input', function() {
+    var inputDate = new Date(this.value);
+    var minDate = new Date('<?= $fechaLimite ?>');
 
-  <script>
-$(document).ready(function() {
-  
-    $("#agregar-diag_egr").click(function() {
-        var diag_egr = $("#diag_egr").val();
-        NOTIINTERNADOS.diag_egr.push(diag_egr);
-        $("#lista-diag_egr").append("<li>" + diag_egr + "</li>");
-        $("#diag_egr").val("");
-
-        $("#hidden-diag_egr").val(NOTIINTERNADOS.diag_egr.join(','));
-    });
+    if (inputDate < minDate) {
+        document.getElementById('fechaError').textContent = 'La fecha debe ser al menos 6 años atrás.';
+    } else {
+        document.getElementById('fechaError').textContent = '';
+    }
 });
 </script>
-
-<div class="col-sm-4">
-    <label class="form-label-sm" for="diag_egr">Diagnósticos de egreso</label>
-    <input type="text" id="diag_egr" class="form-control form-control-sm" placeholder="Ingrese diagnóstico" /><br>
-    <input type="button" value="Agregar diagnóstico" id="agregar-diag_egr" class="btn btn-primary" />
-    <ul id="lista-diagnosticos"></ul>
-    <input type="hidden" name="NOTIINTERNADOS[diag_egr][]" id="hidden-diag_egr" value="" />
-</div>
-
-  <div class="col-sm-4">
-  <ul id="lista-diag_egr"></ul> 
-  </div> 
-
-  <script>
-$(document).ready(function() {
-  
-    $("#agregar-diag_egr").click(function() {
-        var diag_egr = $("#diag_egr").val();
-        NOTIINTERNADOS.diag_egr.push(diag_egr);
-        $("#lista-diag_egr").append("<li>" + diag_egr + "</li>");
-        $("#diag_egr").val("");
-
-        $("#hidden-diag_egr").val(NOTIINTERNADOS.diag_egr.join(','));
-    });
-});
-</script>
-
-<div class="col-sm-4">
-    <label class="form-label-sm" for="diag_egr">Diagnósticos de egreso</label>
-    <input type="text" id="diag_egr" class="form-control form-control-sm" placeholder="Ingrese diagnóstico" /><br>
-    <input type="button" value="Agregar diagnóstico" id="agregar-diag_egr" class="btn btn-primary" />
-    <ul id="lista-diagnosticos"></ul>
-    <input type="hidden" name="NOTIINTERNADOS[diag_egr][]" id="hidden-diag_egr" value="" />
-</div>
-
-  <div class="col-sm-4">
-  <ul id="lista-diag_egr"></ul> 
-  </div> 
-
-  <script>
-$(document).ready(function() {
-  
-    $("#agregar-diag_egr").click(function() {
-        var diag_egr = $("#diag_egr").val();
-        NOTIINTERNADOS.diag_egr.push(diag_egr);
-        $("#lista-diag_egr").append("<li>" + diag_egr + "</li>");
-        $("#diag_egr").val("");
-
-        $("#hidden-diag_egr").val(NOTIINTERNADOS.diag_egr.join(','));
-    });
-});
-</script>
-
