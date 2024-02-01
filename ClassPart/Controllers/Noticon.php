@@ -56,12 +56,31 @@ public function noti($id=null){
 
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
-	$datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
+	$datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id'])) ?? [];
 	//$datosCtrl=$this->tablaControl->findLast('IdNoti',$datosNoti['NotId']);
 	$segunevol=$this->tablaEvol->findAll();
 	$segunclin=$this->tablaClin->findAll();
    	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
 	$datosNinio['edad']=$edad ?? ' ';
+
+	//var_dump($datosNoti);
+	if ($datosNoti != false){$ultimaNoti = $datosNoti['NotFecha'];
+		$NotId=$datosNoti['NotId']?? '' ;}		
+	else {$ultimaNoti='1970-01-01';
+		$NotId=null;
+	}
+	echo('notid '.$NotId);
+	$ultiControl = $this->tablaControl->findLast('IdNoti', $NotId)['CtrolFecha']?? '1970-01-02';
+	if ($datosNoti != false){
+	$fechaMinima = $ultiControl > $ultimaNoti ? $ultiControl : $ultimaNoti; }
+	else {
+		$fechaMinima =date('Y-m-d', strtotime('-60 days'));
+		}
+
+
+	echo('ultimo noti '.$ultimaNoti);	
+	echo('ultimo control '.$ultiControl);
+	echo('Minima '.$fechaMinima);
 
 	if ($_GET['tabla']=='notificacion'){
 		$title = 'Notificacion';}
@@ -84,7 +103,8 @@ if (isset($_GET['idNoti'])) {
 				   'datosNinio'=> $datosNinio ?? ' ',
 				   'datosDomi'=> $datosDomi ?? ' ',
 				   'segunevol'=> $segunevol,
-				   'segunclin'=> $segunclin //,
+				   'segunclin'=> $segunclin ,
+				   'fechaMinima'=>$fechaMinima
 					// 'datosNoti' => $datosNoti  ?? ' '
 									 ]
 
@@ -102,7 +122,8 @@ if (isset($_GET['idNoti'])) {
 			 'datosDomi'=> $datosDomi ?? ' ',
 			 'segunevol'=> $segunevol,
 			 'segunclin'=> $segunclin,
-			   'datosNoti' => $datosNoti  ?? ' '
+			   'datosNoti' => $datosNoti  ?? ' ',
+			   'fechaMinima'=>$fechaMinima
 							   ]
 
 			  ]; }
