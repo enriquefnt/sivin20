@@ -54,7 +54,6 @@ public function noti($id=null){
 	    );
 	}
 
-if (isset($_GET['id'])) {
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
 	$datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
@@ -63,14 +62,18 @@ if (isset($_GET['id'])) {
 	$segunclin=$this->tablaClin->findAll();
    	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
 	$datosNinio['edad']=$edad ?? ' ';
+
+	if ($_GET['tabla']=='notificacion'){
+		$title = 'Notificacion';}
+		else if ($_GET['tabla']=='control'){
+			$title = 'Control';	}
+			else if ($_GET['tabla']=='cierrenoti'){
+				$title = 'Cierre notificacion';	}
+
+if (isset($_GET['idNoti'])) {
 	
-						}
-						if ($_GET['tabla']=='notificacion'){
-							$title = 'Notificacion';}
-							else if ($_GET['tabla']=='control'){
-								$title = 'Control';	}
-								else if ($_GET['tabla']=='cierrenoti'){
-									$title = 'Cierre notificacion';	}	
+	
+							
 	if($_GET['tabla']=='notificacion'||$_GET['tabla']=='control')	{				
 	
 
@@ -85,8 +88,10 @@ if (isset($_GET['id'])) {
 					// 'datosNoti' => $datosNoti  ?? ' '
 									 ]
 
-					]; }
-	else {
+					]; } 
+				
+
+	elseif ($_GET['tabla']=='cierrenoti') {
 	//	var_dump($datosNoti);
 
 		return ['template' => 'cierrenoti.html.php',
@@ -101,6 +106,7 @@ if (isset($_GET['id'])) {
 							   ]
 
 			  ]; }
+			}
 	}
 
 public function notiSubmit() {
