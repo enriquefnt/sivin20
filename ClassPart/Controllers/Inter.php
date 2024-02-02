@@ -71,7 +71,7 @@ else {
 
         
         if (isset($_GET['Idint'])) {
-      //    var_dump($datosInter) ;
+      
            $title='Internación';
     
                   return ['template' => 'interna.html.php',
@@ -112,16 +112,9 @@ else {
        $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_POST['NOTIINTERNADOS']['IdNinio']));
       
       $NOTIINTERNADOS = $_POST['NOTIINTERNADOS'];
-      //  if (is_null($NOTIINTERNADOS['establecimiento_id'])){
-      //    $NOTIINTERNADOS['establecimiento_id']=$this->tablaInter->findLast('IdNotifica',  $Notificacion['NotId'])['IntEfec'] ?? '' ;
-      //    } 
-      
-    //   if (!array_key_exists('establecimiento_id', $NOTIINTERNADOS)) {
-    //     $NOTIINTERNADOS['establecimiento_id'] = $this->tablaInter->findLast('IdNotifica', $Notificacion['NotId'])['IntEfec'] ?? '' ;
-    // }
-
+   
        $Internacion=[];
-    //   var_dump($NOTIINTERNADOS);
+
        
       
     
