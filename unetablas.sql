@@ -1,5 +1,9 @@
-Select NotId AS IdNoti, DATE_FORMAT(NotFecha , "%d/%m/%Y") AS Fecha, ApeNom As Nombre,ApeResp AS Responsable, IdNiño,
-	
+Select NotId AS IdNoti, DATE_FORMAT(NotFecha , "%d/%m/%Y") AS Fecha, NotFecha AS Ordena,
+ApeNom As Nombre, ApeResp AS Responsable,ResiDire as Domicilio,
+@tabla:="Notificación" AS Tipo, Ao_Nom AS AOP,IdNinio,
+ ROUND(NotPeso,2) AS Peso, NotTalla AS Talla,
+ ROUND(NotZpe,2) AS ZPesoEdad ,ROUND(NotZta,2) 
+ AS ZTallaEdad ,ROUND(NotZimc,2) AS ZIMCEdad ,
 IF (NotFecha <> "31/12/25",floor(DATEDIFF(NotFecha, FechaNto)/365.25),floor(DATEDIFF(CURDATE(), FechaNto)/365.25))  AS años,
 IF (NotFecha <> "31/12/25",floor((DATEDIFF(NotFecha, FechaNto)%365.25)/30.4375),floor((DATEDIFF(CURDATE(), FechaNto)%365.25)/30.4375))  AS meses,
 IF (NotFecha <> "31/12/25",floor(datediff(NotFecha, FechaNto) % 30.4375),floor(datediff(CURDATE(),FechaNto) % 30.4375))  AS dias,
@@ -7,16 +11,8 @@ IF (NotFecha <> "31/12/25",floor(datediff(NotFecha, FechaNto) % 30.4375),floor(d
 
 IF (NotFecha <> "31/12/25",floor(DATEDIFF(CURDATE(), FechaNto)/365.25),floor(DATEDIFF(CURDATE(), FechaNto)/365.25))  AS añosr,
 IF (NotFecha <> "31/12/25",floor((DATEDIFF(CURDATE(), FechaNto)%365.25)/30.4375),floor((DATEDIFF(CURDATE(), FechaNto)%365.25)/30.4375))  AS mesesr,
-IF (NotFecha <> "31/12/25",floor(datediff(CURDATE(), FechaNto) % 30.4375),floor(datediff(CURDATE(),FechaNto) % 30.4375))  AS diasr
-
-
-	, Ao_Nom AS AOP,Est_Nom, ResiDire as Domicilio, ROUND(NotPeso,2) AS Peso, 
-    NotTalla AS Talla, ROUND(NotZpe,2) AS ZPesoEdad ,ROUND(NotZta,2)  AS ZTallaEdad ,
- 	ROUND(NotZimc,2) AS ZIMCEdad , MotNom, SevoNom, SclinNom,@tabla:="Notificación" AS Tipo, 
-    if(NotFin="SI","Alta","Activo") AS Estado, NotFecha AS Ordena, 
-    if(NotMatricula="SIN DATO","NO","SI") AS Medico, Aoresi,NotFin,IdCtrol,NotFin, TIMESTAMPDIFF(DAY, NotFecha, now()) AS dias_transcurridos,
-    DATEDIFF( NotFechaSist, NotFecha) as retraso,  CONCAT(Ape,", ",Nom) AS vigilante,
-    CASE
+IF (NotFecha <> "31/12/25",floor(datediff(CURDATE(), FechaNto) % 30.4375),floor(datediff(CURDATE(),FechaNto) % 30.4375))  AS diasr,
+CASE
     WHEN  
     (NotZpe > 7 OR NotZimc > 7 OR NotZta > 7 OR 
 			NotZpe < -7 OR NotZimc < -7 OR NotZta < -7) 
@@ -55,24 +51,29 @@ CASE
     THEN "FA180480"  
 END 
 AS color
-from NOTIFICACION 
-left join NIÑOS on NotNiño=IdNiño
-left join SEGUNEVOLUCION on NotEvo = SevoId
-left join SEGUNCLINICA on NotClinica = SclinId
-left join MOTIVOSNOTI on NotMotivo = MotId
-left join AREAS on Aoresi=Ao_Id
-left join NIÑORESIDENCIA on IdNiño =ResiNiño
+
+from NOTIFICACION
 left join NOTICONTROL on NotId=IdNoti
-inner join ESTABLECIMIENTOS on NotEfec =Est_Id
-inner join USUARIOS on NotUsuario = Idusuario
-where 
+inner join NIÑOS on NotNinio=IdNinio
+inner join AREAS on Aoresi=Ao_Id
+right join NIÑORESIDENCIA on IdNinio =ResiNinio
+left join MOTIVOSNOTI on NotMotivo = MotId
+ where 
 -- Aoresi= aope AND 
-NotFin="NO" AND 
-IdCtrol IS null
+ NotFin="NO" 
+ --  
+ AND IdCtrol IS null
 
 UNION
-select t.IdNoti, DATE_FORMAT(t.CtrolFecha , "%d/%m/%Y") AS Fecha, ApeNom As Nombre,ApeResp AS Responsable, IdNiño,
-	
+select t.IdNoti, DATE_FORMAT(t.CtrolFecha , "%d/%m/%Y") AS Fecha, @ordena:=CtrolFecha,
+ApeNom As Nombre, ApeResp AS Responsable,ResiDire as Domicilio,
+@tabla:="Control" AS Tipo, Ao_Nom AS AOP,IdNinio,
+ROUND(t.CtrolPeso,2) AS Peso,
+	CtrolTalla AS Talla, ROUND(t.CtrolZp,2) AS ZPesoEdad ,ROUND(t.CtrolZt,2)  AS ZTallaEdad , 
+    ROUND(t.CtrolZimc,2) AS ZIMCEdad ,
+ 
+
+
 
 IF (t.CtrolFecha <> "31/12/25",floor(DATEDIFF(t.CtrolFecha, FechaNto)/365.25),floor(DATEDIFF(CURDATE(), FechaNto)/365.25))  AS años,
 IF (t.CtrolFecha <> "31/12/25",floor((DATEDIFF(t.CtrolFecha, FechaNto)%365.25)/30.4375),floor((DATEDIFF(CURDATE(), FechaNto)%365.25)/30.4375))  AS meses,
@@ -80,16 +81,7 @@ IF (t.CtrolFecha <> "31/12/25",floor(datediff(t.CtrolFecha, FechaNto) % 30.4375)
 
 IF (t.CtrolFecha <> "31/12/25",floor(DATEDIFF(CURDATE(), FechaNto)/365.25),floor(DATEDIFF(CURDATE(), FechaNto)/365.25))  AS añosr,
 IF (t.CtrolFecha <> "31/12/25",floor((DATEDIFF(CURDATE(), FechaNto)%365.25)/30.4375),floor((DATEDIFF(CURDATE(), FechaNto)%365.25)/30.4375))  AS mesesr,
-IF (t.CtrolFecha <> "31/12/25",floor(datediff(CURDATE(), FechaNto) % 30.4375),floor(datediff(CURDATE(),FechaNto) % 30.4375))  AS diasr
-
-
-
-	, Ao_Nom AS AOP,Est_Nom, ResiDire as Domicilio, ROUND(t.CtrolPeso,2) AS Peso,
-	CtrolTalla AS Talla, ROUND(t.CtrolZp,2) AS ZPesoEdad ,ROUND(t.CtrolZt,2)  AS ZTallaEdad , 
-    ROUND(t.CtrolZimc,2) AS ZIMCEdad , MotNom, SevoNom, SclinNom,
-	@tabla:="Control" AS Tipo,if(NotFin="SI","Alta","Activo") AS Estado, @ordena:=CtrolFecha,
-	if(CtrolMatricula="SIN DATO","NO","SI") AS Medico,Aoresi,NotFin,IdCtrol,NotFin, TIMESTAMPDIFF(DAY, CtrolFecha, now()) AS dias_transcurridos,
-	DATEDIFF(CtrolFechapc,CtrolFecha) AS retraso ,  CONCAT(Ape,", ",Nom)  AS vigilante,
+IF (t.CtrolFecha <> "31/12/25",floor(datediff(CURDATE(), FechaNto) % 30.4375),floor(datediff(CURDATE(),FechaNto) % 30.4375))  AS diasr,
 				 CASE
 				    WHEN  
     CtrolZp > 7 OR CtrolZimc > 7 OR CtrolZt > 7 OR
@@ -129,22 +121,19 @@ CASE
     
 END 
 AS color
-				from NOTICONTROL t
-                inner join NOTIFICACION on IdNoti=NotId
-				inner join NIÑOS on NotNiño=IdNiño
-                  inner join (select IdNoti, max(CtrolFecha) as MaxdateCtrl
+
+from NOTICONTROL t
+inner join NOTIFICACION on IdNoti=NotId
+inner join NIÑOS on NotNinio=IdNinio
+ inner join (select IdNoti, max(CtrolFecha) as MaxdateCtrl
 				  from NOTICONTROL
 				  group by IdNoti)
-                  tm on t.IdNoti= tm.IdNoti and t.CtrolFecha = tm.MaxDateCtrl           
-				inner join SEGUNEVOLUCION on NotEvo = SevoId
-				inner join SEGUNCLINICA on NotClinica = SclinId
-				inner join MOTIVOSNOTI on NotMotivo = MotId
-				inner join AREAS on Aoresi=Ao_Id
-				inner join NIÑORESIDENCIA on IdNiño =ResiNiño
-                inner join ESTABLECIMIENTOS on CtrolEfec =Est_Id
-				inner join USUARIOS on CtrolUsuario = Idusuario
-								where 
+                  tm on t.IdNoti= tm.IdNoti and t.CtrolFecha = tm.MaxDateCtrl 
+inner join AREAS on Aoresi=Ao_Id
+inner join NIÑORESIDENCIA on IdNinio =ResiNinio
+inner join MOTIVOSNOTI on NotMotivo = MotId
+where 
                                 -- Aoresi= aope AND 
                                 NotFin="NO" 
-                                GROUP BY Nombre
-                                order by Ordena desc;
+                               GROUP BY ApeNom
+                            order by Ordena desc;

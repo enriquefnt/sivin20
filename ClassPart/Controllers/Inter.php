@@ -46,11 +46,11 @@ class Inter
             );
         }
        
- //        var_dump($_GET);
+
  $datosNinio=$this->tablaNinios->findById($_GET['id'])?? '';
  $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
  $datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
-//  var_dump($datosNoti) ;
+
 $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [] ;
  
 if ($datosNoti != false){$ultimaNoti = $datosNoti['NotFecha'];

@@ -92,20 +92,15 @@ public function getController(string $controllerName): ?object {
 				$this->tablaInsti, $this->tablaMotIng,$this->tablaDiagEgr, $this->authentication);
 				}
 
-				// else if ($controllerName === 'listas') {
+				 else if ($controllerName === 'lista') {
 
-				// 	$controller = new  \ClassPart\Controllers\Inter( $this->tablaNinios, $this->tablaNoti,$this->tablaResi, $this->tablaInsti, 
-				// 	$this->authentication
-				// 	 );
-				// 	}
-	
-
+				 	$controller = new  \ClassPart\Controllers\Lista($this->pdoZSCORE,$this->authentication);
+				 	}
+					 
 	else if ($controllerName === 'antro') {
 
 				$controller = new \ClassPart\Controllers\Antro($this->tablaAntro, $this->pdoZSCORE);
 						}
-		
-	
 
 	else if ($controllerName == 'login') {
 
@@ -123,17 +118,9 @@ public function getController(string $controllerName): ?object {
 	return $controller;
   }
 
-
-
-
-
-
-
 public function checkLogin(string $uri): ?string {
 
         $restrictedPages = ['ninios/ninios', 'user/user', 'noticon/noticon'];
-
-
 
         if (in_array($uri, $restrictedPages) && !$this->authentication->isLoggedIn()) {
 
@@ -142,9 +129,6 @@ public function checkLogin(string $uri): ?string {
             exit();
 
         }
-
-
-
         return $uri;
 
     }

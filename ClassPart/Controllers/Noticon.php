@@ -421,4 +421,34 @@ public function getAlertClass($value) {
     }
 }
 
+public function nominal(){
+
+    $query = 'call saltaped_sivin2.nominal();';	
+     
+    $casos = $this->pdoZSCORE->query($query);
+  	var_dump($casos);
+
+      if (isset($_GET['Idint'])) {
+      
+        $title='Nominal';
+ 
+               return ['template' => 'nominal.html.php',
+                          'title' => $title ,
+                      'variables' => [
+                    'casos'  =>   $casos?? []
+                    // ,
+                    // 'datosNinio'=> $datosNinio?? [],
+                    // 'datosNoti' => $datosNoti  ?? [],
+                    // 'datosInter' => $datosInter ?? [],
+                    // 'fechaMinima'=>$fechaMinima ?? ''
+                                      ]
+ 
+                     ]; }
+
+
+
+
+    
+ }
+
 }

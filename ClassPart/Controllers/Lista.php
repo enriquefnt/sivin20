@@ -7,29 +7,98 @@ use \AllowDynamicProperties;
 #[AllowDynamicProperties]
 class Lista
 {
-    private $tablaNinios;
-    private $tablaNoti;
-	private $tablaControl;
-    private $tablaInter;
-    private $tablaInsti;
-	private $tablaResi;
-    private $authentication;
-
-    public function __construct(\ClassGrl\DataTables $tablaNinios,
-                                \ClassGrl\DataTables $tablaNoti,
-                                \ClassGrl\DataTables $tablaControl,
-                                \ClassGrl\DataTables $tablaInter,
-                                \ClassGrl\DataTables $tablaInsti,
-								\ClassGrl\DataTables $tablaResi,
-                                \ClassGrl\Authentication $authentication)
+    
+	private $pdoZSCORE;
+    private $authentication;   
+	
+    public function __construct($pdoZSCORE,
+    \ClassGrl\Authentication $authentication
+    )
     {
-        $this->tablaNinios = $tablaNinios;
-        $this->tablaNoti = $tablaNoti;
-        $this->tablaControl = $tablaControl;
-        $this->tablaInter = $tablaInter;
-        $this->tablaInsti = $tablaInsti;
-		$this->tablaResi = $tablaResi;
-        $this->authentication = $authentication;
-    }
+        		$this->pdoZSCORE = $pdoZSCORE;
+                $this->authentication = $authentication;
+		    }
+
+
+//  public function nominal(){
+
+//     $query = 'call saltaped_sivin2.nominal();';	
+     
+//     $casos = $this->pdoZSCORE->query($query);
+//   	var_dump($casos);
+
+//       // if (isset($_GET['Idint'])) {
+      
+      //   $title='Nominal';
+ 
+      //          return ['template' => 'nominal.html.php',
+      //                     'title' => $title ,
+      //                 'variables' => [
+      //               'casos'  =>   $casos?? []
+      //               // ,
+      //               // 'datosNinio'=> $datosNinio?? [],
+      //               // 'datosNoti' => $datosNoti  ?? [],
+      //               // 'datosInter' => $datosInter ?? [],
+      //               // 'fechaMinima'=>$fechaMinima ?? ''
+      //                                 ]
+ 
+      //                ]; }
+
+
+
+
+    
+ 
+    //   public function nominal(){
+    //     // Prepara la sentencia SQL para ejecutar el procedimiento almacenado
+    //     $casos = $this->pdoZSCORE->prepare("call saltaped_sivin2.nominal();");
+    
+    //     // Ejecuta la sentencia preparada con los parámetros dados (en este caso, ninguno)
+    //     $casos->execute([]); // o $casos->execute(null);
+    
+    //     // Devuelve el resultado (si lo hubiera)
+    //      $casos->fetchAll(\PDO::FETCH_ASSOC);
+    //    var_dump($casos);
+
+    //     $title='Nominal';
+ 
+    //               return ['template' => 'nominal.html.php',
+    //                          'title' => $title ,
+    //                     'variables' => [
+    //                    'casos'  =>   $casos ?? []
+        
+    //                                      ]
+   
+    //                     ]; 
+    // }
+
+
+    /////////////////////////////////////////////////////////////////
+    public function nominal(){
+    $casos = $this->pdoZSCORE->prepare("call saltaped_sivin2.nominal();");
+$casos->execute([]);
+
+// Verifica si la consulta se ejecutó correctamente
+if ($casos->rowCount() > 0) {
+    // Obtiene los datos como un array asociativo
+    $datos = $casos->fetchAll(\PDO::FETCH_ASSOC);
+    // Muestra los datos
+   //var_dump($datos);
+} else {
+    // La consulta no devolvió datos
+    echo "No se encontraron datos.";
+}
+$title='Nominal';
+ 
+              return ['template' => 'nominal.html.php',
+                         'title' => $title ,
+                    'variables' => [
+                   'casos'  =>   $datos ?? []
+    
+                                     ]
+
+                    ]; 
+}
+
 
 }
