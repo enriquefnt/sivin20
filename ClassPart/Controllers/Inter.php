@@ -53,6 +53,22 @@ class Inter
 //  var_dump($datosNoti) ;
 $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [] ;
  
+if ($datosNoti != false){$ultimaNoti = $datosNoti['NotFecha'];
+  $NotId=$datosNoti['NotId']?? '' ;}		
+else {$ultimaNoti='1970-01-01';
+  $NotId=null;
+}
+echo('notid '.$NotId);
+$ultiInterna = $this->tablaInter->findLast('IdNotifica', $NotId)['IntFecha']?? '1970-01-02';
+if ($datosNoti != false){
+$fechaMinima = $ultiInterna > $ultimaNoti ? $ultiInterna : $ultimaNoti; }
+else {
+  $fechaMinima =date('Y-m-d', strtotime('-60 days'));
+  }
+
+
+
+
         
         if (isset($_GET['Idint'])) {
       //    var_dump($datosInter) ;
@@ -64,7 +80,8 @@ $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [
                        'data_insti'  =>   $data_insti?? [],
                        'datosNinio'=> $datosNinio?? [],
                        'datosNoti' => $datosNoti  ?? [],
-                       'datosInter' => $datosInter ?? []
+                       'datosInter' => $datosInter ?? [],
+                       'fechaMinima'=>$fechaMinima ?? ''
                                          ]
     
                         ]; }
@@ -78,7 +95,8 @@ $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [
                                 'variables' => [
                                 'data_insti'  =>   $data_insti?? [],
                                 'datosNinio'=> $datosNinio ?? [],
-                                'datosNoti' => $datosNoti  ?? []//,
+                                'datosNoti' => $datosNoti  ?? [],
+                                'fechaMinima'=>$fechaMinima ?? ''
                                // 'datosInter' => $datosInter ?? []
                                 ]
                         ];

@@ -29,7 +29,8 @@
  if ($_GET['tabla']=='ingreso'){ ?>
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="IntFecha">Fecha Ingreso</label>
-			<input class="form-control form-control-sm" type="date" name="NOTIINTERNADOS[IntFecha]" id="IntFecha" required="required" value="<?=$datosInter['IntFecha'] ?? ''?>">
+			<input class="form-control form-control-sm" type="date" name="NOTIINTERNADOS[IntFecha]" id="IntFecha" 
+            min="<?= $fechaMinima; ?>" max="<?=date('Y-m-d');?>" required="required" value="<?=$datosInter['IntFecha'] ?? ''?>">
 </div>
 
 <div class="col-sm-3">	
@@ -70,7 +71,8 @@
  
  <div class="col-sm-2">	
 			<label class="form-label-sm" for="IntFechalta">Fecha Egreso</label>
-			<input class="form-control form-control-sm" type="date" name="NOTIINTERNADOS[IntFechalta]" id="IntFechalta" required="required" value="<?=$datosInter['IntFechalta'] ?? ''?>">
+			<input class="form-control form-control-sm" type="date" name="NOTIINTERNADOS[IntFechalta]" id="IntFechalta" 
+            min="<?= $fechaMinima; ?>" max="<?=date('Y-m-d');?>" required="required" value="<?=$datosInter['IntFechalta'] ?? ''?>">
 </div>
 
 <div class="col-sm-3">
