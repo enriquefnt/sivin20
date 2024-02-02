@@ -47,7 +47,7 @@ endif;
 
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="FechaNto">Fecha de Nacimiento</label>
-			<input class="form-control form-control-sm" type="date" name="Ninio[FechaNto]" id="FechaNto" required="required" min="2017-01-01"  max="<?=date('Y-m-d');?>"  value="<?=$datosNinio['FechaNto'] ?? ''?>">
+			<input class="form-control form-control-sm" type="date" name="Ninio[FechaNto]" id="FechaNto" required="required" min="<?=$fechaInf ?? ''?>"  max="<?=date('Y-m-d');?>"  value="<?=$datosNinio['FechaNto'] ?? ''?>">
 </div>
 
 <div class="col-sm-2">
@@ -137,14 +137,14 @@ endif;
 		</div>
         <?php if (isset($datosNinio['notificado']) && $datosNinio['notificado'] === 0): ?>
 		<div class="col-sm-3">
- 			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary" role="button">Notificación</a>
+ 			<a href="/noticon/noti?idNoti=<?= $datosNinio['idNoti'] ?? '' ?>&id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary" role="button">Notificación</a>
 		</div>
 			<?php elseif (isset($datosNinio['notificado']) && $datosNinio['notificado'] === 1): ?>
 		<div class="col-sm-3">		
-            <a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=control" class="btn btn-primary" role="button">Control</a>
+            <a href="/noticon/noti?idNoti=<?= $datosNinio['idNoti'] ?? '' ?>&id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=control" class="btn btn-primary" role="button">Control</a>
 		</div>	
 		<div class="col-sm-3">
-			<a href="/noticon/noti?id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=cierrenoti" class="btn btn-primary" role="button">Cierre Notificación</a>
+			<a href="/noticon/noti?idNoti=<?= $datosNinio['idNoti'] ?? '' ?>&id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=cierrenoti" class="btn btn-primary" role="button">Cierre Notificación</a>
 		</div>		
         <?php endif; ?>
 		<div class="col-sm-3">		
@@ -178,6 +178,19 @@ var auto_complete = new Autocom(document.getElementById('ninio'), {
 	onSelectItem: function(selectedItem) {
 		document.getElementById('idNinio').value = selectedItem.value; 
 	}
+});
+</script>
+
+<script>
+document.getElementById('FechaNto').addEventListener('input', function() {
+    var inputDate = new Date(this.value);
+    var minDate = new Date('<?= $fechaLimite ?>');
+
+    if (inputDate < minDate) {
+        document.getElementById('fechaError').textContent = 'La fecha debe ser al menos 6 años atrás.';
+    } else {
+        document.getElementById('fechaError').textContent = '';
+    }
 });
 </script>
 

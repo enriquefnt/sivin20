@@ -239,16 +239,16 @@ $(document).ready(function() {
     );
  
     table.buttons().container()
-        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
-} );
+    .appendTo('#example_wrapper .col-md-6:eq(0)');
+});
 
 const btn = document.getElementById('btn');
 
 btn.addEventListener('click', () => {
-  // 👇️ hide button
-  btn.style.display = 'none';
+// 👇️ hide button
+btn.style.display = 'none';
 
-  // 👇️ hide div
-  const box = document.getElementById('box');
-  box.style.display = 'none';
+// 👇️ hide div
+const box = document.getElementById('box');
+box.style.display = 'none';
 });

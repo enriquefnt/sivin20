@@ -1,8 +1,10 @@
 
 
 <div class="container">
-<legend class="w-80 p-0 h-0 ">Notificación:
-   </legend>
+   <legend class="w-80 p-0 h-0 ">
+    <p>Carga de  <?php echo $_GET['tabla']=='notificacion' ? 'Notificación' : 'Control'; ?>
+    </p>
+</legend>
 <fieldset class="border p-2">
 <legend class="w-80 p-0 h-0 " style="font-size: 0.95rem;font-weight: bold;">  <?=$datosNinio['ApeNom'].' - '.$datosNinio['edad'].' - '. $datosDomi['ResiLocal'] ;?>
    </legend>
@@ -14,7 +16,8 @@
           
 <div class="col-sm-2">	
 			<label class="form-label-sm" for="NotFecha">Fecha</label>
-			<input class="form-control form-control-sm" type="date" name="Noticon[NotFecha]" id="NotFecha" required="required" value="<?=$datosNoti['NotFecha'] ?? ''?>">
+			<input class="form-control form-control-sm" type="date" min="<?= $fechaMinima; ?>" max="<?=date('Y-m-d');?>"
+			name="Noticon[NotFecha]" id="NotFecha" required="required" value="<?=$datosNoti['NotFecha'] ?? ''?>">
 </div>
 <div class="col-sm-3">	
 			<label class="form-label-sm" for="NotEfec">Efector</label>
@@ -44,24 +47,8 @@
 			<input class="form-control form-control-sm" type="number" step="0.1" min="30" max="150" name="Noticon[NotTalla]"
 			 id="NotTalla" required="required" value="<?=$datosNoti['NotTalla'] ?? ''?>">
 </div>
-<!-- <div class="col-sm-2">	
-			<label class="form-label-sm" for="NotZpe">Z P/E</label>
-			<input class="form-control form-control-sm" type="number" name="Noticon[NotZpe]"
-			 id="NotZpe" required="required" value="<?=$datosNoti['NotZpe'] ?? 'ZSCORE(2, "p", 5.5, "2023-01-01", "2023-03-01");'?>">
-</div>
-<div class="col-sm-2">	
-			<label class="form-label-sm" for="NotZta">Z T/E</label>
-			<input class="form-control form-control-sm" type="number" name="Noticon[NotZta]"
-			 id="NotZtao" required="required" value="<?=$datosNoti['NotZta'] ?? ''?>">
-</div>
-<div class="col-sm-2">	
-			<label class="form-label-sm" for="NotZimc">Z IMC/E</label>
-			<input class="form-control form-control-sm" type="number" name="Noticon[NotZimc]"
-			 id="NotZimc" required="required" value="<?=$datosNoti['NotZimc'] ?? ''?>">
-</div> -->
 
-<!-- <div class="form-group"> -->
-	<div class="col-sm-3">
+	<!-- <div class="col-sm-3">
 	<label class="form-label-sm" for="NotEvo">Evolucion</label>
 	<select name="Noticon[NotEvo]" id="NotEvo" class="form-control form-control-sm">
 		<option hidden selected><?=$datosNoti['NotEvo'] ?? '...'?></option>
@@ -71,18 +58,34 @@
 		<option value=4>En estudio</option>
 		<option value=9>Sin determinar</option>
 		</select>
+	</div> -->
+
+	<div class="col-sm-3">
+	<label class="form-label-sm" for="NotEvo">Evolucion</label>
+	<select name="Noticon[NotEvo]" id="NotEvo" class="form-control form-control-sm">
+		<option hidden selected><?=$datosNoti['NotEvo'] ?? '...'?></option>
+			<?php
+			$sEvo = [];
+			foreach ($segunevol as $sEvo) {
+			echo '<option value=' .  $sEvo['SevoId'].'>' . $sEvo['SevoNom'] .'</option>';
+			}
+			?>
+		</select>
 	</div>
+
+
+
+	
 	<div class="col-sm-3">
 	<label class="form-label-sm" for="NotClinica">Gravedad</label>
 	<select name="Noticon[NotClinica]" id="NotClinica" class="form-control form-control-sm">
-		<option hidden selected><?=$datosNoti['MotId'] ?? '...'?></option>
-		<option value=1>Marasmo</option>
-		<option value=2>Kwashiorkor</option>
-		<option value=3>Marasmo-Kwashiorkor</option>
-		<option value=4>Grave</option>
-		<option value=6>Moderada</option>
-		<option value=5>En estudio</option>
-		<option value=9>Sin determinar</option>
+		<option hidden selected><?=$datosNoti['NotClinica'] ?? '...'?></option>
+		<?php
+			$sCli = [];
+			foreach ($segunclin as $sCli) {
+			echo '<option value=' .  $sCli['SclinId'].'>' . $sCli['SclinNom'] .'</option>';
+			}
+			?>
 		</select>
 	</div>
 	<div class="col-sm-3">
@@ -98,10 +101,11 @@
 		<option value=7>Cardiovaslcular</option>
 		<option value=8>Respiratoria</option>
 		<option value=9>Otras (indicar en observaciones)</option>
+		<option value=10>En estudio</option>
 
 		</select>
 	</div>
- <!-- </div> -->
+
  <div class="col-sm-3">
 	<label class="form-label-sm" for="NotObsantro">Acciones</label>
 	<select name="Noticon[NotObsantro]" id="NotObsantro" class="form-control form-control-sm">

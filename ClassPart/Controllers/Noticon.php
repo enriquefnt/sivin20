@@ -10,25 +10,34 @@ class Noticon
     private $tablaNinios;
     private $tablaNoti;
 	private $tablaControl;
+	private $tablaInter;
     private $tablaInsti;
 	private $pdoZSCORE;   
 	private $tablaResi;
+	private $tablEvol;
+	private $tablaClin;
     private $authentication;
 
     public function __construct(\ClassGrl\DataTables $tablaNinios,
                                 \ClassGrl\DataTables $tablaNoti,
                                 \ClassGrl\DataTables $tablaControl,
+								\ClassGrl\DataTables $tablaInter,
                                 \ClassGrl\DataTables $tablaInsti,
 								$pdoZSCORE,	
 								\ClassGrl\DataTables $tablaResi,
+								\ClassGrl\DataTables $tablaEvol,
+								\ClassGrl\DataTables $tablaClin,
                                 \ClassGrl\Authentication $authentication)
     {
         $this->tablaNinios = $tablaNinios;
         $this->tablaNoti = $tablaNoti;
         $this->tablaControl = $tablaControl;
+		$this->tablaInter = $tablaInter;
         $this->tablaInsti = $tablaInsti;
 		$this->pdoZSCORE = $pdoZSCORE;
 		$this->tablaResi = $tablaResi;
+		$this->tablaEvol = $tablaEvol;
+		$this->tablaClin =$tablaClin;
         $this->authentication = $authentication;
     }
 
@@ -44,26 +53,48 @@ public function noti($id=null){
 	        'value'     =>  $institucion['establecimiento_id']
 	    );
 	}
-//var_dump($data_insti);
-if (isset($_GET['id'])) {
+
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
-
 	$datosNinio=$this->tablaNinios->findById($_GET['id']);
-//var_dump($datosNinio);
-	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
+	$datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id'])) ?? [];
+	//$datosCtrl=$this->tablaControl->findLast('IdNoti',$datosNoti['NotId']);
+	$segunevol=$this->tablaEvol->findAll();
+	$segunclin=$this->tablaClin->findAll();
+   	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
 	$datosNinio['edad']=$edad ?? ' ';
-	
-						}
-						if ($_GET['tabla']=='notificacion'){
-							$title = 'Notificacion';}
-							else if ($_GET['tabla']=='control'){
-								$title = 'Control';	}
-								else if ($_GET['tabla']=='cierrenoti'){
-									$title = 'Cierre notificacion';	}	
-	if($_GET['tabla']=='notificacion'||$_GET['tabla']=='control')	{				
-//	$title = 'Carga Notificación';
 
-		
+	//var_dump($datosNoti);
+	if ($datosNoti != false){$ultimaNoti = $datosNoti['NotFecha'];
+		$NotId=$datosNoti['NotId']?? '' ;}		
+	else {$ultimaNoti='1970-01-01';
+		$NotId=null;
+	}
+	echo('notid '.$NotId);
+	$ultiControl = $this->tablaControl->findLast('IdNoti', $NotId)['CtrolFecha']?? '1970-01-02';
+	if ($datosNoti != false){
+	$fechaMinima = $ultiControl > $ultimaNoti ? $ultiControl : $ultimaNoti; }
+	else {
+		$fechaMinima =date('Y-m-d', strtotime('-60 days'));
+		}
+
+
+	echo('ultimo noti '.$ultimaNoti);	
+	echo('ultimo control '.$ultiControl);
+	echo('Minima '.$fechaMinima);
+
+	if ($_GET['tabla']=='notificacion'){
+		$title = 'Notificacion';}
+		else if ($_GET['tabla']=='control'){
+			$title = 'Control';	}
+			else if ($_GET['tabla']=='cierrenoti'){
+				$title = 'Cierre notificacion';	}
+
+if (isset($_GET['idNoti'])) {
+	
+	
+							
+	if($_GET['tabla']=='notificacion'||$_GET['tabla']=='control')	{				
+	
 
 			  return ['template' => 'noticon.html.php',
 					     'title' => $title ,
@@ -71,14 +102,17 @@ if (isset($_GET['id'])) {
 			       'data_insti'  =>   $data_insti,
 				   'datosNinio'=> $datosNinio ?? ' ',
 				   'datosDomi'=> $datosDomi ?? ' ',
-					 'datosNoti' => $datosNoti  ?? ' '
+				   'segunevol'=> $segunevol,
+				   'segunclin'=> $segunclin ,
+				   'fechaMinima'=>$fechaMinima
+					// 'datosNoti' => $datosNoti  ?? ' '
 									 ]
 
-					]; }
-	else {
-	//	$title = 'Cierre Notificación';
+					]; } 
+				
 
-		
+	elseif ($_GET['tabla']=='cierrenoti') {
+	//	var_dump($datosNoti);
 
 		return ['template' => 'cierrenoti.html.php',
 				   'title' => $title ,
@@ -86,10 +120,14 @@ if (isset($_GET['id'])) {
 			 'data_insti'  =>   $data_insti,
 			 'datosNinio'=> $datosNinio ?? ' ',
 			 'datosDomi'=> $datosDomi ?? ' ',
-			   'datosNoti' => $datosNoti  ?? ' '
+			 'segunevol'=> $segunevol,
+			 'segunclin'=> $segunclin,
+			   'datosNoti' => $datosNoti  ?? ' ',
+			   'fechaMinima'=>$fechaMinima
 							   ]
 
 			  ]; }
+			}
 	}
 
 public function notiSubmit() {
@@ -109,15 +147,17 @@ $instituciones = $this->tablaInsti->findAll();
 	$edad=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d'));
 	$datosNinio['edad']=$edad;
 	$datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
-//	var_dump($datosNinio);
+	
+
+
 	$usuario = $this->authentication->getUser();
 	$Notifica=$_POST['Noticon'];
-	// var_dump($_POST['Noticon']);
+
 	$Notificacion=[];
 	$Control=[];
 
-	$Notificacion['NotId']=$Notifica['NotId'];
-	//if ($_GET['tabla']=='notificacion') {
+	//$Notificacion['NotId']=$Notifica['NotId'];
+	
 	if ($_GET['tabla']=='notificacion') {
 	$Notificacion['NotId']=$Notifica['NotId'];
 	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
@@ -140,6 +180,7 @@ $instituciones = $this->tablaInsti->findAll();
 
 	else if($_GET['tabla']=='cierrenoti'){
 	$Notificacion['NotId']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))[0] ?? ' ';
+	$Notificacion['NotFecha']=$this->tablaNoti->findLast('NotNinio', ($_GET['id']))['NotFecha'] ?? ' ';
 	$Notificacion['NotNinio']=$datosNinio['IdNinio'];
 	$Notificacion['NotFin'] = $Notifica['NotFin']?? 'SI ';
 	$Notificacion['NotFechaFin'] = $Notifica['NotFechaFin']?? ' ';//
@@ -165,13 +206,17 @@ $instituciones = $this->tablaInsti->findAll();
     $Control['CtrolObservaNutri'] = ltrim($Notifica['NotObserva']);
 	$Control['CtrolObserva'] = $Notifica['NotObsantro'];
 	$Control['CtrolFechapc'] = new \DateTime();
-	//var_dump($Control);
+
 	}
+
 	////////////////////////////////////////////////////////
+
 	if ($_GET['tabla']!='cierrenoti'){
 	$imc=($Notifica['NotPeso']/(($Notifica['NotTalla']/100)*($Notifica['NotTalla']/100)));
 	$Notificacion['NotImc'] = $imc;
 	$sexo = ($datosNinio['sexo'] ='Femenino') ? '2' : '1';
+
+////////////////////revisar esto//////////////////////////////////
 
 	$Notificacion['NotZpe']= $this->calcularZScore(
 		$sexo  , 
@@ -196,20 +241,10 @@ $instituciones = $this->tablaInsti->findAll();
 		) ;   
 
 		
-				$ColorText=[];
-				$ColorText['NotZpeColor'] = $this->getColorClass($Notificacion['NotZpe']);
-				$ColorText['NotZtaColor'] = $this->getColorClass($Notificacion['NotZta']);
-				$ColorText['NotZimcColor'] = $this->getColorClass($Notificacion['NotZimc']);
-
-	
-		
-
 		$Control['CtrolZp']	= $Notificacion['NotZpe'];
 		$Control['CtrolZt']	= $Notificacion['NotZta'];
 		$Control['CtrolZimc']	= $Notificacion['NotZimc'];
 		}		
-
-
 
 
 	/////////////////////////////////////////////////////////////////////////////////
@@ -222,9 +257,6 @@ $instituciones = $this->tablaInsti->findAll();
 				else if ($_GET['tabla']=='cierrenoti'){
 					$title = 'Cierre notificacion';	}
 	
-	
-//var_dump($Control);
-
 	$errors = [];
 
 
@@ -237,18 +269,70 @@ else {
 $this->tablaNoti->save($Notificacion);
 }
 
+//////////////////////para ventanas modales /////////////////////
+
 $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
+$Control=$this->tablaControl->findLast('IdNoti', ($Notificacion['NotId'])) ?? [];
+$datosInter= $this->tablaInter->findLast('IdNotifica', ($Notificacion['NotId'])) ?? [];
+
+if ($_GET['tabla']=='notificacion'){
+
+
 $Notificacion['colorIMC']=$this->getColorClass($Notificacion['NotZimc']);
-var_dump($Notificacion);
+$Notificacion['colorPE']=$this->getColorClass($Notificacion['NotZpe']);
+$Notificacion['colorTA']=$this->getColorClass($Notificacion['NotZta']);
+
 return ['template' => 'notisucess.html.php',
 'title' => $title ,
 'variables' => [
-	'Notificacion' => $Notificacion ?? ' ',
-	'datosNinio'=> $datosNinio ?? ' ',
+	'Notificacion' => $Notificacion ?? [],
+	'datosNinio'=> $datosNinio ?? [],
 	'datosDomi' => $datosDomi
 ]
 ];
+     }
+	 else if ($_GET['tabla']=='control'){
+		
+	//	var_dump($datosInter);
+		$Control['colorIMC']=$this->getColorClass($Control['CtrolZimc']);
+		$Control['colorPE']=$this->getColorClass($Control['CtrolZp']);
+		$Control['colorTA']=$this->getColorClass($Control['CtrolZt']);
+		return ['template' => 'controlsucess.html.php',
+		'title' => $title ,
+		'variables' => [
+			'Control' => $Control ?? ' ',
+			'Notificacion' => $Notificacion ?? [],
+			'datosNinio'=> $datosNinio ?? [],
+			'datosInter' => $datosInter ?? [],
+			'datosDomi' => $datosDomi
+		]
+		];
+	 }
+	 else if ($_GET['tabla']=='cierrenoti'){
+		
+		
+		
+		
+		isset($Control[0]) ? $Control['colorIMC']=$this->getColorClass($Control['CtrolZimc']):
+		$Notificacion['colorIMC']=$this->getColorClass($Notificacion['NotZimc']);
 
+		isset($Control[0]) ?$Control['colorPE']=$this->getColorClass($Control['CtrolZp']):
+		$Notificacion['colorPE']=$this->getColorClass($Notificacion['NotZpe']);
+
+		isset($Control[0]) ?$Control['colorTA']=$this->getColorClass($Control['CtrolZt']):
+		$Notificacion['colorTA']=$this->getColorClass($Notificacion['NotZta']);
+
+		
+		return ['template' => 'cierreSucess.html.php',
+		'title' => 'Cierre noti',
+		'variables' => [
+			'Notificacion' => $Notificacion ?? [],
+			'Control' => $Control ?? [],
+			'datosNinio'=> $datosNinio ?? [],
+			'datosDomi' => $datosDomi ?? []
+		]
+		];
+	 }
 
 }
 
@@ -268,12 +352,7 @@ else {
 }
 }
 
-private function calculaEdaddias ($fnac,$fcontrol) {
-	
-$edadDias = date_diff($fnac, $fcontrol)->days;
-return $edadDias;
 
-}
 
 public function calcularEdad($fechaNacimiento, $fechaActual) {
 	$nacimiento = new \DateTime($fechaNacimiento);
@@ -316,10 +395,29 @@ public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control)
     switch (true) {
         case $value > 2:
             return 'red';
-        case $value < 2:
+        case $value < -2:
             return 'red';
+		case ($value >= -1.5 && $value <= 1.5):
+			return 'green';		
+				case ($value < -1.5 && $value >= -2):
+			return 'yellow';	
         default:
-            return 'blue';
+            return 'green';
+    }
+}
+
+public function getAlertClass($value) {
+    switch (true) {
+        case $value > 2:
+            return 'danger';
+        case $value < -2:
+            return 'danger';
+		case ($value >= -1.5 && $value <= 1.5):
+			return 'success';		
+				case ($value < -1.5 && $value >= -2):
+			return 'warning';	
+        default:
+            return 'primary';
     }
 }
 

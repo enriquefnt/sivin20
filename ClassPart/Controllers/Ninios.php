@@ -3,6 +3,7 @@ namespace ClassPart\Controllers;
 
 use \ClassGrl\DataTables;
 use \AllowDynamicProperties;
+use DateTimeImmutable;
 
 #[AllowDynamicProperties]
 class Ninios
@@ -31,14 +32,21 @@ class Ninios
 
     public function busca()
     {
+        
+        
+            
         $result = $this->tablaNinios->findAll();
-
+        
         foreach ($result as $ninio) {
+            if ($ninio['FechaNto'] >  date('Y-m-d', strtotime('-6 years'))){
             $dataNinio[] = array(
                 'label' => $ninio['ApeNom'],
                 'value' => $ninio['IdNinio']
-            );
+            ); 
+            }
         }
+
+
         
         $title = 'Busca Niño';
 
@@ -63,12 +71,14 @@ class Ninios
             );
         }
 
+        $fechaInf=$this->calcularFechaMenos(365*6+6);
+       // echo($menosDeSeis);
         if ($_GET['id'] > 0) {
 
             $datosNinio = $this->tablaNinios->findById($_GET['id']);
 
             $datosDomi = $this->tablaResi->findLast('ResiNinio', ($_GET['id']));
-         //  var_dump($datosDomi);
+        
            if (is_null($datosDomi['ResiDpto'])){
             $datosDomi['gid']=$this->tablaLoc->find('localidad', $datosDomi['ResiLocal'])[0]['gid'] ?? '' ;
               }
@@ -83,7 +93,7 @@ class Ninios
 
             $datosNinio['NombreR']=$apenomR['nombres'];
             $datosNinio['ApellidoR']=$apenomR['apellido'];
-            $datosNinio['NomEtnia']=$this->tablaEtnia->findById($datosNinio['TpoEtnia'])['NomEtnia'];
+            $datosNinio['NomEtnia']=$this->tablaEtnia->findById($datosNinio['TpoEtnia'])['NomEtnia']??'';
                      
             $totalNotificaciones = $this->tablaNoti->totalBy('NotNinio', $_GET['id']) ;
             
@@ -94,7 +104,7 @@ class Ninios
            
 
             $datosNinio['notificado'] = ($ultimaNotificacion === 'SI'||$totalNotificaciones === 0) ? 0 : 1;
-           
+            $datosNinio['idNoti']=$resultado['NotId'] ?? '' ;
            
             $title = 'Ver Caso';
 
@@ -114,7 +124,8 @@ class Ninios
             return ['template' => 'ninios.html.php',
                     'title' => $title ,
                     'variables' => [
-                        'etnias' => $etnias ?? ' ',
+                     'fechaInf' => $fechaInf ?? '',
+                       'etnias' => $etnias ?? ' ',
                         'data' =>   $data
                     ]
             ];
@@ -202,10 +213,8 @@ class Ninios
             }
             $datosCaso['Edad']=$this->calcularEdad($datosCaso['FechaNto'],date('Y-m-d'));
             $datosCaso['Localidad']=$Resi['ResiLocal'];
-            var_dump($datosCaso);
-                
-            //    var_dump($datosNinio);
-            return ['template' => 'niniosuccess.html.php',
+                           
+                       return ['template' => 'niniosuccess.html.php',
                     'title' => 'Carga' ,
                     'variables' => [
                         'datosCaso' => $datosCaso ?? ' ',
@@ -279,6 +288,23 @@ class Ninios
 
         return ['template' => 'home.html.php', 'title' => $title, 'variables' => []];
     }
+
+    public function calcularFechaMenos($dias)
+{
+    // Obtener la fecha actual 
+    $hoy = new \DateTime();
+
+    // Restar el número de días
+    $hoy->sub(new \DateInterval("P{$dias}D"));
+
+    // Obtener la fecha resultante 
+    $fechaAnterior = $hoy->format('Y-m-d');
+
+    return $fechaAnterior;
+}
+
+
+
 /*
     public function mi_error_handler($errno, $errstr, $errfile, $errline) {
         if ($errno == E_USER_ERROR) {

@@ -14,10 +14,23 @@ public function __construct(\PDO $pdo, string $table, string $primaryKey)
 }
 private function query($sql, $parameters = [])
 {
+	////var_dump($sql);
+//var_dump($parameters);
 	$query = $this->pdo->prepare($sql);
 	$query->execute($parameters);
 	return $query;
 }
+
+// private function query($sql, $parameters = [])
+// {
+//    // $this->pdo->set_charset('UTF-8');
+// 	// $sql = mb_convert_encoding($sql, 'UTF-8', 'ISO-8859-1');
+// 	var_dump($sql);
+// 	$query = $this->pdo->prepare($sql);
+//     $query->execute($parameters);
+//     return $query;
+// }
+
 public function total()
 {
 	$query = $this->query('SELECT COUNT(*) FROM
@@ -106,8 +119,11 @@ private function insert($fields)
 	$query = rtrim($query, ',');
 	$query .= ')';
 	$fields = $this->processDates($fields);
+	//var_dump($fields);
 	$this->query($query, $fields);
+	//var_dump($query);var_dump($fields);
 	}
+
 private function update($fields)
 	{
 		$query = ' UPDATE `' . $this->table .'` SET ';

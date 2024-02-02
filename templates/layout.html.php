@@ -20,14 +20,12 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
 
 
 <script src="https://kit.fontawesome.com/f6cbba0704.js" crossorigin="anonymous"></script>
+
  <!-- -----------------jquery----------------- -->
  <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-  <script>
-var antro = <?= json_encode($antro); ?>;
-</script>
 
 <!-- --------------bootstrap--------------------- -->
 
@@ -60,9 +58,9 @@ var antro = <?= json_encode($antro); ?>;
 <h4 class="text-white">Sistema de Vigilancia Nutricional SIVIN.2</h4>
 
 <?php if (isset($_SESSION['username'])) 
-{echo "Usuario: " . $_SESSION['nombre'] .' '.$_SESSION['apellido'].' - ' . 
+{echo  "<p> Usuario: <b>" . $_SESSION['nombre'] .' '.$_SESSION['apellido'].' </b>- ' . 
 
-$_SESSION['establecimiento_nombre'];}
+$_SESSION['establecimiento_nombre']. "</p>";}
 
  ?>
 </h5>

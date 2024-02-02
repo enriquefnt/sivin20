@@ -11,23 +11,33 @@
         <p>Lugar: <?='Localidad: '. $datosDomi['ResiLocal'];?> </p> 
         <p>Peso: <?=$Notificacion['NotPeso'];?> kg 
             Talla: <?=$Notificacion['NotTalla'];?> cm</p>
-        <p> ZPE/E=<?=number_format($Notificacion['NotZpe'], 1) ??'';?> -
-            ZTA/E=<?=number_format($Notificacion['NotZta'], 1);?> -
-            ZIMC/E=<?=number_format($Notificacion['NotZimc'], 1);?> </p> 
-        <!-- <p>    <span style="color: <?=$Notificacion['colorIMC']; ?>"> -->
-        <p>    <span style="color:<?=$Notificacion['colorIMC']; ?>">
-        <?= number_format($Notificacion['NotZimc'], 1); ?> </span></p>
-    
+
+            <p> ZPE/E=<span style="color:<?=$Notificacion['colorPE']; ?>">
+            <?= number_format($Notificacion['NotZpe'], 1); ?> </span> - 
+
+
+            ZTA/E=<span style="color:<?=$Notificacion['colorTA']; ?>">
+            <?= number_format($Notificacion['NotZta'], 1); ?> </span> - 
+
+            ZIMC/E= <span style="color:<?=$Notificacion['colorIMC']; ?>">
+            <?= number_format($Notificacion['NotZimc'], 1); ?> </span></p>
+
       </div>
  <div class="modal-footer">
            
-           
-            <a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir</a>
+ 
+          <div class="col-sm-3">
+            <a href="/interna/inter?id=<?= $datosNinio['IdNinio'] ?? '' ?>&idNoti=<?=$notificacion['IdNotifica'] ?? '' ?>&tabla=ingreso" class="btn btn-primary" role="button">Internación</a>
+            </div>	
+            <div class="col-sm-3">		
+            <a href="/ninios/home"  class="btn btn-primary " role="button">Salir</a>
+            </div>	
+
       </div> 
     </div>
   </div>
 </div>
-<?=$Notificacion['colorIMC']; ?>
+
 <script type="text/javascript">
 
 $(document).ready(function() {$('#SucessModal').modal('show');
