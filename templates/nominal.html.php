@@ -1,8 +1,11 @@
-
+<div class="container mt-4">
   
   <div>
-  <table id="example" class="w3-table-all w3-tiny" > 
-      
+  <table id="example" class="table table-bordered display compact" > 
+  <div>
+  <legend class="w-80 p-0 h-0 ">Lista Nominal
+       </legend>
+</div>
    
   <thead >
   <tr class="w3-blue-grey">
@@ -17,6 +20,7 @@
     <th>Z Peso/edad</th>
     <th>Z Talla/edad</th>
     <th>Z IMC/edad</th>
+    <th>Clasificacion</th>
     <!--<th>Ver Evolución</th>
      <th>Clasificación</th>
     <th>Control Médico</th>
@@ -26,11 +30,6 @@
   </tr>
   </thead>
   <tbody class="table-hover">
-
-
-
-
-
   <?php 
 
   if(isset($casos)){
@@ -47,27 +46,11 @@
    <td align="center"><?= htmlspecialchars($caso['ZPesoEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
    <td align="center" ><?= htmlspecialchars($caso['ZTallaEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
    <td align="center"><?= htmlspecialchars($caso['ZIMCEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
-
-
-
- <!-- <td align="center">
-
-        <div>
-        <form action="controles.php" method="post">
-        <input type="hidden" name="IdNiño" value=<?= htmlspecialchars($caso['IdNiño'], ENT_QUOTES, 'UTF-8'); ?>>
-                        <button class="btn btn-default" type="submit"><i class="far fa-eye  fa-lg"></i></button>
-        </form>
-        </div>
-  </td> -->
-
    <td><?= htmlspecialchars($caso['Clacificación'], ENT_QUOTES, 'UTF-8'); ?></td>
-   <!-- <td align="center"><?= htmlspecialchars($caso['Medico'], ENT_QUOTES, 'UTF-8'); ?></td>
-   <td align="center" style= "background-color: #<?= htmlspecialchars($caso['color'], ENT_QUOTES, 'UTF-8'); ?>">
-          <?= htmlspecialchars($caso['dias_transcurridos'], ENT_QUOTES, 'UTF-8'); ?></td>
-   <td align="center"><?= htmlspecialchars($caso['vigilante'], ENT_QUOTES, 'UTF-8'); ?></td>
-  <td align="center"><?= htmlspecialchars($caso['retraso'], ENT_QUOTES, 'UTF-8'); ?></td>
-    -->
+   
    </tr>
-  <?php endforeach;
-    } 
-  
+  <?php endforeach;  }?>
+    
+  </tbody>
+  </table>
+  </div>
