@@ -4,13 +4,17 @@ use \ClassGrl\DataTables;
 class Usuarios {
 private $userTable;
 private $tablaInsti;
+private $userTableSivin;
 
 
 public function __construct(\ClassGrl\DataTables $userTable,
-							\ClassGrl\DataTables $tablaInsti) {
+							\ClassGrl\DataTables $tablaInsti,
+							\ClassGrl\DataTables $userTableSivin,
+							) {
 
         $this->userTable = $userTable;
 		$this->tablaInsti = $tablaInsti;
+		$this->userTableSivin = $userTableSivin;
     }
 
 
@@ -165,6 +169,40 @@ return ['template' => 'registersuccess.html.php',
 'title' => 'Registro OK'];
 }
 
+public function import(){
+
+
+$resultV = $this->userTableSivin->findAll();
+$usuarioV = [];
+foreach ($resultV as $usuarioV) {
+	
+	$usuariosV[] = [
+		'id_usuario' => $usuarioV['Idusuario'],
+		'nombres' => $usuarioV['Nom']. ' '.$usuarioV['Ape'],
+		'establecimiento_nombre' => $usuarioV['Cargo']?? '',
+		'celular' => $usuarioV['Dni'] ?? ''
+							];
+		}
+
+// $title = 'Lista Usuarios';
+
+
+
+// return ['template' => 'listausuarios.html.php',
+// 		'title' => $title,
+// 		'variables' => [
+// 		'usuarios' => $usuariosV,
+// 	 ]
+// 	];
 }
+
+
+
+
+
+
+}
+
+
 
 

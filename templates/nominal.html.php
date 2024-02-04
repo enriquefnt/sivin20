@@ -1,7 +1,7 @@
 <div class="container mt-4">
   
   <div>
-  <table id="example" class="table table-bordered display compact" > 
+  <table id="example" class="table table-bordered display compact" data-searchbuilder="true">
   <div>
   <legend class="w-80 p-0 h-0 ">Lista Nominal
        </legend>
@@ -20,7 +20,7 @@
     <th>Z Peso/edad</th>
     <th>Z Talla/edad</th>
     <th>Z IMC/edad</th>
-    <th>Clasificacion</th>
+    <th>Clasificación</th>
     <!--<th>Ver Evolución</th>
      <th>Clasificación</th>
     <th>Control Médico</th>
@@ -46,7 +46,7 @@
    <td align="center"><?= htmlspecialchars($caso['ZPesoEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
    <td align="center" ><?= htmlspecialchars($caso['ZTallaEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
    <td align="center"><?= htmlspecialchars($caso['ZIMCEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
-   <td><?= htmlspecialchars($caso['Clacificación'], ENT_QUOTES, 'UTF-8'); ?></td>
+   <td><?= htmlspecialchars($caso['Clasificación'], ENT_QUOTES, 'UTF-8'); ?></td>
    
    </tr>
   <?php endforeach;  }?>
@@ -54,3 +54,16 @@
   </tbody>
   </table>
   </div>
+  <!-- <script>
+$(document).ready(function() {
+    var table = $('#example').DataTable({
+        searchBuilder: {
+            columns: [
+                {data: 'Nombre'},
+                {data: 'Responsable'},
+                {data: 'Fecha'}
+            ]
+        }
+    });
+});
+</script> -->
