@@ -52,7 +52,7 @@ endif;
   	<option hidden selected><?=$datosUser['tipo'] ?? '...'?></option>
   <!--  <option value='1'>Administrador</option> -->
     <option value='Auditor'>Auditor</option>
-    <option value=Profesional>Profesional</option>
+    <option value=Profesional>Vigilante</option>
     <option value='Administrativo'>Administrativo</option>
     <option value='Otros'>Otros</option>
     </select>
