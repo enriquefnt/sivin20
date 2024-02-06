@@ -58,14 +58,14 @@ if ($datosNoti != false){$ultimaNoti = $datosNoti['NotFecha'];
 else {$ultimaNoti='1970-01-01';
   $NotId=null;
 }
-echo('notid '.$NotId);
+//echo('notid '.$NotId);
 $ultiInterna = $this->tablaInter->findLast('IdNotifica', $NotId)['IntFecha']?? '1970-01-02';
 if ($datosNoti != false){
 $fechaMinima = $ultiInterna > $ultimaNoti ? $ultiInterna : $ultimaNoti; }
 else {
   $fechaMinima =date('Y-m-d', strtotime('-60 days'));
   }
-
+if ($this->tablaInter->findLast('IdNotifica', $NotId)['IntAlta']=="SI"){$_GET['Idint']=null;}
 
 
 

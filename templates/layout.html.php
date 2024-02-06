@@ -67,7 +67,7 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
 {echo  "<p> Usuario: <b>" . $_SESSION['nombre'] .' '.$_SESSION['apellido'].' </b>- ' . 
 
 $_SESSION['establecimiento_nombre']. "</p>";}
-
+//var_dump($_SESSION);
  ?>
 </h5>
 
@@ -91,6 +91,10 @@ $_SESSION['establecimiento_nombre']. "</p>";}
            <!-- <li class="nav-item">
           <a class="navbar-brand mb-0 " href="/antro/antro">Antro</a>
           </li>  -->
+
+          <?php if ($_SESSION['tipo']=='Auditor') { ?>
+
+
           <li class="nav-item dropdown">
             <a class="dropdown-toggle navbar-brand mb-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Usuarios
@@ -100,7 +104,7 @@ $_SESSION['establecimiento_nombre']. "</p>";}
               <li><a class="navbar-brand mb-0" href="/user/listar">Ver/Editar</a></li>
              </ul>
           </li>
-
+            <?php } ?>
           <li> 
           <a class="nav-item active" aria-current="page" href ="/login/logout">Salir</a>
           </li>

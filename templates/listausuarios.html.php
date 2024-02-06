@@ -8,9 +8,9 @@
       
     <th align="center">Nombre</th>
     <th align="center">Dependencia</th>
-    <?php if ( isset($_SESSION['tipo'])&& $_SESSION['tipo']<3 ) { ?>  
+    
     <th class="text-center">Editar</th>
-    <?php } ?>
+   
   </tr>
 </thead>
 

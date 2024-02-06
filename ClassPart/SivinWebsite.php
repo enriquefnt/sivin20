@@ -44,7 +44,7 @@ public function __construct() {
 	$this->authentication = new \ClassGrl\Authentication($this->tablaUser,'user', 'password'); 
 	$this->tablaAntro = new \ClassGrl\DataTables($pdo,'calc_antro', 'idAnt');
 	$this->pdoZSCORE = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2;charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N'); // Asignar el valor a la variable $pdoZSCORE
-	$this->tablaUserSivin = new \ClassGrl\DataTables($pdoSivin,'USUARIOS', 'Idusuario');	
+	$this->tablaUserSivin = new \ClassGrl\DataTables($pdoSivin,'UsuariosExport', 'Idusuario');	
 
 //	$this->pdoProc = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2;charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N'); // Asignar el valor a la variable $pdoZSCORE
 }

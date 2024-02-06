@@ -52,13 +52,13 @@
         <div class="card">
           <h5 class="card-header text-center text-white bg-primary">Consulta</h5>
           <div class="card-body d-flex flex-column">
-          <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, nihil.</li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
-   <li class="list-group-item "><i class="fa-solid fa-check"></i> Lorem ipsum dolor sit.</li>
+          <li class="list-group-item "><i class="fa-solid fa-check"></i>Se utiliza para consultar la base de datos</li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> EN DESARROLLO  </li>
+   <li class="list-group-item "><i class="fa-solid fa-check"></i> Puede ir viendo la funcionalidad en : <a href="http://secretariadenutricion.salta.gob.ar/listas_sivin/include/inicio.php">Ver consultas</a></li>
             </div>
             <div class="card-footer text-muted">
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit amet consectetur.</p>
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit.</p>
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> En desarrollo</p>
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i>En desarrollo</p>
             
         </div> 
         </div>
