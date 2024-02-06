@@ -39,7 +39,7 @@
             <?php } ?>
              
              <div class="col-sm-3">		
-            <a href="/ninios/home"  class="btn btn-primary " role="button">Salir</a>
+            <a href="/ninios/home"  class="btn btn-primary " role="button">Guardar</a>
             </div>	
       </div> 
     </div>

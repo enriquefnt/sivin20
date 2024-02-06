@@ -13,7 +13,7 @@
  <div class="modal-footer">
            
             <a href="/noticon/noti?idNoti=<?= $datosNinio['idNoti'] ?? '' ?>&id=<?= $datosCaso['IdNinio'] ?? '' ?>&tabla=notificacion" class="btn btn-primary" role="button">Notificar</a>
-            <a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Salir</a>
+            <a href="/ninios/home"  class="btn btn-primary btn-sm" role="button">Guardar</a>
       </div> 
     </div>
   </div>

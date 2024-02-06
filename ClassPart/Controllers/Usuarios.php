@@ -36,7 +36,7 @@ if (isset($_GET['id'])) {
 				$datosUser['pasword']='xxxxxxx' ;
 
 									}
-			
+			// var_dump($datosUser);
 $title = 'Carga Usuarios';
 
 		
@@ -74,10 +74,16 @@ $instituciones = $this->tablaInsti->findAll();
 	$Usuario['apellido'] =ltrim(ucwords(strtolower($Usuario['apellido'])));
 	$Usuario['email'] = ltrim(strtolower($Usuario['email']));
 	$user=$this->userTable->findById($Usuario['id_usuario'])?? '';
+	
 	if (empty($user['password'])) {
 	$Usuario['password'] = password_hash($Usuario['password'], PASSWORD_DEFAULT);
 	}
+	
+	$Usuario['usuAo'] = $this->tablaInsti->findById($Usuario['id_establecimiento'])['AOP'] ?? '';
 	$Usuario['fechaCarga'] = new \DateTime();
+
+// var_dump($Usuario);  die;
+
 	$title = 'Carga Usuarios';
 
 
@@ -166,51 +172,6 @@ return ['template' => 'registersuccess.html.php',
 'title' => 'Registro OK'];
 }
 
-public function importver(){
-
-
-$resultV = $this->userTableSivin->findAll();
-//var_dump($resultV);
-$usuarioV = [];
-foreach ($resultV as $usuarioV) {
-
-	//if ($usuarioV['Auditor']=="SI") {$usuariosV['tipo'] ='Auditor';}
-
-	$usuariosV[] = [
-		'id_usuario' => $usuarioV['Idusuario'],
-		'nombres' => $usuarioV['Nom']. ' '.$usuarioV['Ape'],
-		'establecimiento_nombre' => $usuarioV['Cargo']?? '',
-		'celular' => $usuarioV['Dni'] ?? '',
-		////////////////////////////////////////////////////////////
-		///Campos que no se usan pero son requeridos para la tabla
-		 'id_usuario'=>$usuarioV['Idusuario'],
-		'nombre'=>$usuarioV['Nom'],
-		 'apellido'=>$usuarioV['Ape'],
-		 'profesion'=>$usuarioV['Profesion'],
-		 'tipo'=>$usuarioV['TipoUsu']
-		 
-		// 'establecimiento_nombre'=>$usuarioV['
-		// 'celular'=>$usuarioV['
-		// 'email'=>$usuarioV['
-		// 'user'=>$usuarioV['
-		// 'password'=>$usuarioV['
-		// 'id_establecimiento'=>$usuarioV['
-		// 'usuAo'=>$usuarioV['
-		// 'fechaCarga'=>$usuarioV['
-
-				];
-		}
-
-$title = 'Lista Usuarios';
-
-//var_dump( $usuariosV);
-return ['template' => 'listausuariosV.html.php',
-		'title' => $title,
-		'variables' => [
-		'usuarios' => $usuariosV,
-	 ]
-	];
-}
 
 public function import() {
 
