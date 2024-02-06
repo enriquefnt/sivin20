@@ -64,7 +64,8 @@ endif;
 		    </div>
 
    <div>
-            <input type="hidden" name="Usuario[id_establecimiento]" id="id_establecimiento"  value="<?=$row['codi_esta'] ?? ''?>" />
+            <input type="hidden" name="Usuario[id_establecimiento]" id="id_establecimiento"  value="<?=$data['value'] ??$datosUser['id_establecimiento'] ?? ''?>" />
+            <!-- <input type="hidden" name="Noticon[establecimiento_id]" id="establecimiento_id" value="<?= $data['value'] ?? $datosNoti['establecimiento_id'] ?? '' ?>" /> -->
         </div>     
 
 
@@ -106,13 +107,18 @@ if(empty($datosUser['user'])) { ?>
 
 </div>
 </div>
+
 <script>
+var options = {
+ data: <?php echo json_encode($data_insti); ?>,
+ maximumItems: 10,
+ highlightTyped: true,
+ highlightClass: 'fw-bold text-primary',
+ onSelectItem: function(selectedItem) {
+    document.getElementById('id_establecimiento').value = parseInt(selectedItem.value); // Asignar el valor del item seleccionado al input hidden
+ }
+};
 
-var complete_establecimiento_nombre = new Autocom(document.getElementById('establecimiento_nombre'), {
-    data:<?php echo json_encode($data_insti); ?>,
-    maximumItems:10,
-    highlightTyped:true,
-    highlightClass : 'fw-bold text-primary'
-}); 
-
+var auto_complete = new Autocom(document.getElementById('establecimiento_nombre'), options);
 </script>
+
