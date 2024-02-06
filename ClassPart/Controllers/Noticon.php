@@ -69,7 +69,7 @@ public function noti($id=null){
 	else {$ultimaNoti='1970-01-01';
 		$NotId=null;
 	}
-	echo('notid '.$NotId);
+	// echo('notid '.$NotId);
 	$ultiControl = $this->tablaControl->findLast('IdNoti', $NotId)['CtrolFecha']?? '1970-01-02';
 	if ($datosNoti != false){
 	$fechaMinima = $ultiControl > $ultimaNoti ? $ultiControl : $ultimaNoti; }
@@ -78,9 +78,9 @@ public function noti($id=null){
 		}
 
 
-	echo('ultimo noti '.$ultimaNoti);	
-	echo('ultimo control '.$ultiControl);
-	echo('Minima '.$fechaMinima);
+	// echo('ultimo noti '.$ultimaNoti);	
+	// echo('ultimo control '.$ultiControl);
+	// echo('Minima '.$fechaMinima);
 
 	if ($_GET['tabla']=='notificacion'){
 		$title = 'Notificacion';}
@@ -420,5 +420,35 @@ public function getAlertClass($value) {
             return 'primary';
     }
 }
+
+public function nominal(){
+
+    $query = 'call saltaped_sivin2.nominal();';	
+     
+    $casos = $this->pdoZSCORE->query($query);
+  	var_dump($casos);
+
+      if (isset($_GET['Idint'])) {
+      
+        $title='Nominal';
+ 
+               return ['template' => 'nominal.html.php',
+                          'title' => $title ,
+                      'variables' => [
+                    'casos'  =>   $casos?? []
+                    // ,
+                    // 'datosNinio'=> $datosNinio?? [],
+                    // 'datosNoti' => $datosNoti  ?? [],
+                    // 'datosInter' => $datosInter ?? [],
+                    // 'fechaMinima'=>$fechaMinima ?? ''
+                                      ]
+ 
+                     ]; }
+
+
+
+
+    
+ }
 
 }

@@ -4,13 +4,17 @@ use \ClassGrl\DataTables;
 class Usuarios {
 private $userTable;
 private $tablaInsti;
+private $userTableSivin;
 
 
 public function __construct(\ClassGrl\DataTables $userTable,
-							\ClassGrl\DataTables $tablaInsti) {
+							\ClassGrl\DataTables $tablaInsti,
+							\ClassGrl\DataTables $userTableSivin,
+							) {
 
         $this->userTable = $userTable;
 		$this->tablaInsti = $tablaInsti;
+		$this->userTableSivin = $userTableSivin;
     }
 
 
@@ -71,17 +75,14 @@ $instituciones = $this->tablaInsti->findAll();
 	$Usuario['email'] = ltrim(strtolower($Usuario['email']));
 	$user=$this->userTable->findById($Usuario['id_usuario'])?? '';
 	if (empty($user['password'])) {
-	$Usuario['password'] = ltrim(password_hash($Usuario['password'], PASSWORD_DEFAULT));
+	$Usuario['password'] = password_hash($Usuario['password'], PASSWORD_DEFAULT);
 	}
 	$Usuario['fechaCarga'] = new \DateTime();
 	$title = 'Carga Usuarios';
 
 
 	$errors = [];
-	if ($_SESSION['tipo'] > 2) {
-	$errors[] = 'Ud no está habilitado para crear usuarios';
-	header('Location:  /benef/home');
-	}
+	
 
 
 	if (empty($Usuario['nombre'])) {
@@ -165,6 +166,91 @@ return ['template' => 'registersuccess.html.php',
 'title' => 'Registro OK'];
 }
 
+public function importver(){
+
+
+$resultV = $this->userTableSivin->findAll();
+//var_dump($resultV);
+$usuarioV = [];
+foreach ($resultV as $usuarioV) {
+
+	//if ($usuarioV['Auditor']=="SI") {$usuariosV['tipo'] ='Auditor';}
+
+	$usuariosV[] = [
+		'id_usuario' => $usuarioV['Idusuario'],
+		'nombres' => $usuarioV['Nom']. ' '.$usuarioV['Ape'],
+		'establecimiento_nombre' => $usuarioV['Cargo']?? '',
+		'celular' => $usuarioV['Dni'] ?? '',
+		////////////////////////////////////////////////////////////
+		///Campos que no se usan pero son requeridos para la tabla
+		 'id_usuario'=>$usuarioV['Idusuario'],
+		'nombre'=>$usuarioV['Nom'],
+		 'apellido'=>$usuarioV['Ape'],
+		 'profesion'=>$usuarioV['Profesion'],
+		 'tipo'=>$usuarioV['TipoUsu']
+		 
+		// 'establecimiento_nombre'=>$usuarioV['
+		// 'celular'=>$usuarioV['
+		// 'email'=>$usuarioV['
+		// 'user'=>$usuarioV['
+		// 'password'=>$usuarioV['
+		// 'id_establecimiento'=>$usuarioV['
+		// 'usuAo'=>$usuarioV['
+		// 'fechaCarga'=>$usuarioV['
+
+				];
+		}
+
+$title = 'Lista Usuarios';
+
+//var_dump( $usuariosV);
+return ['template' => 'listausuariosV.html.php',
+		'title' => $title,
+		'variables' => [
+		'usuarios' => $usuariosV,
+	 ]
+	];
 }
+
+public function import() {
+
+	$usuariosSivinViejo=$this->userTableSivin->findAll();
+	
+	$exportUsuario=[];
+
+	foreach ($usuariosSivinViejo as $usuarioSivinViejo){
+		$exportUsuario['id_usuario']='';
+		$exportUsuario['nombre']=$usuarioSivinViejo['Nom'];
+		$exportUsuario['apellido']=$usuarioSivinViejo['Ape']; 	
+		$exportUsuario['profesion']=$usuarioSivinViejo['Profe'];
+		$exportUsuario['tipo']=$usuarioSivinViejo['Tipo'];
+		$exportUsuario['establecimiento_nombre']=$usuarioSivinViejo['Est_Nom'];
+		$exportUsuario['celular']='###-#######';
+		$exportUsuario['email']=$usuarioSivinViejo['Mail'];
+		$exportUsuario['user']=$usuarioSivinViejo['NomUsuario'];
+		$exportUsuario['password']=password_hash($usuarioSivinViejo['Usu_Contra'], PASSWORD_DEFAULT);
+		$exportUsuario['id_establecimiento']=$usuarioSivinViejo['IdEfector'];
+		$exportUsuario['usuAo']=$usuarioSivinViejo['Ao_Num'];
+	   $exportUsuario['fechaCarga']='2000-01-01';
+// var_dump($exportUsuario);
+$this->userTable->save($exportUsuario);
+
+
+	};
+//exit;
+
+header('Location: /user/listar');
+	
+
+	}
+
+}
+
+
+
+
+
+
+
 
 

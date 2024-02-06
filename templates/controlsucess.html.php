@@ -27,8 +27,7 @@
   
  <div class="modal-footer">
 
-           <?php if (
-            $datosInter==false || $datosInter['IntAlta']=="SI") { ?>
+           <?php if (!$datosInter || $datosInter['IntAlta']=="SI") { ?>
             <div class="col-sm-3">		
             <a href="/interna/inter?Idint=<?= $datosInter['Idint'] ?? '' ?>&id=<?= $datosNinio['IdNinio'] ?? '' ?>&tabla=ingreso" class="btn btn-primary" role="button">Ingreso Internación</a>
              </div>	
@@ -40,7 +39,7 @@
             <?php } ?>
              
              <div class="col-sm-3">		
-            <a href="/ninios/home"  class="btn btn-primary " role="button">Guardar</a>
+            <a href="/ninios/home"  class="btn btn-primary " role="button">Salir</a>
             </div>	
       </div> 
     </div>

@@ -14,13 +14,12 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" type="text/css" href="/styles.css"> 
+  <link rel="stylesheet" type="text/css" href="/styles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
 
 <script src="https://kit.fontawesome.com/f6cbba0704.js" crossorigin="anonymous"></script>
-
  <!-- -----------------jquery----------------- -->
  <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -39,7 +38,13 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.12.1/af-2.4.0/b-2.2.3/b-colvis-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/fc-4.1.0/fh-3.2.3/kt-2.7.0/r-2.3.0/rg-1.2.0/rr-1.2.8/sc-2.0.6/sb-1.3.3/sp-2.0.1/sl-1.4.0/sr-1.1.1/datatables.min.js"></script>
 
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"> -->
+ <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"></script>
 
@@ -48,6 +53,7 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
   <title><?=$title?></title>
   <script src="/autocom.js"></script>
  
+</head>
 </head>
   <body class="w3-light-grey" > 
 
@@ -61,7 +67,7 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
 {echo  "<p> Usuario: <b>" . $_SESSION['nombre'] .' '.$_SESSION['apellido'].' </b>- ' . 
 
 $_SESSION['establecimiento_nombre']. "</p>";}
-
+//var_dump($_SESSION);
  ?>
 </h5>
 
@@ -75,12 +81,20 @@ $_SESSION['establecimiento_nombre']. "</p>";}
           </li> 
          
           <li class="nav-item">
-          <a class="navbar-brand mb-0 " href="/ninios/busca">Cargar</a>
+          <a class="navbar-brand mb-0 " href="/ninios/busca">Carga</a>
+          </li>
+
+          <li class="nav-item">
+          <a class="navbar-brand mb-0 " href="/lista/nominal">Consulta</a>
           </li>
      
-           <li class="nav-item">
+           <!-- <li class="nav-item">
           <a class="navbar-brand mb-0 " href="/antro/antro">Antro</a>
-          </li> 
+          </li>  -->
+
+          <?php if ($_SESSION['tipo']=='Auditor') { ?>
+
+
           <li class="nav-item dropdown">
             <a class="dropdown-toggle navbar-brand mb-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Usuarios
@@ -90,7 +104,7 @@ $_SESSION['establecimiento_nombre']. "</p>";}
               <li><a class="navbar-brand mb-0" href="/user/listar">Ver/Editar</a></li>
              </ul>
           </li>
-
+            <?php } ?>
           <li> 
           <a class="nav-item active" aria-current="page" href ="/login/logout">Salir</a>
           </li>
@@ -128,6 +142,9 @@ $_SESSION['establecimiento_nombre']. "</p>";}
 
 <script src="\datatable.js"> </script>
 <script src="\scripts.js"> </script>
+
+ 
+
 
 </body>
 </html>

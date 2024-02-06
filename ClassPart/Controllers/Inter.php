@@ -46,11 +46,11 @@ class Inter
             );
         }
        
- //        var_dump($_GET);
+
  $datosNinio=$this->tablaNinios->findById($_GET['id'])?? '';
  $datosNinio['edad']=$this->calcularEdad($datosNinio['FechaNto'],date('Y-m-d')) ?? ' ';
  $datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
-//  var_dump($datosNoti) ;
+
 $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [] ;
  
 if ($datosNoti != false){$ultimaNoti = $datosNoti['NotFecha'];
@@ -58,20 +58,20 @@ if ($datosNoti != false){$ultimaNoti = $datosNoti['NotFecha'];
 else {$ultimaNoti='1970-01-01';
   $NotId=null;
 }
-echo('notid '.$NotId);
+//echo('notid '.$NotId);
 $ultiInterna = $this->tablaInter->findLast('IdNotifica', $NotId)['IntFecha']?? '1970-01-02';
 if ($datosNoti != false){
 $fechaMinima = $ultiInterna > $ultimaNoti ? $ultiInterna : $ultimaNoti; }
 else {
   $fechaMinima =date('Y-m-d', strtotime('-60 days'));
   }
-
+if ($this->tablaInter->findLast('IdNotifica', $NotId)['IntAlta']=="SI"){$_GET['Idint']=null;}
 
 
 
         
         if (isset($_GET['Idint'])) {
-      //    var_dump($datosInter) ;
+      
            $title='Internación';
     
                   return ['template' => 'interna.html.php',
@@ -112,16 +112,9 @@ else {
        $Notificacion=$this->tablaNoti->findLast('NotNinio', ($_POST['NOTIINTERNADOS']['IdNinio']));
       
       $NOTIINTERNADOS = $_POST['NOTIINTERNADOS'];
-      //  if (is_null($NOTIINTERNADOS['establecimiento_id'])){
-      //    $NOTIINTERNADOS['establecimiento_id']=$this->tablaInter->findLast('IdNotifica',  $Notificacion['NotId'])['IntEfec'] ?? '' ;
-      //    } 
-      
-    //   if (!array_key_exists('establecimiento_id', $NOTIINTERNADOS)) {
-    //     $NOTIINTERNADOS['establecimiento_id'] = $this->tablaInter->findLast('IdNotifica', $Notificacion['NotId'])['IntEfec'] ?? '' ;
-    // }
-
+   
        $Internacion=[];
-    //   var_dump($NOTIINTERNADOS);
+
        
       
     

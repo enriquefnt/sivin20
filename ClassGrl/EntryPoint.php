@@ -65,7 +65,7 @@ if ($uri == '') {
 } 
 
 
-catch (PDOException $e) {
+catch (\PDOException $e) {
 	$title = 'Error';
 	$output = 'Error en la base de datos: ' . $e->getMessage() . ' en ' .
 	$e->getFile() . ':' . $e->getLine();
