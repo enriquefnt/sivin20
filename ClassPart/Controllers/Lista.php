@@ -9,14 +9,20 @@ class Lista
 {
     
 	private $pdoZSCORE;
+    private $tablaResi;
     private $authentication;   
 	
-    public function __construct($pdoZSCORE,
+    public function __construct(
+        $pdoZSCORE,
+        \ClassGrl\DataTables $tablaResi,
     \ClassGrl\Authentication $authentication
+    
     )
     {
         		$this->pdoZSCORE = $pdoZSCORE;
+                $this->tablaResi = $tablaResi;
                 $this->authentication = $authentication;
+                
 		    }
 
 

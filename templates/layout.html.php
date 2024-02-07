@@ -49,7 +49,7 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"></script>
 
   
-
+  <link rel="shortcut icon" type="image/x-icon" href="../public/favicon.ico">
   <title><?=$title?></title>
   <script src="/autocom.js"></script>
  
