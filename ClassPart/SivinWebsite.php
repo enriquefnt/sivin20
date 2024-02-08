@@ -122,7 +122,16 @@ public function getController(string $controllerName): ?object {
 
 public function checkLogin(string $uri): ?string {
 
-        $restrictedPages = ['ninios/ninios', 'user/user', 'noticon/noticon'];
+        $restrictedPages = [
+			'ninios/ninios', 
+			'user/user', 
+			'noticon/noticon',
+			 'interna/inter',
+			 'antro/antro',
+			  'lista/nominal'
+			];
+        
+       foreach ($restrictedPages as $page) {
 
         if (in_array($uri, $restrictedPages) && !$this->authentication->isLoggedIn()) {
 
@@ -134,7 +143,7 @@ public function checkLogin(string $uri): ?string {
         return $uri;
 
     }
-
+}
 
 
 }

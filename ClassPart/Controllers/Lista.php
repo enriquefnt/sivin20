@@ -32,11 +32,8 @@ class Lista
     $casos->execute([]);
     $datos = $casos->fetchAll(\PDO::FETCH_ASSOC);
 
-<<<<<<< HEAD
-=======
   //      var_dump($datos);
 
->>>>>>> sand6
 $title='Nominal';
  
               return ['template' => 'nominal.html.php',

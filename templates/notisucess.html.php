@@ -10,18 +10,17 @@
       <p>Edad: <?=$datosNinio['edad'];?> </p> 
         <p>Lugar: <?='Localidad: '. $datosDomi['ResiLocal'];?> </p> 
         <p>Peso: <?=$Notificacion['NotPeso'];?> kg 
-            Talla: <?=$Notificacion['NotTalla'];?> cm</p>
+            Talla: <?=$Notificacion['NotTalla'];?> cm </p>
 
-            <p> ZPE/E=<span style="color:<?=$Notificacion['colorPE']; ?>">
-            <?= number_format($Notificacion['NotZpe'], 1); ?> </span> - 
+            <p> ZPE/E=<span class="badge bg-<?= $Notificacion['colorPE']; ?> text-dark">
+    <?= number_format($Notificacion['NotZpe'], 1); ?> </span> - 
 
+    ZTA/E=<span class="badge bg-<?= $Notificacion['colorTA']; ?> text-dark">
+    <?= number_format($Notificacion['NotZta'], 1); ?> </span> - 
 
-            ZTA/E=<span style="color:<?=$Notificacion['colorTA']; ?>">
-            <?= number_format($Notificacion['NotZta'], 1); ?> </span> - 
-
-            ZIMC/E= <span style="color:<?=$Notificacion['colorIMC']; ?>">
-            <?= number_format($Notificacion['NotZimc'], 1); ?> </span></p>
-
+    ZIMC/E= <span class="badge bg-<?= $Notificacion['colorIMC']; ?> text-dark">
+    <?= number_format($Notificacion['NotZimc'], 1); ?> </span>
+</p>
       </div>
  <div class="modal-footer">
            
