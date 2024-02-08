@@ -278,9 +278,11 @@ $datosInter= $this->tablaInter->findLast('IdNotifica', ($Notificacion['NotId']))
 if ($_GET['tabla']=='notificacion'){
 
 
-$Notificacion['colorIMC']=$this->getColorClass($Notificacion['NotZimc']);
-$Notificacion['colorPE']=$this->getColorClass($Notificacion['NotZpe']);
-$Notificacion['colorTA']=$this->getColorClass($Notificacion['NotZta']);
+///////////////colo alerta///////////////////////////////
+$Notificacion['alertIMC']=$this->getAlertClass($Notificacion['NotZimc']);
+$Notificacion['alertPE']=$this->getAlertClass($Notificacion['NotZpe']);
+$Notificacion['alertTA']=$this->getAlertClass($Notificacion['NotZta']);
+
 
 return ['template' => 'notisucess.html.php',
 'title' => $title ,
@@ -297,6 +299,13 @@ return ['template' => 'notisucess.html.php',
 		$Control['colorIMC']=$this->getColorClass($Control['CtrolZimc']);
 		$Control['colorPE']=$this->getColorClass($Control['CtrolZp']);
 		$Control['colorTA']=$this->getColorClass($Control['CtrolZt']);
+
+		$Control['alertIMC']=$this->getAlertClass($Control['CtrolZimc']);
+		$Control['alertPE']=$this->getAlertClass($Control['CtrolZp']);
+		$Control['alertTA']=$this->getAlertClass($Control['CtrolZt']);
+
+
+
 		return ['template' => 'controlsucess.html.php',
 		'title' => $title ,
 		'variables' => [
@@ -408,16 +417,16 @@ public function calcularZScore($sexo, $bus, $valor, $fecha_nace, $fecha_control)
 
 public function getAlertClass($value) {
     switch (true) {
-        case $value > 2:
+        case $value > 2 && $value <= 6 :
             return 'danger';
-        case $value < -2:
+        case $value < -2 && $value >= - 6 :
             return 'danger';
-		case ($value >= -1.5 && $value <= 1.5):
+		case $value >= -1.5 && $value <= 2:
 			return 'success';		
-				case ($value < -1.5 && $value >= -2):
+				case $value < -1.5 && $value >= -2:
 			return 'warning';	
         default:
-            return 'primary';
+            return 'dark';
     }
 }
 

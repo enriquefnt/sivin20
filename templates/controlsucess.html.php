@@ -14,15 +14,14 @@
                <p>Peso: <b><?=$Control['CtrolPeso'];?> kg </b>
             Talla: <b><?=$Control['CtrolTalla'];?> cm</b></p>
 
-            <p> ZPE/E=<span style="color:<?=$Control['colorPE']; ?>">
-            <?= number_format($Control['CtrolZp'], 1); ?> </span> - 
+            <p> ZPE/E=<span class="badge bg-<?=$Control['alertPE']; ?>"><b>
+            <?= number_format($Control['CtrolZp'], 1); ?> </b></span> - 
 
+            ZTA/E=<span class="badge bg-<?=$Control['alertTA']; ?> "><b>
+            <?= number_format($Control['CtrolZt'], 1); ?> </b></span> - 
 
-            ZTA/E=<span style="color:<?=$Control['colorTA']; ?>">
-            <?= number_format($Control['CtrolZt'], 1); ?> </span> - 
-
-            ZIMC/E= <span style="color:<?=$Control['colorIMC']; ?>">
-            <?= number_format($Control['CtrolZimc'], 1); ?> </span></p>
+            ZIMC/E= <span class="badge bg-<?=$Control['alertIMC']; ?> " ><b>
+            <?= number_format($Control['CtrolZimc'], 1); ?> </b></span></p>
       </div>
   
  <div class="modal-footer">

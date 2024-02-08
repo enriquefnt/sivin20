@@ -70,6 +70,7 @@ $_SESSION['establecimiento_nombre']. "</p>";}
  ?>
 </h5>
 
+<!-- <nav class="navbar navbar-expand-sm navbar-light py-0 small bg-light"> -->
 <nav class="navbar navbar-expand-sm navbar-light py-0 small bg-light">
     <div class="container">
   <?php if ($loggedIn): ?>
