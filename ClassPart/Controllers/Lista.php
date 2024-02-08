@@ -9,22 +9,34 @@ class Lista
 {
     
 	private $pdoZSCORE;
+    private $tablaResi;
     private $authentication;   
 	
-    public function __construct($pdoZSCORE,
+    public function __construct(
+        $pdoZSCORE,
+        \ClassGrl\DataTables $tablaResi,
     \ClassGrl\Authentication $authentication
+    
     )
     {
         		$this->pdoZSCORE = $pdoZSCORE;
+                $this->tablaResi = $tablaResi;
                 $this->authentication = $authentication;
+                
 		    }
 
 
     public function nominal(){
+        
     $casos = $this->pdoZSCORE->prepare("call saltaped_sivin2.nominal();");
     $casos->execute([]);
     $datos = $casos->fetchAll(\PDO::FETCH_ASSOC);
 
+<<<<<<< HEAD
+=======
+  //      var_dump($datos);
+
+>>>>>>> sand6
 $title='Nominal';
  
               return ['template' => 'nominal.html.php',

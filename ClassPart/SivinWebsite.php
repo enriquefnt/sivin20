@@ -96,7 +96,7 @@ public function getController(string $controllerName): ?object {
 
 				 else if ($controllerName === 'lista') {
 
-				 	$controller = new  \ClassPart\Controllers\Lista($this->pdoZSCORE,$this->authentication);
+				 	$controller = new  \ClassPart\Controllers\Lista($this->pdoZSCORE,$this->tablaResi,$this->authentication);
 				 	}
 					 
 	else if ($controllerName === 'antro') {
