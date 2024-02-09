@@ -43,7 +43,7 @@
           </div>
           <div class="card-footer text-muted">
           <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Para desplazarse en los formularios utilice el puntero del mouse o la tecla <b>TAB</b>. La tecla <b>ENTER</b> no está habilitada..</p>
-          <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> Lorem ipsum dolor sit.</p>
+          <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> El calendario que se habre para cargar fechas, muestra el intervalo válido para la carga</p>
   </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
             </div>
             <div class="card-footer text-muted">
             <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> En desarrollo</p>
-            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i>En desarrollo</p>
+            <p class="fs-6 lh-1"><i class="fa-solid fa-exclamation fa-beat"></i> En desarrollo</p>
             
         </div> 
         </div>

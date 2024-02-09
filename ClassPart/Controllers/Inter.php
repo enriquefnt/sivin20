@@ -52,7 +52,8 @@ class Inter
  $datosNoti=$this->tablaNoti->findLast('NotNinio', ($_GET['id']));
 
 $datosInter=$this->tablaInter->findLast('IdNotifica',  $datosNoti['NotId']) ?? [] ;
- 
+
+ //////////////////// para calcular '$fechaMinima' ///////////////////////////////
 if ($datosNoti != false){$ultimaNoti = $datosNoti['NotFecha'];
   $NotId=$datosNoti['NotId']?? '' ;}		
 else {$ultimaNoti='1970-01-01';
@@ -65,13 +66,19 @@ $fechaMinima = $ultiInterna > $ultimaNoti ? $ultiInterna : $ultimaNoti; }
 else {
   $fechaMinima =date('Y-m-d', strtotime('-60 days'));
   }
-if ($this->tablaInter->findLast('IdNotifica', $NotId)['IntAlta']=="SI"){$_GET['Idint']=null;}
+  ///////////////////////////////////////////////////////////////////////////////////////////
+
+  $result = $this->tablaInter->findLast('IdNotifica', $NotId);
+  if (is_array($result) && $result['IntAlta'] == "SI") {
+      $_GET['Idint'] = null;
+  }
 
 
+//if ($this->tablaInter->findLast('IdNotifica', $NotId)['IntAlta']=="SI"){$_GET['Idint']=null;}
 
-        
+       
         if (isset($_GET['Idint'])) {
-      
+         var_dump($datosInter);
            $title='Internación';
     
                   return ['template' => 'interna.html.php',

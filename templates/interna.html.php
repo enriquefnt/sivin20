@@ -101,12 +101,13 @@
   </div> 
 
  <?php } ?>
-<div class="form-group">
-			<label class="form-label-sm" for="IntObserva">Observaciones</label>
-			 <textarea class="form-control" rows="3" id="IntObserva" name="NOTIINTERNADOS[IntObserva]"
-			 value="<?=$datosInter['IntObserva'] ?? ''?>">
-			</textarea>
-         </div>
+
+ <div class="form-group">
+	<label class="form-label-sm" for="IntObserva">Observaciones</label>
+	<textarea class="form-control" rows="3" id="IntObserva" name="NOTIINTERNADOS[IntObserva]">
+		<?=$datosInter['IntObserva'] ?? ''?>
+	</textarea>
+</div>        
 	</fieldset>
 
 <fieldset class="border p-2">   

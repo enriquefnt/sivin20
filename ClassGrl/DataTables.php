@@ -104,6 +104,25 @@ public function find($field, $value) {
 		return $stmt->fetch();
 	}
 
+	// public function findLast($field, $value) {
+	// 	$query = 'SELECT * FROM `' . $this->table . '` WHERE `' . $field . '` = :value ORDER BY `' . $this->primaryKey . '` DESC LIMIT 1';
+	
+	// 	$values = [
+	// 		'value' => $value
+	// 	];
+	
+	// 	$stmt = $this->pdo->prepare($query);
+	// 	$stmt->execute($values);
+	
+	// 	$result = $stmt->fetch();
+	
+	// 	if ($result === false) {
+	// 		return [];
+	// 	}
+	
+	// 	return $result;
+	// }
+
 
 private function insert($fields)
 	{
