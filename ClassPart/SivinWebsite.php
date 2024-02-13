@@ -16,10 +16,11 @@ class SivinWebsite implements \ClassGrl\Website  {
 	private \ClassGrl\DataTables $tablaClin;
 	private \ClassGrl\DataTables $tablaMotIng;
 	private \ClassGrl\DataTables $tablaDiagEgr;
-	private \ClassGrl\Authentication $Authentication;
+	//private \ClassGrl\Authentication $Authentication;
 	private \ClassGrl\DataTables $tablaAntro;
+	private \ClassGrl\DataTables $tablaZscore;
 	private $pdoZSCORE;
-	private $pdoSivin;
+	//private $pdoSivin;
 //	private $pdoProc; tablaDiagEgr
 	
 	
@@ -43,6 +44,7 @@ public function __construct() {
 	$this->tablaDiagEgr = new \ClassGrl\DataTables($pdo , 'MOTIVOALTAINTERNACION', 'MA_Id');
 	$this->authentication = new \ClassGrl\Authentication($this->tablaUser,'user', 'password'); 
 	$this->tablaAntro = new \ClassGrl\DataTables($pdo,'calc_antro', 'idAnt');
+	$this->tablaZscore = new \ClassGrl\DataTables($pdo,'scoresZ;', 'edadDias');
 	$this->pdoZSCORE = new \PDO('mysql:host=212.1.210.73;dbname=saltaped_sivin2;charset=utf8mb4', 'saltaped_sivin2', 'i1ZYuur=sO1N'); // Asignar el valor a la variable $pdoZSCORE
 	$this->tablaUserSivin = new \ClassGrl\DataTables($pdoSivin,'UsuariosExport', 'Idusuario');	
 
@@ -96,7 +98,7 @@ public function getController(string $controllerName): ?object {
 
 				 else if ($controllerName === 'lista') {
 
-				 	$controller = new  \ClassPart\Controllers\Lista($this->pdoZSCORE,$this->tablaResi,$this->authentication);
+				 	$controller = new  \ClassPart\Controllers\Lista($this->pdoZSCORE, $this->tablaZscore,$this->authentication);
 				 	}
 					 
 	else if ($controllerName === 'antro') {

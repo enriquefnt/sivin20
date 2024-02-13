@@ -146,12 +146,14 @@ public function delete($id)
 	$this->query('DELETE FROM `' . $this->table . '` WHERE
 	`' . $this->primaryKey . '` = :id', $parameters);
 	}
+
 public function findAll()
 	{
 	$result = $this->query('SELECT * FROM ' .
 	$this->table);
 	return $result->fetchAll();
 	}
+	
 private function processDates($fields)
 	{foreach ($fields as $key => $value) {
 	if ($value instanceof \DateTime) {

@@ -233,7 +233,7 @@ $(document).ready(function() {
       "targets": 'nosort',
       "orderable": false
     } ],
-        buttons: [ 'copy', 'excel', 'pdf','colvis' ],
+        buttons: [ 'copy', 'excel',/* 'pdf',*/'colvis' ],
   }
 
     );
