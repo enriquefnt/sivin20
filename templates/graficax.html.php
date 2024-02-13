@@ -26,7 +26,7 @@ var miGrafico = new Chart(ctx, {
     x: {
       type: 'linear',
       min: Math.min(...datos.edades) - 5 , // Valor mínimo de las edades
-      max: Math.max(...datos.edades) +5 , // Valor máximo de las edades
+      max: Math.max(...datos.edades) + 5 , // Valor máximo de las edades
     },
     y: {
       beginAtZero: true

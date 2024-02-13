@@ -1,27 +1,26 @@
-
 <canvas id="graficoZ"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
-  //  import Chart from 'chart.js/auto';
-var datos = <?php echo json_encode($data); ?>;
-console.log(datos); // Verificar los datos en la consola del navegador
+    var datos = <?php echo json_encode($data); ?>;
+    // Si los datos de edad están en formato string, convertirlos a número
+    //datos.edad = datos.edad.map(Number);
+    console.log(datos); // Verificar los datos en la consola del navegador
 </script>
-
 
 <script>
     var chartData = {
-    labels: datos.edad, // Edad en días
-    datasets: [
-        {
-            label: '-3Z',
-            data: datos.SD3neg,
-            borderWidth: 1.6, // Grosor de la línea
-            borderColor:'rgba(0, 0, 0, 100)', // Transparente
-            backgroundColor:'rgba(0, 0, 0, 100)', 
+        labels: datos.edad, // Edad en días
+        datasets: [
+            {
+                label: '-3Z',
+                data: datos.SD3neg,
+                borderWidth: 1.6, // Grosor de la línea
+                borderColor: 'rgba(0, 0, 0, 100)', // Transparente
+                backgroundColor: 'rgba(0, 0, 0, 100)',
 
-            pointRadius: 0
-           
-        },
-        {
+                pointRadius: 0
+            },
+            {
             label: '-2Z',
             data: datos.SD2neg,
             backgroundColor:'rgba(255, 0, 0 ,100)', 
@@ -72,138 +71,94 @@ console.log(datos); // Verificar los datos en la consola del navegador
         
     ]
 };
-
-var chartOptions = {
-    scales: {
-        y: {
-            title: {
-                display: true,
-                text: 'Medida' // Título del eje Y
-            }
-        },
-        x: {
-            title: {
-                display: true,
-                text: 'Edad (meses y años)' // Título del eje X
+var lastYear = -1; // Último año etiquetado
+    var chartOptions = {
+        scales: {
+            y: {
+                title: {
+                    display: true,
+                    text: 'Medida' // Título del eje Y
+                }
             },
-            ticks: {
-                callback: function(value, index, values) {
-                    // Calcular la edad en meses y años
-                    var days = value;
-                    var months = Math.floor(days / 30);
-                    var years = Math.floor(months / 12);
-                    months %= 12;
+            x: {
+                title: {
+                    display: true,
+                    text: 'Edad (meses y años)' // Título del eje X
+                },
 
-                    // Devolver el valor formateado
-                    if (years > 0) {
-                        return years + ' años, ' + months + ' meses';
-                    } else if (months > 0) {
-                        return months + ' meses';
+
+// /////////////////////////////////////////////////////////////////////////////////
+// ticks: {
+//     callback: function(value, index, values) {
+//         // Calcular la edad en meses y años utilizando moment.js
+//         var days = value;
+//         var duration = moment.duration(days, 'days');
+//         var years = duration.years();
+//         var months = duration.months() % 12;
+//         var nuevoAño = years !== lastYear;
+
+//         // Devolver el valor formateado
+//         if (nuevoAño && months === 0) {
+//             // Años completos
+//             return years + ' años'
+//         } else if (!nuevoAño && months > 0) {
+//             // Meses dentro de un año
+//             return months % 12 === 0 ? '1 año' : months % 12 + ' meses'
+//         } else if (nuevoAño && months > 0) {
+//             // Primer mes de un año
+//             return '';
+//         } else if (!nuevoAño && months === 0) {
+//             // Último mes del año anterior
+//             return lastYear + ' años'
+//         } else {
+//             // Otro caso
+//             return years + ' años'
+//         }
+
+
+//     }
+// },
+/////////////////////////////////////////////////////////////////////////////////////
+ticks: {
+                callback: function(value, index, values) {
+                    // Convertir días a meses
+                    var meses = Math.floor(value / 30.44);
+                    // Convertir dias a años
+                    var años = Math.floor(value/ 365.25);
+                    
+                    // Determinar si es un nuevo año
+                    var nuevoAño = años !== lastYear;
+                    
+                    // Actualizar el último año etiquetado
+                    lastYear = años;
+                    
+                    // Mostrar solo un marcador por cada mes
+                    if (meses % 12 === 0 || meses === 0 || nuevoAño) {
+                        // Años completos
+                        return meses === 0 ? 'Nacimiento' : años + ' años';
                     } else {
-                        return days + ' días';
+                        // Meses dentro de un año
+                        return meses % 12 === 0 ? '1 año' : meses % 12;
                     }
                 }
+            },
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+        plugins: {
+            legend: {
+                display: true,
+                position: 'top'
             }
         }
-    },
-    plugins: {
-        legend: {
-            display: true,
-            position: 'top'
-        }
+       }
+      }
     }
-};
-
-
-
-
-
-
-
-
-// //Configurar opciones de Chart.js
-// var chartOptions = {
-//     scales: {
-//         y: {
-//             title: {
-//                 display: true,
-//                 text: 'Medida' // Título del eje Y
-//             }
-//         },
-//         x: {
-//             title: {
-//                 display: true,
-//                 text: 'Edad (días)' // Título del eje X
-//             }
-//         }
-//     },
-//     plugins: {
-//         legend: {
-//             display: true,
-//             position: 'top'
-//         }
-//     }
-// };
-
-// var lastMonth = -1; // Último mes etiquetado
-
-// var chartOptions = {
-//     scales: {
-//         y: {
-//             title: {
-//                 display: true,
-//                 text: 'Medida' // Título del eje Y
-//             }
-//         },
-//         x: {
-//             title: {
-//                 display: true,
-//                 text: 'Edad (meses)' // Título del eje X
-//             },
-//             ticks: {
-//                 callback: function(value, index, values) {
-//                     // Convertir días a meses
-//                     var meses = Math.floor(value / 30);
-                    
-//                     // Determinar si es un nuevo mes
-//                     var nuevoMes = meses !== lastMonth;
-                    
-//                     // Actualizar el último mes etiquetado
-//                     lastMonth = meses;
-                    
-//                     // Mostrar solo un marcador por cada mes
-//                     if (nuevoMes) {
-//                         // Mostrar solo los meses completos
-//                         if (meses % 12 === 0 || meses === 0) {
-//                             // Años completos
-//                             return meses === 0 ? 'Nacimiento' : meses / 12 + ' años';
-//                         } else {
-//                             // Meses dentro de un año
-//                             return meses % 12 + '';
-//                         }
-//                     } else {
-//                         return ''; // No mostrar el marcador si ya se ha etiquetado este mes
-//                     }
-//                 }
-//             }
-//         }
-//     },
-//     plugins: {
-//         legend: {
-//             display: true,
-//             position: 'top'
-//         }
-//     }
-// };
-
-
-
-
-// Crear el gráfico con Chart.js
-var ctx = document.getElementById('graficoZ').getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: chartData,
-    options: chartOptions
-});
+    // Crear el gráfico con Chart.js
+    var ctx = document.getElementById('graficoZ').getContext('2d')
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: chartOptions
+    })
 </script>
