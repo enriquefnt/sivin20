@@ -252,10 +252,10 @@ public function grafico(){
   // Iterar sobre los resultados
   foreach ($result as $dias) {
       // Incrementar el contador
-    //  $counter++;
+     $counter++;
 
       // Solo agregar valores al array de datos si el contador es divisible por 3
-  //    if ($counter % 2 === 0) {
+     if ($counter % 30 === 0) {
           $data['edad'][] = $dias['edadDias'];
           $data['SD3neg'][] = $dias['SD3neg' . $tabla];
           $data['SD2neg'][] = $dias['SD2neg' . $tabla];
@@ -265,7 +265,7 @@ public function grafico(){
           $data['SD2'][] = $dias['SD2' . $tabla];
           $data['SD3'][] = $dias['SD3' . $tabla];
       }
- // }
+}
 
   // Devolver los datos agrupados
   $title = 'Gráfica';
@@ -277,7 +277,7 @@ public function grafico(){
       ]
   ];
 }
-
+ 
 
 
 }
