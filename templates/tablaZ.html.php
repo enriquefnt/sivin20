@@ -5,6 +5,9 @@
     // Si los datos de edad están en formato string, convertirlos a número
     //datos.edad = datos.edad.map(Number);
     console.log(datos); // Verificar los datos en la consola del navegador
+
+    var tituloY = datos.medida;
+    console.log(tituloY);
 </script>
 
 <script>
@@ -77,7 +80,10 @@ var lastYear = -1; // Último año etiquetado
             y: {
                 title: {
                     display: true,
-                    text: 'Medida' // Título del eje Y
+                   // text: String(datos.tabla),
+                   // text: obtenerTitulo(),
+                    text: tituloY
+                    //text: 'Medida' // Título del eje Y
                 }
             },
             x: {

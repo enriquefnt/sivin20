@@ -139,22 +139,13 @@ public function graficaprueba(){
     $pesos[] = $control['Peso'];
 }
   
-// Aquí obtienes los datos de tu base de datos, por ejemplo:
-// $edades = [1500, 1800, 2400, 27000, 3300];
-// $alturas = [110.2, 115.7, 120.9, 125.1, 130.25];
-
-
-
-
 var_dump($edades);
     var_dump($pesos); //die;
-
-// Los conviertes a formato JSON para pasárselos a JavaScript
 $data = [
     'edades' => $edades,
     'pesos' => $pesos
 ];
-  
+ 
 $title='Gráfica';
   
   return [
@@ -165,11 +156,7 @@ $title='Gráfica';
       ]
   ];
 
-
-
-
 }
-
 
 public function grafico(){
 
@@ -182,59 +169,18 @@ public function grafico(){
           'data' => $data ?? []
       ]
   ];
-
-
 }
 
-// public function tablaZ($id=null){
-// //var_dump($_GET)  ;
-// $tabla=$_GET['tabla'];
-//   $result = $this->tablaZscore->findAll();
 
-//   foreach($result as $dias) {
-
-    
-//     $data['edad'][] = $dias['edadDias'];
-//     $data['SD3neg'][] =$dias['SD3neg' . $tabla];
-//     $data['SD2neg'][] = $dias['SD2neg' . $tabla];
-//     $data['SD1neg'][] =$dias['SD1neg' . $tabla];
-//     $data['SD0'][] = $dias['SD0' . $tabla];
-//     $data['SD1'][] = $dias['SD1' . $tabla];
-//     $data['SD2'][] = $dias['SD2' . $tabla];
-//     $data['SD3'][] = $dias['SD3' . $tabla];
-//    }
-//   // var_dump($data); die;
-
-// // $data = [
-// //   'EdadDias' => $edadDias,
-// //   'SD2negPEF' => $SD2negPEF
-// // ];
-
-
-
-//   //$json_data = json_encode($result);
-
-//    //         return $json_data;
-  
-  
-//    $title='Gráfica';
-  
-//    return [
-//        'template' => 'tablaZ.html.php',
-//        'title' => $title,
-//        'variables' => [
-//            'data' => $data ?? []
-//        ]
-//    ];
- // }
  public function tablaZ($id=null){
-  // Obtener el valor de la tabla desde $_GET
   $tabla = $_GET['tabla'];
 
-  // Obtener todos los datos
+  
+
+
+
   $result = $this->tablaZscore->findAll();
 
-  // Inicializar arrays para los datos agrupados
   $data = [
       'edad' => [],
       'SD3neg' => [],
@@ -243,18 +189,16 @@ public function grafico(){
       'SD0' => [],
       'SD1' => [],
       'SD2' => [],
-      'SD3' => []
+      'SD3' => [],
+      'medida' => [],
   ];
 
-  // Contador para rastrear el número de líneas procesadas
   $counter = 0;
-
-  // Iterar sobre los resultados
   foreach ($result as $dias) {
-      // Incrementar el contador
+     
      $counter++;
 
-      // Solo agregar valores al array de datos si el contador es divisible por 3
+     
      if ($counter % 30 === 0) {
           $data['edad'][] = $dias['edadDias'];
           $data['SD3neg'][] = $dias['SD3neg' . $tabla];
@@ -264,9 +208,30 @@ public function grafico(){
           $data['SD1'][] = $dias['SD1' . $tabla];
           $data['SD2'][] = $dias['SD2' . $tabla];
           $data['SD3'][] = $dias['SD3' . $tabla];
+          
+      }
+      
+      
+      
+      
+      
+      switch ($data['medida'] = $tabla){
+        case $tabla=="PEF"||$tabla=="PEM":
+          $data['medida'] ='Peso (kg)';
+          break;
+          case $tabla=="TEF"||$tabla=="TEM":
+          $data['medida'] ='Talla (cm)';
+          break;
+          case $tabla=="IEF"||$tabla=="IEM":
+          $data['medida'] ='Indice de masa corporal (kg/m2)';
+          break;
+         
+        default:
+        $data['medida']  ='Otra';
+
       }
 }
-
+//var_dump($data);
   // Devolver los datos agrupados
   $title = 'Gráfica';
   return [
