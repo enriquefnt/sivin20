@@ -139,13 +139,13 @@ public function graficaprueba(){
     $pesos[] = $control['Peso'];
 }
   
-var_dump($edades);
-    var_dump($pesos); //die;
+ 
+
 $data = [
     'edades' => $edades,
     'pesos' => $pesos
 ];
- 
+// var_dump($data);
 $title='Gráfica';
   
   return [
@@ -174,10 +174,31 @@ public function grafico(){
 
  public function tablaZ($id=null){
   $tabla = $_GET['tabla'];
-
+  $caso= $_GET['caso'] ?? '';
   
+/////////////////////datos niño ////////////////////////////////
+$controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso);");
+  $controles->execute([]);
+  $datosControl =$controles->fetchAll(\PDO::FETCH_ASSOC);
 
+  foreach($datosControl as $control) {
+    $edades[] = $control['EdadDias'];
+    $pesos[] = $control['Peso'];
+    $tallas[] = $control['Talla'];
+}
+  
+// var_dump($edades);
+//     var_dump($pesos);
+//     var_dump($tallas); //die;
+$dataCaso = [
+    'edades' => $edades,
+    'pesos' => $pesos,
+    'tallas' => $tallas
+];
 
+var_dump($dataCaso);
+ ///////////////////////////////////////////////////////////////////
+///////////////Datos tabla//////////////////////////////////
 
   $result = $this->tablaZscore->findAll();
 
@@ -231,8 +252,7 @@ public function grafico(){
 
       }
 }
-//var_dump($data);
-  // Devolver los datos agrupados
+//////////////////////////////////////////////////////////////////////
   $title = 'Gráfica';
   return [
       'template' => 'tablaZ.html.php',

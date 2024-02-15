@@ -2,9 +2,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
     var datos = <?php echo json_encode($data); ?>;
+    //var datoscaso = <?php echo json_encode($dataCaso); ?>;
     // Si los datos de edad están en formato string, convertirlos a número
     //datos.edad = datos.edad.map(Number);
     console.log(datos); // Verificar los datos en la consola del navegador
+    var datoscaso = <?php echo json_encode($dataCaso); ?>;
+console.log(datoscaso); // Verificar los datos en la consola del navegador
 
     var tituloY = datos.medida;
     console.log(tituloY);
