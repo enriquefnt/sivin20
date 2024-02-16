@@ -3,9 +3,11 @@
 <script>
     var datos = <?php echo json_encode($data); ?>;
     var datosCaso = <?php echo json_encode($dataCaso); ?>;
+    var combinedData = <?php echo json_encode($combinedData); ?>;
     console.log(datos); // Verificar los datos en la consola del navegador
   //  console.log(datos.SD3neg);
     console.log(datosCaso); 
+    console.log(combinedData); 
  
 
     var tituloY = datos.medida;

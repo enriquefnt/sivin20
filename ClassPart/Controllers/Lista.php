@@ -115,7 +115,7 @@ public function grafico(){
   $caso= $_GET['caso'] ?? '';
   $sex= $_GET['sex'];
   $tabla=$indicador . $sex;
-echo($indicador . '   '  .$tabla .'  '. $sex);
+//echo($indicador . '   '  .$tabla .'  '. $sex);
 /////////////////////datos niño ////////////////////////////////
 $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso);");
   $controles->execute([]);
@@ -154,6 +154,7 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
       'SD2' => [],
       'SD3' => [],
       'medida' => [],
+      'caso' => []
      
   ];
 
@@ -193,13 +194,65 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
       }
 }
 //////////////////////////////////////////////////////////////////////
+///////////////////////////combinar arrays //////////////////////////////////////
+
+$combinedData = [
+  [
+    'edad' => $data['edad']
+  ]
+  ,
+  [
+      'label' => 'SD3neg',
+      'data' => $data['SD3neg']
+  ],
+  [
+      'label' => 'SD2neg',
+      'data' => $data['SD2neg']
+  ],
+  [
+    'label' => 'SD1neg',
+    'data' => $data['SD2neg']
+  ],
+  [
+    'label' => 'SD3neg',
+    'data' => $data['SD0']
+  ],
+  [
+      'label' => 'SD2neg',
+      'data' => $data['SD1']
+  ],
+  [
+    'label' => 'SD1neg',
+    'data' => $data['SD2']
+  ],
+  [
+    'label' => 'SD1neg',
+    'data' => $data['SD3']
+  ],
+  [
+    'medida'=>$data['medida']
+  ]
+,
+  // Repite lo mismo para las demás series de datos de referencia
+  // Luego, añade los datos del caso individual al mismo array
+  [
+      'label' => 'Caso',
+      'data' => $dataCaso['valor'],
+      'edad' => $dataCaso['edades']
+  ]
+];
+
+//var_dump($combinedData); die;
+ 
+
   $title = 'Gráfica';
   return [
       'template' => 'tablaZ.html.php',
       'title' => $title,
       'variables' => [
           'data' => $data,
-          'dataCaso' =>  $dataCaso
+          'dataCaso' =>  $dataCaso,
+          'combinedData' => $combinedData
       ]
   ];
 }
