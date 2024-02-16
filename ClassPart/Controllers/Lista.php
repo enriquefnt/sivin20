@@ -115,7 +115,7 @@ public function grafico(){
   $caso= $_GET['caso'] ?? '';
   $sex= $_GET['sex'];
   $tabla=$indicador . $sex;
-//echo($indicador . '   '  .$tabla .'  '. $sex);
+echo($indicador . '   '  .$tabla .'  '. $sex);
 /////////////////////datos niño ////////////////////////////////
 $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso);");
   $controles->execute([]);
@@ -124,11 +124,11 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
   
  
   $dataCaso = [
-    'edad' => [],
+    'edades' => [],
     'valor' =>[]
   ];
   foreach($datosControl as $control) {
-    $dataCaso['edad'][] = $control['EdadDias'];
+    $dataCaso['edades'][] = $control['EdadDias'];
 
     if ($indicador=='PE'){$dataCaso['valor'][]=$control['Peso'];}
     elseif ($indicador=='TE'){$dataCaso['valor'][]=$control['Talla'];}
@@ -138,7 +138,7 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
 
 
 
-/////var_dump($dataCaso); 
+//var_dump($dataCaso); 
  ///////////////////////////////////////////////////////////////////
 ///////////////Datos tabla//////////////////////////////////
 
@@ -157,13 +157,13 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
      
   ];
 
-  //$counter = 0;
+  $counter = 0;
   foreach ($result as $dias) {
      
-   //  $counter++;
+     $counter++;
 
      
-   //  if ($counter % 30 === 0) {
+     if ($counter % 30 === 0) {
           $data['edad'][] = $dias['edadDias'];
           $data['SD3neg'][] = $dias['SD3neg' . $tabla];
           $data['SD2neg'][] = $dias['SD2neg' . $tabla];
@@ -172,7 +172,7 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
           $data['SD1'][] = $dias['SD1' . $tabla];
           $data['SD2'][] = $dias['SD2' . $tabla];
           $data['SD3'][] = $dias['SD3' . $tabla];
-    //            }
+                }
            
       
       
