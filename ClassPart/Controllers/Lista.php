@@ -47,7 +47,7 @@ $title='Nominal';
 }
  public function porCaso(){
  
-  $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.controlesXcaso(6622);");
+  $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.controlesXcaso(6599);");
     $controles->execute([]);
     $datosControl =$controles->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -63,71 +63,9 @@ $title='Nominal';
                     ]; 
 
 }
-// public function grafica(){
-//   $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas(6622);");
-//   $controles->execute([]);
-//   $datosControl =$controles->fetchAll(\PDO::FETCH_ASSOC);
-
-  
-//   foreach($datosControl as $control)
-//   {
-//       $data[] = array(
-//           'edad'     => $control['EdadDias'],
-//           'peso'     => $control['Peso'],
-//           'talla'   => $control['Talla']
-//       );
-//   }
-//   var_dump($data); die;
-//   $title='Gráfica';
- 
-//   return ['template' => 'grafica.html.php',
-//              'title' => $title ,
-//         'variables' => [
-//        'data'  =>   $data ?? []
-
-//                          ]
-
-//         ]; 
-
-
-// }
 
 
 
-public function grafica(){
-  $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas(6622);");
-  $controles->execute([]);
-  $datosControl =$controles->fetchAll(\PDO::FETCH_ASSOC);
-
-  // Inicializar arreglos para las edades y pesos
-  $edades = [];
-  $pesos = [];
-
-  foreach($datosControl as $control) {
-      $edades[] = $control['EdadDias'];
-      $pesos[] = $control['Peso'];
-  }
-    var_dump($edades);
-    var_dump($pesos); die;
-
-
-
-  // Crear un arreglo asociativo con las edades y los pesos
-  $data = [
-      'edades' => $edades,
-      'pesos' => $pesos
-  ];
-//var_dump($data); die ;
-  $title='Gráfica';
-  
-  return [
-      'template' => 'grafica.html.php',
-      'title' => $title,
-      'variables' => [
-          'data' => $data ?? []
-      ]
-  ];
-}
 public function graficaprueba(){
 
   $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas(6622);");
@@ -173,30 +111,34 @@ public function grafico(){
 
 
  public function tablaZ($id=null){
-  $tabla = $_GET['tabla'];
+  $indicador = $_GET['indicador'] ?? '';
   $caso= $_GET['caso'] ?? '';
-  
+  $sex= $_GET['sex'];
+  $tabla=$indicador . $sex;
+//echo($indicador . '   '  .$tabla .'  '. $sex);
 /////////////////////datos niño ////////////////////////////////
 $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso);");
   $controles->execute([]);
   $datosControl =$controles->fetchAll(\PDO::FETCH_ASSOC);
-
-  foreach($datosControl as $control) {
-    $edades[] = $control['EdadDias'];
-    $pesos[] = $control['Peso'];
-    $tallas[] = $control['Talla'];
-}
+ //var_dump($datosControl); 
   
-// var_dump($edades);
-//     var_dump($pesos);
-//     var_dump($tallas); //die;
-$dataCaso = [
-    'edades' => $edades,
-    'pesos' => $pesos,
-    'tallas' => $tallas
-];
+ 
+  $dataCaso = [
+    'edad' => [],
+    'valor' =>[]
+  ];
+  foreach($datosControl as $control) {
+    $dataCaso['edad'][] = $control['EdadDias'];
 
-var_dump($dataCaso);
+    if ($indicador=='PE'){$dataCaso['valor'][]=$control['Peso'];}
+    elseif ($indicador=='TE'){$dataCaso['valor'][]=$control['Talla'];}
+    else {$dataCaso['valor'][]=$control['Peso']/($control['Talla']/100)/($control['Talla']/100);}
+   }
+  
+
+
+
+/////var_dump($dataCaso); 
  ///////////////////////////////////////////////////////////////////
 ///////////////Datos tabla//////////////////////////////////
 
@@ -212,15 +154,16 @@ var_dump($dataCaso);
       'SD2' => [],
       'SD3' => [],
       'medida' => [],
+     
   ];
 
-  $counter = 0;
+  //$counter = 0;
   foreach ($result as $dias) {
      
-     $counter++;
+   //  $counter++;
 
      
-     if ($counter % 30 === 0) {
+   //  if ($counter % 30 === 0) {
           $data['edad'][] = $dias['edadDias'];
           $data['SD3neg'][] = $dias['SD3neg' . $tabla];
           $data['SD2neg'][] = $dias['SD2neg' . $tabla];
@@ -229,11 +172,8 @@ var_dump($dataCaso);
           $data['SD1'][] = $dias['SD1' . $tabla];
           $data['SD2'][] = $dias['SD2' . $tabla];
           $data['SD3'][] = $dias['SD3' . $tabla];
-          
-      }
-      
-      
-      
+    //            }
+           
       
       
       switch ($data['medida'] = $tabla){
@@ -258,11 +198,10 @@ var_dump($dataCaso);
       'template' => 'tablaZ.html.php',
       'title' => $title,
       'variables' => [
-          'data' => $data
+          'data' => $data,
+          'dataCaso' =>  $dataCaso
       ]
   ];
 }
  
-
-
 }
