@@ -124,11 +124,11 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
   
  
   $dataCaso = [
-    'edades' => [],
+    'edad' => [],
     'valor' =>[]
   ];
   foreach($datosControl as $control) {
-    $dataCaso['edades'][] = $control['EdadDias'];
+    $dataCaso['edad'][] = $control['EdadDias'];
 
     if ($indicador=='PE'){$dataCaso['valor'][]=$control['Peso'];}
     elseif ($indicador=='TE'){$dataCaso['valor'][]=$control['Talla'];}
@@ -138,7 +138,7 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
 
 
 
-//var_dump($dataCaso); 
+// var_dump($dataCaso); 
  ///////////////////////////////////////////////////////////////////
 ///////////////Datos tabla//////////////////////////////////
 
@@ -202,6 +202,10 @@ $combinedData = [
   ]
   ,
   [
+    'edad' => $dataCaso['edad']
+  ]
+  ,
+  [
       'label' => 'SD3neg',
       'data' => $data['SD3neg']
   ],
@@ -238,7 +242,6 @@ $combinedData = [
   [
       'label' => 'Caso',
       'data' => $dataCaso['valor'],
-      'edad' => $dataCaso['edades']
   ]
 ];
 

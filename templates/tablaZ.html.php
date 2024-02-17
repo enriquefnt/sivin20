@@ -24,7 +24,6 @@
                 borderWidth: 1.6, // Grosor de la línea
                 borderColor: 'rgba(0, 0, 0, 100)', // Transparente
                 backgroundColor: 'rgba(0, 0, 0, 100)',
-
                 pointRadius: 0
             },
             {
@@ -70,14 +69,17 @@
         {
             label: '3Z',
             data: datos.SD3,
-            borderColor:'rgba(0, 0, 0, 100)', // Transparente
-            backgroundColor:'rgba(255, 0, 0 ,100)', 
-            borderWidth: 1.6,// Grosor de la línea
-            pointRadius: 0
+            borderWidth: 1.6, // Grosor de la línea
+                borderColor: 'rgba(0, 0, 0, 100)', // Transparente
+                backgroundColor: 'rgba(0, 0, 0, 100)',
+                pointRadius: 0
         },
         {
             label: 'Caso',
-            data: datosCaso.valor,
+            data: datosCaso.valor,//.map((valor, i) => ({
+              //   x: moment.duration(datosCaso.edades[i], 'days').asMonths(),
+              //      y: valor
+            //})),
             borderColor:'rgba(0, 0, 255, 100)', 
             backgroundColor:'rgba(0, 0, 255, 100)', 
             borderWidth: 1.6,// Grosor de la línea
