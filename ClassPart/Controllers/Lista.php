@@ -68,7 +68,7 @@ $title='Nominal';
 
 public function graficaprueba(){
 
-  $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas(6622);");
+  $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas(6649);");
   $controles->execute([]);
   $datosControl =$controles->fetchAll(\PDO::FETCH_ASSOC);
 
@@ -83,7 +83,7 @@ $data = [
     'edades' => $edades,
     'pesos' => $pesos
 ];
-// var_dump($data);
+ var_dump($data);
 $title='Gráfica';
   
   return [
@@ -96,12 +96,73 @@ $title='Gráfica';
 
 }
 
-public function grafico(){
+public function grafico($id=null){
 
+    $indicador = $_GET['indicador'] ?? '';
+    $sex= $_GET['sex'];
+    $caso= $_GET['caso'] ?? '';
+    $tabla=$indicador . $sex;
+  
+///////////////Datos tabla//////////////////////////////////
+
+  $result = $this->tablaZscore->findAll();
+
+  $data = [
+      'edad' => [],
+      'SD3neg' => [],
+      'SD2neg' => [],
+      'SD1neg' => [],
+      'SD0' => [],
+      'SD1' => [],
+      'SD2' => [],
+      'SD3' => [],
+      'medida' => [],
+      'caso' => []
+     
+  ];
+
+  $counter = 0;
+  foreach ($result as $dias) {
+     
+     $counter++;
+
+     
+     if ($counter % 30 === 0) {
+          $data['edad'][] = $dias['edadDias'];
+          $data['SD3neg'][] = $dias['SD3neg' . $tabla];
+          $data['SD2neg'][] = $dias['SD2neg' . $tabla];
+          $data['SD1neg'][] = $dias['SD1neg' . $tabla];
+          $data['SD0'][] = $dias['SD0' . $tabla];
+          $data['SD1'][] = $dias['SD1' . $tabla];
+          $data['SD2'][] = $dias['SD2' . $tabla];
+          $data['SD3'][] = $dias['SD3' . $tabla];
+                }
+           
+      
+      
+      switch ($data['medida'] = $tabla){
+        case $tabla=="PEF"||$tabla=="PEM":
+          $data['medida'] ='Peso (kg)';
+          break;
+          case $tabla=="TEF"||$tabla=="TEM":
+          $data['medida'] ='Talla (cm)';
+          break;
+          case $tabla=="IEF"||$tabla=="IEM":
+          $data['medida'] ='Indice de masa corporal (kg/m2)';
+          break;
+         
+        default:
+        $data['medida']  ='Otra';
+
+      }
+}
+//////////////////////////////////////////////////////////////////////
   $title='Gráfica';
+
+
   
   return [
-      'template' => 'graficax.html.php',
+      'template' => 'grafica.html.php',
       'title' => $title,
       'variables' => [
           'data' => $data ?? []
@@ -138,7 +199,7 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
 
 
 
-// var_dump($dataCaso); 
+var_dump($dataCaso); 
  ///////////////////////////////////////////////////////////////////
 ///////////////Datos tabla//////////////////////////////////
 
@@ -250,7 +311,7 @@ $combinedData = [
 
   $title = 'Gráfica';
   return [
-      'template' => 'tablaZ.html.php',
+      'template' => 'grafica.html.php',
       'title' => $title,
       'variables' => [
           'data' => $data,

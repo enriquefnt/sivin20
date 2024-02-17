@@ -12,6 +12,8 @@
 
     var tituloY = datos.medida;
     console.log(tituloY);
+  //  datosCaso.edad = datosCaso.edad.map(x => parseInt(x));
+     datosCaso.edad = datosCaso.edad.map(Number);
 </script>
 
 <script>
@@ -76,10 +78,10 @@
         },
         {
             label: 'Caso',
-            data: datosCaso.valor,//.map((valor, i) => ({
-              //   x: moment.duration(datosCaso.edades[i], 'days').asMonths(),
-              //      y: valor
-            //})),
+    data: datosCaso.valor.map((valor, i) => ({
+        x: datos.edad[i],
+        y: valor
+    })),
             borderColor:'rgba(0, 0, 255, 100)', 
             backgroundColor:'rgba(0, 0, 255, 100)', 
             borderWidth: 1.6,// Grosor de la línea
@@ -107,29 +109,29 @@ var lastYear = -1; // Último año etiquetado
 
 
 
-ticks: {
-                callback: function(value, index, values) {
-                    // Convertir días a meses
-                    var meses = value;
-                    // Convertir dias a años
-                    var años = Math.floor(value/ 12);
+// ticks: {
+//                 callback: function(value, index, values) {
+//                     // Convertir días a meses
+//                     var meses = value;
+//                     // Convertir dias a años
+//                     var años = Math.floor(value/ 12);
                     
-                    // Determinar si es un nuevo año
-                    var nuevoAño = años !== lastYear;
+//                     // Determinar si es un nuevo año
+//                     var nuevoAño = años !== lastYear;
                     
-                    // Actualizar el último año etiquetado
-                    lastYear = años;
+//                     // Actualizar el último año etiquetado
+//                     lastYear = años;
                     
-                    // Mostrar solo un marcador por cada mes
-                    if (meses % 12 === 0 || meses === 0 || nuevoAño) {
-                        // Años completos
-                        return meses === 0 ? 'Nacimiento' : años + ' años';
-                    } else {
-                        // Meses dentro de un año
-                        return meses % 12 === 0 ? '1 año' : meses % 12;
-                    }
-                }
-            },
+//                     // Mostrar solo un marcador por cada mes
+//                     if (meses % 12 === 0 || meses === 0 || nuevoAño) {
+//                         // Años completos
+//                         return meses === 0 ? 'Nacimiento' : años + ' años';
+//                     } else {
+//                         // Meses dentro de un año
+//                         return meses % 12 === 0 ? '1 año' : meses % 12;
+//                     }
+//                 }
+//             },
 
 
             min: 0,
