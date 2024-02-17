@@ -1,32 +1,32 @@
-<!-- <canvas id="graficoLineas" width="800" height="400">CANVAS</canvas> -->
 <canvas id="graficoLineas" ></canvas>
 
 
     <script>
             const datosRef = <?php echo json_encode($data); ?>;
            console.log(datosRef)
+
+           const  datosControl = <?php echo json_encode($dataCaso); ?>;
+           console.log(datosControl)
+         
     
-
-
-
-        const datosControl = {
-            edadesControl: [330 ,402.5, 815],
-            pesosControl: [8,9.6, 12.5],
-        };
+        // const datosControl = {
+        //     edad: [330 ,402.5, 815,950],
+        //     valor: [8,9.6, 12.5, 13.8],
+        // };
 
         const chartData = {
             labels: datosRef.edad,
             datasets: [
                 {
                     label: 'Caso control',
-                    data: datosControl.pesosControl.map((valor, i) => ({
-                        x: datosControl.edadesControl[i],
+                    data: datosControl.valor.map((valor, i) => ({
+                        x: datosControl.edad[i],
                         y: valor,
                     })),
                     borderColor:'rgba(0, 0, 255, 100)', 
                     backgroundColor:'rgba(0, 0, 255, 100)', 
                     borderWidth: 1.6,
-                    pointRadius: 0,
+                    pointRadius: 1.3,
                 },
                     {
                     label: '-3Z',

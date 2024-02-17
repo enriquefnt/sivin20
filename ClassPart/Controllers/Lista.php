@@ -157,6 +157,35 @@ public function grafico($id=null){
       }
 }
 //////////////////////////////////////////////////////////////////////
+/////////////////////datos niño ////////////////////////////////
+$controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso);");
+  $controles->execute([]);
+  $datosControl =$controles->fetchAll(\PDO::FETCH_ASSOC);
+ //var_dump($datosControl); 
+  
+ 
+  $dataCaso = [
+    'edad' => [],
+    'valor' =>[]
+  ];
+  foreach($datosControl as $control) {
+    $dataCaso['edad'][] = $control['EdadDias'];
+
+    if ($indicador=='PE'){$dataCaso['valor'][]=$control['Peso'];}
+    elseif ($indicador=='TE'){$dataCaso['valor'][]=$control['Talla'];}
+    else {$dataCaso['valor'][]=$control['Peso']/($control['Talla']/100)/($control['Talla']/100);}
+   }
+  
+
+
+
+var_dump($dataCaso); 
+ ///////////////////////////////////////////////////////////////////
+
+
+
+
+
   $title='Gráfica';
 
 
@@ -165,7 +194,8 @@ public function grafico($id=null){
       'template' => 'grafica.html.php',
       'title' => $title,
       'variables' => [
-          'data' => $data ?? []
+          'data' => $data ?? [],
+          'dataCaso' => $dataCaso?? []
       ]
   ];
 }
