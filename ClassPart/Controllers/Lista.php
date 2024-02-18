@@ -127,7 +127,7 @@ public function grafico($id=null){
      $counter++;
 
      
-     if ($counter % 30 === 0) {
+     if ($counter % 30 === 0||$dias['edadDias']=== 0) {
           $data['edad'][] = $dias['edadDias'];
           $data['SD3neg'][] = $dias['SD3neg' . $tabla];
           $data['SD2neg'][] = $dias['SD2neg' . $tabla];
@@ -179,7 +179,7 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
 
 
 
-var_dump($dataCaso); 
+//var_dump($dataCaso); 
  ///////////////////////////////////////////////////////////////////
 
 

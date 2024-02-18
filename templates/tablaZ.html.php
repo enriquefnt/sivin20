@@ -2,18 +2,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
     var datos = <?php echo json_encode($data); ?>;
-    var datosCaso = <?php echo json_encode($dataCaso); ?>;
-    var combinedData = <?php echo json_encode($combinedData); ?>;
+    // Si los datos de edad están en formato string, convertirlos a número
+    //datos.edad = datos.edad.map(Number);
     console.log(datos); // Verificar los datos en la consola del navegador
-  //  console.log(datos.SD3neg);
-    console.log(datosCaso); 
-    console.log(combinedData); 
- 
 
     var tituloY = datos.medida;
     console.log(tituloY);
-  //  datosCaso.edad = datosCaso.edad.map(x => parseInt(x));
-     datosCaso.edad = datosCaso.edad.map(Number);
 </script>
 
 <script>
@@ -26,7 +20,8 @@
                 borderWidth: 1.6, // Grosor de la línea
                 borderColor: 'rgba(0, 0, 0, 100)', // Transparente
                 backgroundColor: 'rgba(0, 0, 0, 100)',
-                pointRadius: 1
+
+                pointRadius: 0
             },
             {
             label: '-2Z',
@@ -71,22 +66,12 @@
         {
             label: '3Z',
             data: datos.SD3,
-            borderWidth: 1.6, // Grosor de la línea
-                borderColor: 'rgba(0, 0, 0, 100)', // Transparente
-                backgroundColor: 'rgba(0, 0, 0, 100)',
-                pointRadius: 0
-        },
-        {
-            label: 'Caso',
-    data: datosCaso.valor.map((valor, i) => ({
-        x: datos.edad[i],
-        y: valor
-    })),
-            borderColor:'rgba(0, 0, 255, 100)', 
-            backgroundColor:'rgba(0, 0, 255, 100)', 
+            borderColor:'rgba(0, 0, 0, 100)', // Transparente
+            backgroundColor:'rgba(0, 0, 0, 100)', 
             borderWidth: 1.6,// Grosor de la línea
             pointRadius: 0
         },
+        
     ]
 };
 var lastYear = -1; // Último año etiquetado
@@ -139,7 +124,10 @@ ticks: {
         }
     
     },
-}
+
+    }
+
+
 
     plugins: {
         legend: {

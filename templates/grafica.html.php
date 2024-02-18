@@ -1,21 +1,20 @@
-<canvas id="graficoLineas" ></canvas>
+<canvas id="graficoLineas" >Datos de crecimiento</canvas>
 
 
     <script>
+        console.log(Chart.version);
             const datosRef = <?php echo json_encode($data); ?>;
            console.log(datosRef)
 
            const  datosControl = <?php echo json_encode($dataCaso); ?>;
            console.log(datosControl)
-         
+           var tituloY = datosRef.medida;
     
-        // const datosControl = {
-        //     edad: [330 ,402.5, 815,950],
-        //     valor: [8,9.6, 12.5, 13.8],
-        // };
+       
 
         const chartData = {
-            labels: datosRef.edad,
+         labels: datosRef.edad,
+        //  labels: datosRef.edad.map(age => age.toString()), 
             datasets: [
                 {
                     label: 'Caso control',
@@ -87,37 +86,68 @@
                
             ],
         };
-
-        const chartOptions = {
-            scales: {
-                y: {
-                    title: {
-                        display: true,
-                        text: 'Peso (kg)',
-                    },
-                },
-                x: {
-                type: 'linear', // Configurar la escala x como lineal
-                position: 'bottom', // Posicionar la escala en la parte inferior
-                title: {
-                    display: true,
-                    text: 'Edades'
-                }
-            },
-        },
-            plugins: {
-                legend: {
-                    display: true,
-                    position: 'top',
-                },
-            },
-        };
+       
     
 
         const ctx = document.getElementById('graficoLineas').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'line',
-            data: chartData,
-            options: chartOptions,
-        });
+
+
+
+     //   var lastYear = -1; // Último año etiquetado
+const myChart = new Chart(ctx, {
+    type: 'line',
+    data: chartData,
+    options: {
+        scales: {
+            y: {
+                title: {
+                    display: true,
+                    text: tituloY,
+                },
+            },
+            x: {
+                type: 'linear',
+                position: 'bottom',
+                min: 0,
+             //   max: 1846,
+                title: {
+                    display: true,
+                    text: 'Edad'
+                },
+                
+                ticks: {
+                callback: function(value, index, values) {
+                    var lastYear = -1; // Último año etiquetado
+                    // Convertir días a meses
+                    var dias = value;
+                    var meses = Math.floor(dias / 30); // Redondea hacia abajo para obtener el número entero de meses
+                    // Convertir meses a años
+                    var años = Math.floor(meses / 12);
+                    
+                    // Determinar si es un nuevo año
+                    var nuevoAño = años !== lastYear;
+                    
+                    // Actualizar el último año etiquetado
+                    lastYear = años;
+                    
+                    // Mostrar solo un marcador por cada mes
+                    if (meses % 12 === 0 || meses === 0 || nuevoAño) {
+                        // Años completos
+                        return meses === 0 ? 'Nacimiento' : años + ' años';
+                    } else {
+                        // Meses dentro de un año
+                        return meses % 12 === 0 ? '1 año' : meses % 12 + ' meses';
+        }
+    }
+}
+        // plugins: {
+        //     legend: {
+        //         display: true,
+        //         position: 'right',
+        //     },
+        // },
+    },
+}
+    }
+});
     </script>
