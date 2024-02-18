@@ -2,6 +2,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script>
     var datos = <?php echo json_encode($data); ?>;
+    var datosCaso = <?php echo json_encode($dataCaso); ?>;
     // Si los datos de edad están en formato string, convertirlos a número
     //datos.edad = datos.edad.map(Number);
     console.log(datos); // Verificar los datos en la consola del navegador
@@ -71,9 +72,21 @@
             borderWidth: 1.6,// Grosor de la línea
             pointRadius: 0
         },
-        
+        {
+            label: 'Caso',
+    data: datosCaso.valor.map((valor, i) => ({
+        x: datos.edad[i],
+        y: valor
+    })),
+            borderColor:'rgba(0, 0, 255, 100)', 
+            backgroundColor:'rgba(0, 0, 255, 100)', 
+            borderWidth: 1.6,// Grosor de la línea
+            pointRadius: 0
+        },
     ]
 };
+        
+   
 var lastYear = -1; // Último año etiquetado
     var chartOptions = {
         scales: {
