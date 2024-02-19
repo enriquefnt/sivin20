@@ -6,6 +6,7 @@
     // Si los datos de edad están en formato string, convertirlos a número
     //datos.edad = datos.edad.map(Number);
     console.log(datos); // Verificar los datos en la consola del navegador
+    console.log(datosCaso);
 
     var tituloY = datos.medida;
     console.log(tituloY);
@@ -15,6 +16,17 @@
     var chartData = {
         labels: datos.edad, // Edad en días
         datasets: [
+            {
+                    label: 'Caso control',
+                    data: datosCaso.valor.map((valor, i) => ({
+                        x: datosCaso.edades[i],
+                        y: valor,
+                    })),
+                    borderColor:'rgba(0, 0, 255, 100)', 
+                    backgroundColor:'rgba(0, 0, 255, 100)', 
+                    borderWidth: 1.6,
+                    pointRadius: 1.3,
+                },
             {
                 label: '-3Z',
                 data: datos.SD3neg,
@@ -72,17 +84,7 @@
             borderWidth: 1.6,// Grosor de la línea
             pointRadius: 0
         },
-        {
-            label: 'Caso',
-    data: datosCaso.valor.map((valor, i) => ({
-        x: datos.edad[i],
-        y: valor
-    })),
-            borderColor:'rgba(0, 0, 255, 100)', 
-            backgroundColor:'rgba(0, 0, 255, 100)', 
-            borderWidth: 1.6,// Grosor de la línea
-            pointRadius: 0
-        },
+      
     ]
 };
         

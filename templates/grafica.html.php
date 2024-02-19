@@ -9,12 +9,20 @@
            const  datosControl = <?php echo json_encode($dataCaso); ?>;
            console.log(datosControl)
            var tituloY = datosRef.medida;
-    
+
+           function combineAndSortArrays(array1, array2) {
+            const combinedArray = array1.concat(array2);
+            combinedArray.sort((a, b) => a - b);
+            return combinedArray;
+        }
+
+        const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
        
 
         const chartData = {
-         labels: datosRef.edad,
-        //  labels: datosRef.edad.map(age => age.toString()), 
+         //   labels: datosRef.edad.map(age => Number(age)),
+            labels: datosRef.edad,
+    //   labels: datosRef.edad.map(age => age.toString()), 
             datasets: [
                 {
                     label: 'Caso control',
@@ -22,8 +30,8 @@
                         x: datosControl.edad[i],
                         y: valor,
                     })),
-                    borderColor:'rgba(0, 0, 255, 100)', 
-                    backgroundColor:'rgba(0, 0, 255, 100)', 
+                    borderColor: 'rgba(0, 0, 255, 100)',
+                    backgroundColor: 'rgba(0, 0, 255, 100)',
                     borderWidth: 1.6,
                     pointRadius: 1.3,
                 },
@@ -89,65 +97,88 @@
        
     
 
-        const ctx = document.getElementById('graficoLineas').getContext('2d');
-
-
-
-     //   var lastYear = -1; // Último año etiquetado
-const myChart = new Chart(ctx, {
-    type: 'line',
-    data: chartData,
-    options: {
+ 
+   
+var lastYear = -1; // Último año etiquetado
+    var chartOptions = {
         scales: {
             y: {
+            
                 title: {
                     display: true,
-                    text: tituloY,
-                },
+                    text: tituloY
+                    
+                }
             },
             x: {
-                type: 'linear',
-                position: 'bottom',
+                type: 'category',
+                labels: labels,
+              beginAtZero: false,
+           //  type: 'linear',
+            //   type: 'time',
+            //     time: {
+            //     unit: 'month'
+            //     },
                 min: 0,
-             //   max: 1846,
+                max: Math.max(...datosRef.edad),
+                          
                 title: {
                     display: true,
-                    text: 'Edad'
+                    text: 'Edad (meses y años)' 
                 },
-                
-                ticks: {
-                callback: function(value, index, values) {
-                    var lastYear = -1; // Último año etiquetado
-                    // Convertir días a meses
-                    var dias = value;
-                    var meses = Math.floor(dias / 30); // Redondea hacia abajo para obtener el número entero de meses
-                    // Convertir meses a años
-                    var años = Math.floor(meses / 12);
-                    
-                    // Determinar si es un nuevo año
-                    var nuevoAño = años !== lastYear;
-                    
-                    // Actualizar el último año etiquetado
-                    lastYear = años;
-                    
-                    // Mostrar solo un marcador por cada mes
-                    if (meses % 12 === 0 || meses === 0 || nuevoAño) {
-                        // Años completos
-                        return meses === 0 ? 'Nacimiento' : años + ' años';
-                    } else {
-                        // Meses dentro de un año
-                        return meses % 12 === 0 ? '1 año' : meses % 12 + ' meses';
+
+
+
+ticks: {
+    callback: function(value, index, values) {
+        // Convertir días a meses
+        var meses = value;
+        // Convertir dias a años
+        var años = Math.floor(value/ 12);
+        
+        // Determinar si es un nuevo año
+        var nuevoAño = años !== lastYear;
+        
+        // Actualizar el último año etiquetado
+        lastYear = años;
+        
+        // Mostrar solo un marcador por cada mes
+        if (meses % 12 === 0 || meses === 0 || nuevoAño) {
+          // Años completos
+          return meses === 0 ? 'Nacimiento' : años + ' años';
+        } else {
+          // Meses dentro de un año
+          return meses % 12 === 0 ? '1 año' : meses % 12;
+        }
+      }
+            },
+
+
+           
+        }
+    
+    },
+
+    }
+
+    plugins: {
+        legend: {
+            display: true
+            position: 'top'
         }
     }
-}
-        // plugins: {
-        //     legend: {
-        //         display: true,
-        //         position: 'right',
-        //     },
-        // },
-    },
-}
-    }
-});
-    </script>
+       
+      
+    
+    // Crear el gráfico con Chart.js
+  //  var ctx = document.getElementById('graficoZ').getContext('2d')
+    const ctx = document.getElementById('graficoLineas').getContext('2d');
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: chartOptions
+    })
+    myChart.update('x');
+</script>
+//
