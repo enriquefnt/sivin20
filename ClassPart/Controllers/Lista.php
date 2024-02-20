@@ -180,8 +180,47 @@ foreach($datosControl as $control) {
 
 //var_dump($dataCaso); 
 ///////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////crea array para labels////////////////////////////////////
+$meses = [];
 
+$nMes = -1;
+$nDia = -30;
+$nAnio = 0;
 
+for ($i = 0; $i <= 120; $i++) {
+  
+  
+  $nDia = $nDia + 30.44;
+  if ($nMes == 12){$nMes = 0;}
+  $nMes = $nMes + 1;
+  $nAnio = $nDia / 365.25;
+
+  $dia = floor($nDia);
+  $mes = floor($nMes);
+  //$año = round($nDia / 365.25, 0, PHP_ROUND_HALF_UP);
+  $año = floor($nAnio);
+  if ($mes % 12 == 0){$label=$año . ' años';} 
+  elseif($dia < 1 && $año < 1){$label='Nacimiento';}
+  else {$label=strval($mes);}
+   if ($label == '0 años') {
+    $label = 'Nacimiento';}
+    if ($label == '1 años') {
+    $label = '1 año';
+    }
+  $meses[] = [
+    'mes' => $mes,
+    'año' => $año,
+    'dia' => $dia,
+    'label' => $label
+   
+  ];
+
+  $i++;
+}
+
+// var_dump($meses);
+//die;
+/////////////////////////////////////////////////////////////
 
 
 
@@ -193,7 +232,8 @@ foreach($datosControl as $control) {
       'title' => $title,
       'variables' => [
           'data' => $data ?? [],
-          'dataCaso' =>$dataCaso ?? []
+          'dataCaso' =>$dataCaso ?? [],
+          'rotulos' => $meses ?? []
           
       ]
   ];
@@ -304,6 +344,7 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
       'variables' => [
           'data' => $data,
           'dataCaso' =>  $dataCaso
+          
       ]
   ];
 }

@@ -17,7 +17,7 @@
         }
 
         const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
-       
+       console.log(labels);
 
         const chartData = {
          //   labels: datosRef.edad.map(age => Number(age)),
@@ -112,8 +112,9 @@ var lastYear = -1; // Último año etiquetado
             },
             x: {
                 type: 'category',
+             //   labels: labels,
                 labels: labels,
-              beginAtZero: false,
+           //   beginAtZero: false,
            //  type: 'linear',
             //   type: 'time',
             //     time: {
@@ -131,6 +132,7 @@ var lastYear = -1; // Último año etiquetado
 
 ticks: {
     callback: function(value, index, values) {
+        //mes= labels/30.44;
         // Convertir días a meses
         var meses = value;
         // Convertir dias a años
