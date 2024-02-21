@@ -2,13 +2,17 @@
 
 
     <script>
-        console.log(Chart.version);
+          console.log(Chart.version);
             const datosRef = <?php echo json_encode($data); ?>;
-           console.log(datosRef)
+         //  console.log(datosRef)
 
            const  datosControl = <?php echo json_encode($dataCaso); ?>;
-           console.log(datosControl)
+        //   console.log(datosControl)
            var tituloY = datosRef.medida;
+
+           const  datosLabels = <?php echo json_encode($rotulos); ?>;
+        //   console.log(datosLabels)
+        //   console.log(datosLabels.label)
 
            function combineAndSortArrays(array1, array2) {
             const combinedArray = array1.concat(array2);
@@ -17,11 +21,11 @@
         }
 
         const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
-       console.log(labels);
+    //   console.log(labels);
 
         const chartData = {
          //   labels: datosRef.edad.map(age => Number(age)),
-            labels: datosRef.edad,
+         //   labels: datosLabels.label,
     //   labels: datosRef.edad.map(age => age.toString()), 
             datasets: [
                 {
@@ -112,8 +116,8 @@ var lastYear = -1; // Último año etiquetado
             },
             x: {
                 type: 'category',
-             //   labels: labels,
-                labels: labels,
+              labels: labels,
+             //   labels: datosLabels.label,
            //   beginAtZero: false,
            //  type: 'linear',
             //   type: 'time',
@@ -129,12 +133,13 @@ var lastYear = -1; // Último año etiquetado
                 },
 
 
-
 ticks: {
+    
     callback: function(value, index, values) {
         //mes= labels/30.44;
         // Convertir días a meses
         var meses = value;
+        
         // Convertir dias a años
         var años = Math.floor(value/ 12);
         
@@ -155,6 +160,7 @@ ticks: {
       }
             },
 
+           
 
            
         }
@@ -169,7 +175,7 @@ ticks: {
             position: 'top'
         }
     }
-       
+    //console.log(value);
       
     
     // Crear el gráfico con Chart.js
