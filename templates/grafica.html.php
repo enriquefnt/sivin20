@@ -14,13 +14,29 @@
         //   console.log(datosLabels)
         //   console.log(datosLabels.label)
 
-           function combineAndSortArrays(array1, array2) {
-            const combinedArray = array1.concat(array2);
-            combinedArray.sort((a, b) => a - b);
-            return combinedArray;
+        //    function combineAndSortArrays(array1, array2) {
+        //     const combinedArray = array1.concat(array2);
+        //     combinedArray.sort((a, b) => a - b);
+        //     return combinedArray;
+        // }
+        function combineAndSortArrays(array1, array2) {
+        const combinedArray = array1.map((value, index) => {
+        if (index < array2.length) {
+            return array2[index];
+        } else {
+            return value;
         }
+         });
 
-        const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
+    combinedArray.sort((a, b) => a - b);
+    return combinedArray;
+}
+
+
+
+
+    //    const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
+    const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
     //   console.log(labels);
 
         const chartData = {

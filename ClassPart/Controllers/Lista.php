@@ -350,7 +350,7 @@ foreach ($result as $dias) {
   }
 }
 
-var_dump($data1); var_dump($meses); die;
+//var_dump($data1); var_dump($meses); die;
 
 ///////////////////////////////////////////////////////////////////////////
 
