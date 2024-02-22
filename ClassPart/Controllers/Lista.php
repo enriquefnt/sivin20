@@ -67,123 +67,12 @@ $title='Nominal';
 
 }
 
-
-
-
-
-
- public function tablaZ($id=null){
-  $indicador = $_GET['indicador'] ?? '';
-  $caso= $_GET['caso'] ?? '';
-  $sex= $_GET['sex'];
-  $tabla=$indicador . $sex;
-//echo($indicador . '   '  .$tabla .'  '. $sex);
-/////////////////////datos niño ////////////////////////////////
-$controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso);");
-  $controles->execute([]);
-  $datosControl =$controles->fetchAll(\PDO::FETCH_ASSOC);
- //var_dump($datosControl); 
-  
  
-  $dataCaso = [
-    'edades' => [],
-    'valor' =>[]
-  ];
-  foreach($datosControl as $control) {
-    $dataCaso['edades'][] = $control['EdadDias'];
-
-    if ($indicador=='PE'){$dataCaso['valor'][]=$control['Peso'];}
-    elseif ($indicador=='TE'){$dataCaso['valor'][]=$control['Talla'];}
-    else {$dataCaso['valor'][]=$control['Peso']/($control['Talla']/100)/($control['Talla']/100);}
-   }
-  
-
-
-
-//var_dump($dataCaso); 
- ///////////////////////////////////////////////////////////////////
-///////////////Datos tabla//////////////////////////////////
-
-  $result = $this->tablaZscore->findAll();
-
-  $data = [
-      'edad' => [],
-      'SD3neg' => [],
-      'SD2neg' => [],
-      'SD1neg' => [],
-      'SD0' => [],
-      'SD1' => [],
-      'SD2' => [],
-      'SD3' => [],
-      'valorCaso' => [],
-      'medida' => []
-      
-     
-  ];
-
-  $counter = 0;
-  //$indexToInsert = 0;
-  foreach ($result as $dias) {
-     
-     $counter++;
-     
-     
-     if ($counter % 30 === 0) {
-          $edad = $dias['edadDias'];
-          $data['edad'][] = $dias['edadDias'];
-          $data['SD3neg'][] = $dias['SD3neg' . $tabla];
-          $data['SD2neg'][] = $dias['SD2neg' . $tabla];
-          $data['SD1neg'][] = $dias['SD1neg' . $tabla];
-          $data['SD0'][] = $dias['SD0' . $tabla];
-          $data['SD1'][] = $dias['SD1' . $tabla];
-          $data['SD2'][] = $dias['SD2' . $tabla];
-          $data['SD3'][] = $dias['SD3' . $tabla];
-                }
-           
-      
-      
-      switch ($data['medida'] = $tabla){
-        case $tabla=="PEF"||$tabla=="PEM":
-          $data['medida'] ='Peso (kg)';
-          break;
-          case $tabla=="TEF"||$tabla=="TEM":
-          $data['medida'] ='Talla (cm)';
-          break;
-          case $tabla=="IEF"||$tabla=="IEM":
-          $data['medida'] ='Indice de masa corporal (kg/m2)';
-          break;
-         
-        default:
-        $data['medida']  ='Otra';
-
-      }
-
-     
-     
-}
-//////////////////////////////////////////////////////////////////////
- 
-// if (!in_array(850, $data['edad'])) {
-//   $data['edad'][] = 850;}
-//   sort($data['edad']);
-
-//var_dump($data['edad']) ; die;
-
-  $title = 'Gráfica';
-  return [
-      'template' => 'tablaZ.html.php',
-      'title' => $title,
-      'variables' => [
-          'data' => $data,
-          'dataCaso' =>  $dataCaso
-          
-      ]
-  ];
-}
-
 public function grafico(){
   $indicador = $_GET['indicador'] ?? '';
-  $sex= $_GET['sex'];
+  $sex=substr($this->tablaNinios->findById($_GET['caso'])['Sexo'],0,1);
+  $nombre=$this->tablaNinios->findById($_GET['caso'])['ApeNom'];
+ // $sex= $_GET['sex'];
   $caso= $_GET['caso'] ?? '';
   $tabla=$indicador . $sex;
 
@@ -250,8 +139,10 @@ $datosControl =$controles->fetchAll(\PDO::FETCH_ASSOC);
 
 $dataCaso = [
   'edad' => [],
-  'valor' =>[]
+  'valor' =>[],
+  'nombre' =>[]
 ];
+$dataCaso['nombre']=$nombre;
 foreach($datosControl as $control) {
   $dataCaso['edad'][] = $control['EdadDias'];
 
@@ -260,52 +151,23 @@ foreach($datosControl as $control) {
   else {$dataCaso['valor'][]=$control['Peso']/($control['Talla']/100)/($control['Talla']/100);}
  }
 
-
-
-
-//var_dump($dataCaso); 
-///////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////crea array para labels////////////////////////////////////
-
-
-// var_dump($meses);
-//die;
-///////////////////////////////////datos tabla con labels//////////////////////////
+//////////////////////////////////////datos referencias///////////////////////
 
 $meses = [
-  'mes' => [],
-  'año' => [],
-  'dia' =>[],
-  'label' => [],
+   'dia' =>[],
+ 
 ];
 
-$nMes = -1;
 $nDia = -30;
-$nAnio = 0;
 
 for ($i = 0; $i <= 120; $i++) {
     
   $nDia = $nDia + 30.44;
-  if ($nMes == 12){$nMes = 0;}
-  $nMes = $nMes + 1;
-  $nAnio = $nDia / 365.25;
-
+ 
   $dia = floor($nDia);
-  $mes = floor($nMes);
-  //$año = round($nDia / 365.25, 0, PHP_ROUND_HALF_UP);
-  $año = floor($nAnio);
-  if ($mes % 12 == 0){$label=$año . ' años';} 
-  elseif($dia < 1 && $año < 1){$label='Nacimiento';}
-  else {$label=strval($mes);}
-   if ($label == '0 años') {
-    $label = 'Nacimiento';}
-    if ($label == '1 años') {
-    $label = '1 año';
-    }
-  $meses['mes'][]= $mes;
-  $meses['año'][]= $año;
+  
   $meses['dia'][]= $dia;
-  $meses['label'][]= $label;
+ 
 
 
 
@@ -327,9 +189,7 @@ $data1 = [
 ];
 
 $diasArray = $meses['dia'];
-//  [
-//   0, 30, 61, 91, 122, 152, 183, 213, 243,
-// ];
+
 
 foreach ($result as $dias) {
   $diaValue = $dias['edadDias'];
@@ -345,20 +205,10 @@ foreach ($result as $dias) {
       $data1['SD2'][] = $dias['SD2' . $tabla];
       $data1['SD3'][] = $dias['SD3' . $tabla];
 
-      // Eliminar el valor del array 'dia' después de usarlo
+  
       unset($diasArray[$diaIndex]);
   }
 }
-
-//var_dump($data1); var_dump($meses); die;
-
-///////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
 
 
   $title='Gráfica';
@@ -368,8 +218,8 @@ foreach ($result as $dias) {
       'title' => $title,
       'variables' => [
           'data' => $data1 ?? [],
-          'dataCaso' =>$dataCaso ?? [],
-          'rotulos' => $meses ?? []
+          'dataCaso' =>$dataCaso ?? []
+         
           
       ]
   ];

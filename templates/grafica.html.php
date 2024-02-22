@@ -7,45 +7,32 @@
          //  console.log(datosRef)
 
            const  datosControl = <?php echo json_encode($dataCaso); ?>;
-        //   console.log(datosControl)
+           console.log(datosControl)
            var tituloY = datosRef.medida;
 
-           const  datosLabels = <?php echo json_encode($rotulos); ?>;
-        //   console.log(datosLabels)
-        //   console.log(datosLabels.label)
-
-        //    function combineAndSortArrays(array1, array2) {
-        //     const combinedArray = array1.concat(array2);
-        //     combinedArray.sort((a, b) => a - b);
-        //     return combinedArray;
-        // }
+               
         function combineAndSortArrays(array1, array2) {
-        const combinedArray = array1.map((value, index) => {
-        if (index < array2.length) {
-            return array2[index];
-        } else {
-            return value;
-        }
-         });
-
-    combinedArray.sort((a, b) => a - b);
-    return combinedArray;
+            const combinedArray = array1.map((value, index) => {
+            if (index < array2.length) {
+                return array2[index];
+            } else {
+                return value;
+            }
+            });
+                combinedArray.sort((a, b) => a - b);
+                return combinedArray;
 }
-
-
-
-
-    //    const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
+   
     const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
-    //   console.log(labels);
+   
 
         const chartData = {
-         //   labels: datosRef.edad.map(age => Number(age)),
-         //   labels: datosLabels.label,
-    //   labels: datosRef.edad.map(age => age.toString()), 
+        
+           labels: labels,
+    
             datasets: [
                 {
-                    label: 'Caso control',
+                    label: datosControl.nombre ,
                     data: datosControl.valor.map((valor, i) => ({
                         x: datosControl.edad[i],
                         y: valor,
@@ -59,7 +46,7 @@
                     label: '-3Z',
                     data: datosRef.SD3neg,
                     borderWidth: 1.6, // Grosor de la línea
-                    borderColor: 'rgba(0, 0, 0, 100)', // Transparente
+                    borderColor: 'rgba(0, 0, 0, 100)', 
                     backgroundColor: 'rgba(0, 0, 0, 100)',
                     pointRadius: 0
                 },
@@ -67,8 +54,8 @@
                     label: '-2Z',
                     data: datosRef.SD2neg,
                     backgroundColor:'rgba(255, 0, 0 ,100)', 
-                    borderColor: 'rgba(255, 0, 0 ,100)', // Color de la línea
-                    borderWidth:1.6 ,// Grosor de la línea
+                    borderColor: 'rgba(255, 0, 0 ,100)', 
+                    borderWidth:1.6 ,
                     pointRadius: 0
                 },
                 {
@@ -76,7 +63,7 @@
                     data: datosRef.SD1neg,
                     borderColor: 'rgba(243, 226, 0,100)',
                     backgroundColor:'rgba(243, 226, 0,100)', 
-                    borderWidth: 1.6,// Grosor de la línea
+                    borderWidth: 1.6,
                     pointRadius: 0
                 },
                 {
@@ -92,21 +79,21 @@
             data: datosRef.SD1,
             borderColor: 'rgba(243, 226, 0,100)',
             backgroundColor:'rgba(243, 226, 0,100)', 
-            borderWidth: 1.6,// Grosor de la línea
+            borderWidth: 1.6,
             pointRadius: 0
         },
         {
             label: '2Z',
             data: datosRef.SD2,
             backgroundColor:'rgba(255, 0, 0 ,100)', 
-            borderColor: 'rgba(255, 0, 0 ,100)', // Color de la línea
+            borderColor: 'rgba(255, 0, 0 ,100)', 
             borderWidth: 1.6,
             pointRadius: 0
         },
         {
             label: '3Z',
             data: datosRef.SD3,
-            borderWidth: 1.6, // Grosor de la línea
+            borderWidth: 1.6, 
             borderColor: 'rgba(0, 0, 0, 100)', // Transparente
             backgroundColor: 'rgba(0, 0, 0, 100)',
             pointRadius: 0
@@ -133,13 +120,7 @@ var lastYear = -1; // Último año etiquetado
             x: {
                 type: 'category',
               labels: labels,
-             //   labels: datosLabels.label,
-           //   beginAtZero: false,
-           //  type: 'linear',
-            //   type: 'time',
-            //     time: {
-            //     unit: 'month'
-            //     },
+           
                 min: 0,
                 max: Math.max(...datosRef.edad),
                           
@@ -183,19 +164,20 @@ ticks: {
     
     },
 
-    }
+   
 
     plugins: {
         legend: {
-            display: true
-            position: 'top'
+            display: true,
+            position: 'right',
+           // padding: 20,
+            itemSpacing: 4
         }
     }
-    //console.log(value);
-      
     
-    // Crear el gráfico con Chart.js
-  //  var ctx = document.getElementById('graficoZ').getContext('2d')
+    };
+    
+ 
     const ctx = document.getElementById('graficoLineas').getContext('2d');
 
     var myChart = new Chart(ctx, {
@@ -205,4 +187,3 @@ ticks: {
     })
     myChart.update('x');
 </script>
-//
