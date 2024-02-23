@@ -22,13 +22,21 @@
                 combinedArray.sort((a, b) => a - b);
                 return combinedArray;
 }
+// function combineAndSortArrays(array1, array2) {
+//     const combinedArray = array1.map((value, index) => {
+//         return (typeof array1[index] !== 'undefined') ? array1[index] : array2[index];
+//     });
+//     combinedArray.sort((a, b) => a - b);
+//     return combinedArray;
+// }
    
     const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
+    console.log(labels);
    
 
         const chartData = {
         
-           labels: labels,
+         //  labels: labels,
     
             datasets: [
                 {
@@ -155,11 +163,7 @@ ticks: {
           return meses % 12 === 0 ? '1 año' : meses % 12;
         }
       }
-            },
-
-           
-
-           
+            },          
         }
     
     },
@@ -171,7 +175,9 @@ ticks: {
             display: true,
             position: 'right',
            // padding: 20,
-            itemSpacing: 4
+           maxHeight: 10,
+            itemSpacing: 4,
+            reverse: true
         }
     }
     

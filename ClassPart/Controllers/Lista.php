@@ -70,10 +70,9 @@ $title='Nominal';
  
 public function grafico(){
   $indicador = $_GET['indicador'] ?? '';
-  $sex=substr($this->tablaNinios->findById($_GET['caso'])['Sexo'],0,1);
-  $nombre=$this->tablaNinios->findById($_GET['caso'])['ApeNom'];
- // $sex= $_GET['sex'];
-  $caso= $_GET['caso'] ?? '';
+  $sex=substr($this->tablaNinios->findById($_GET['caso'])['Sexo'],0,1) ?? '';
+  $nombre=$this->tablaNinios->findById($_GET['caso'])['ApeNom'] ?? '';
+   $caso= $_GET['caso'] ?? '';
   $tabla=$indicador . $sex;
 
 ///////////////Datos tabla//////////////////////////////////
@@ -94,22 +93,22 @@ $data = [
    
 ];
 
-$counter = 0;
+//$counter = 0;
 foreach ($result as $dias) {
    
-   $counter++;
+  // $counter++;
 
    
-   if ($counter % 31 === 0||$dias['edadDias']=== 0) {
-        $data['edad'][] = $dias['edadDias'];
-        $data['SD3neg'][] = $dias['SD3neg' . $tabla];
-        $data['SD2neg'][] = $dias['SD2neg' . $tabla];
+  // if ($counter % 31 === 0||$dias['edadDias']=== 0) {
+        $data['edad'][] = $dias['edadDias']  ?? '';
+        $data['SD3neg'][] = $dias['SD3neg' . $tabla]  ?? '';
+        $data['SD2neg'][] = $dias['SD2neg' . $tabla] ?? '';
         $data['SD1neg'][] = $dias['SD1neg' . $tabla];
         $data['SD0'][] = $dias['SD0' . $tabla];
         $data['SD1'][] = $dias['SD1' . $tabla];
         $data['SD2'][] = $dias['SD2' . $tabla];
         $data['SD3'][] = $dias['SD3' . $tabla];
-              }
+ //             }
          
     
     
@@ -150,30 +149,65 @@ foreach($datosControl as $control) {
   elseif ($indicador=='TE'){$dataCaso['valor'][]=$control['Talla'];}
   else {$dataCaso['valor'][]=$control['Peso']/($control['Talla']/100)/($control['Talla']/100);}
  }
-
+var_dump($dataCaso);
 //////////////////////////////////////datos referencias///////////////////////
 
-$meses = [
-   'dia' =>[],
+// $meses = [
+//    'dia' =>[],
+//  ];
+
+// $nDia = -30;
+
+// for ($i = 0; $i <= 120; $i++) {
+    
+//   $nDia = $nDia + 30.44;
  
+//   $dia = floor($nDia);
+  
+//   $meses['dia'][]= $dia;
+ 
+
+//   $i++;
+// }
+$meses = [
+  'dia' => [],
 ];
 
 $nDia = -30;
 
 for ($i = 0; $i <= 120; $i++) {
-    
   $nDia = $nDia + 30.44;
- 
   $dia = floor($nDia);
-  
-  $meses['dia'][]= $dia;
- 
-
-
-
+  $meses['dia'][] = $dia;
   $i++;
 }
 
+foreach ($datosControl as $control) {
+  if ($indicador == 'PE') {
+      $meses['valor'][] = $control['Peso'];
+  } elseif ($indicador == 'TE') {
+      $meses['valor'][] = $control['Talla'];
+  } else {
+      $meses['valor'][] = $control['Peso'] / ($control['Talla'] / 100) / ($control['Talla'] / 100);
+  }
+  // Agrega la edad al mismo array 'dia' dentro del array $meses
+  $meses['dia'][] = $control['EdadDias'];
+}
+
+// Asegura que los arrays tengan la misma longitud, insertando null para los días sin datos
+$longitud_dias = count($meses['dia']);
+$longitud_valores = count($meses['valor']);
+if ($longitud_dias < $longitud_valores) {
+  for ($i = $longitud_dias; $i < $longitud_valores; $i++) {
+      $meses['dia'][] = null;
+  }
+} elseif ($longitud_dias > $longitud_valores) {
+  for ($i = $longitud_valores; $i < $longitud_dias; $i++) {
+      $meses['valor'][] = null;
+  }
+}
+
+var_dump($meses); //die;
 $result = $this->tablaZscore->findAll();
 
 
@@ -186,17 +220,18 @@ $data1 = [
   'SD1' => [],
   'SD2' => [],
   'SD3' => [],
+  'Caso' => []
 ];
 
 $diasArray = $meses['dia'];
 
 
 foreach ($result as $dias) {
-  $diaValue = $dias['edadDias'];
-  $diaIndex = array_search($diaValue, $diasArray);
+  // $diaValue = $dias['edadDias'];
+  // $diaIndex = array_search($diaValue, $diasArray);
 
-  if ($diaIndex !== false) {
-      $data1['edad'][] = $diaValue;
+  // if ($diaIndex !== false) {
+      $data1['edad'][] =  $dias['edadDias'];
       $data1['SD3neg'][] = $dias['SD3neg' . $tabla];
       $data1['SD2neg'][] = $dias['SD2neg' . $tabla];
       $data1['SD1neg'][] = $dias['SD1neg' . $tabla];
@@ -204,12 +239,24 @@ foreach ($result as $dias) {
       $data1['SD1'][] = $dias['SD1' . $tabla];
       $data1['SD2'][] = $dias['SD2' . $tabla];
       $data1['SD3'][] = $dias['SD3' . $tabla];
-
+      $data1['SD3'][] = $dias['SD3' . $tabla];
+      foreach ($data1['edad'] as $index => $edad) {
+        // Busca la coincidencia entre la edad en $data1 y $dataCaso
+        $posicion = array_search($edad, $dataCaso['edad']);
+        if ($posicion !== false) {
+            // Agrega el valor correspondiente a $data1['Caso'] si se encuentra una coincidencia
+            $data1['Caso'][$index] = $dataCaso['valor'][$posicion];
+        } else {
+            // Si no hay coincidencia, asigna un valor predeterminado (puedes cambiarlo según tu lógica)
+            $data1['Caso'][$index] = null;
+        }
+    }
   
-      unset($diasArray[$diaIndex]);
-  }
+  //     unset($diasArray[$diaIndex]);
+  // }
 }
-
+  var_dump($data1);
+die;
 
   $title='Gráfica';
   

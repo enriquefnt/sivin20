@@ -24,6 +24,7 @@
     <th>Z Talla/edad</th>
     <th>Z IMC/edad</th>
     <th>Clasificación</th>
+    <th>Ver Evolución</th>
     <!--<th>Ver Evolución</th>
      <th>Clasificación</th>
     <th>Control Médico</th>
@@ -51,7 +52,7 @@
    <td align="center" ><?= htmlspecialchars($caso['ZTallaEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
    <td align="center"><?= htmlspecialchars($caso['ZIMCEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
    <td><?= htmlspecialchars($caso['Clasificación'], ENT_QUOTES, 'UTF-8'); ?></td>
-   
+   <td><a class="navbar-brand mb-0" href="/user/listar">Ver/Editar</a></td>
    </tr>
   <?php endforeach;  }?>
     
