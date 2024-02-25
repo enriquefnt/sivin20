@@ -4,70 +4,29 @@
 
     <script>
           console.log(Chart.version);
-            const datosRef = <?php echo json_encode($data); ?>;
-           console.log(datosRef)
-
-           var tituloY = datosRef.medida;
-
-           const  datosControl = <?php echo json_encode($dataCaso); ?>;
-           console.log(datosControl)
-           
-
-               
-        function combineAndSortArrays(array1, array2) {
-            const combinedArray = array1.map((value, index) => {
-            if (index < array2.length) {
-                return array2[index];
-            } else {
-                return value;
-            }
-            });
-                combinedArray.sort((a, b) => a - b);
-                return combinedArray;
-}
-// function combineAndSortArrays(array1, array2) {
-//     const combinedArray = array1.map((value, index) => {
-//         return (typeof array1[index] !== 'undefined') ? array1[index] : array2[index];
-//     });
-//     combinedArray.sort((a, b) => a - b);
-//     return combinedArray;
-// }
-   
-    const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
-    console.log(labels);
-   
+         
 
         const chartData = {
         
            labels: datosRef.edad,
     
             datasets: [
-                // {
-                //     label: datosControl.nombre ,
-                //     data: datosControl.valor.map((valor, i) => ({
-                //         x: datosControl.edad[i],
-                //         y: valor,
-                //     })),
-                //     borderColor: 'rgba(0, 0, 255, 100)',
-                //     backgroundColor: 'rgba(0, 0, 255, 100)',
-                //     borderWidth: 1.6,
-                //     pointRadius: 1.3,
-                // },
-                    {
-                    label: '-3Z',
-                    data: datosRef.SD3neg,
-                    borderWidth: 1.6, // Grosor de la línea
-                    borderColor: 'rgba(0, 0, 0, 100)', 
-                    backgroundColor: 'rgba(0, 0, 0, 100)',
-                    pointRadius: 0
-                },
-                    {
-                    label: '-2Z',
-                    data: datosRef.SD2neg,
-                    backgroundColor:'rgba(255, 0, 0 ,100)', 
-                    borderColor: 'rgba(255, 0, 0 ,100)', 
-                    borderWidth:1.6 ,
-                    pointRadius: 0
+             
+              {
+                label: '-3Z',
+                data: datosRef.SD3neg,
+                borderWidth: 1.6, // Grosor de la línea
+                borderColor: 'rgba(0, 0, 0, 100)', 
+                backgroundColor: 'rgba(0, 0, 0, 100)',
+                pointRadius: 0
+               },
+               {
+                label: '-2Z',
+                data: datosRef.SD2neg,
+                backgroundColor:'rgba(255, 0, 0 ,100)', 
+                borderColor: 'rgba(255, 0, 0 ,100)', 
+                borderWidth:1.6 ,
+                pointRadius: 0
                 },
                 {
                     label: '-1Z',
@@ -121,12 +80,7 @@
             ],
         };
        
-    
 
- //const moment = require('moment');
-
-   
-var lastYear = -1; // Último año etiquetado
     var chartOptions = {
         scales: {
             y: {
@@ -139,7 +93,7 @@ var lastYear = -1; // Último año etiquetado
             },
             x: {
                type: 'linear',
-              labels: datosRef.edad,
+              labels: ,
            
                 min: 0,
                 max: Math.max(...datosRef.edad),
@@ -152,26 +106,7 @@ var lastYear = -1; // Último año etiquetado
             }
             },
                 
-            ticks: {
-    callback: function(value, index, values) {
-        // Convert days to months
-        var meses = value / 30.44;
-        // Convert days to years
-        var años = Math.floor(value / 365);
-        // Determine if it's a new year
-        var nuevoAño = años !== lastYear;
-        // Update the last labeled year
-        lastYear = años;
-        // Display only one label per month
-        if (meses % 12 === 0 || meses === 0 || nuevoAño) {
-          // Display the year if it's a new year
-          return meses === 0 ? 'Nacimiento' : años + ' años'
-        } else {
-          // Display the month number
-          return meses % 12 === 0 ? '1 mes' : meses % 12 + ' meses'
-        }
-      } 
-    },
+          
 
    
 
@@ -196,5 +131,5 @@ var lastYear = -1; // Último año etiquetado
         data: chartData,
         options: chartOptions
     })
-    myChart.update('x');
+   
 </script>
