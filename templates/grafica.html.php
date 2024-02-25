@@ -1,14 +1,17 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <canvas id="graficoLineas" >Datos de crecimiento</canvas>
 
 
     <script>
           console.log(Chart.version);
             const datosRef = <?php echo json_encode($data); ?>;
-         //  console.log(datosRef)
+           console.log(datosRef)
+
+           var tituloY = datosRef.medida;
 
            const  datosControl = <?php echo json_encode($dataCaso); ?>;
            console.log(datosControl)
-           var tituloY = datosRef.medida;
+           
 
                
         function combineAndSortArrays(array1, array2) {
@@ -36,20 +39,20 @@
 
         const chartData = {
         
-         //  labels: labels,
+           labels: datosRef.edad,
     
             datasets: [
-                {
-                    label: datosControl.nombre ,
-                    data: datosControl.valor.map((valor, i) => ({
-                        x: datosControl.edad[i],
-                        y: valor,
-                    })),
-                    borderColor: 'rgba(0, 0, 255, 100)',
-                    backgroundColor: 'rgba(0, 0, 255, 100)',
-                    borderWidth: 1.6,
-                    pointRadius: 1.3,
-                },
+                // {
+                //     label: datosControl.nombre ,
+                //     data: datosControl.valor.map((valor, i) => ({
+                //         x: datosControl.edad[i],
+                //         y: valor,
+                //     })),
+                //     borderColor: 'rgba(0, 0, 255, 100)',
+                //     backgroundColor: 'rgba(0, 0, 255, 100)',
+                //     borderWidth: 1.6,
+                //     pointRadius: 1.3,
+                // },
                     {
                     label: '-3Z',
                     data: datosRef.SD3neg,
@@ -106,13 +109,22 @@
             backgroundColor: 'rgba(0, 0, 0, 100)',
             pointRadius: 0
         },
+        {
+            label: 'datosControl.Caso',
+            data: datosRef.Caso,
+            borderColor: 'rgba(0, 0, 255, 100)',
+            backgroundColor: 'rgba(0, 0, 255, 100)',
+            borderWidth: 1.6,
+            pointRadius: 1.3,
+        },
                
             ],
         };
        
     
 
- 
+ //const moment = require('moment');
+
    
 var lastYear = -1; // Último año etiquetado
     var chartOptions = {
@@ -126,8 +138,8 @@ var lastYear = -1; // Último año etiquetado
                 }
             },
             x: {
-                type: 'category',
-              labels: labels,
+               type: 'linear',
+              labels: datosRef.edad,
            
                 min: 0,
                 max: Math.max(...datosRef.edad),
@@ -137,35 +149,28 @@ var lastYear = -1; // Último año etiquetado
                     text: 'Edad (meses y años)' 
                 },
 
-
-ticks: {
-    
+            }
+            },
+                
+            ticks: {
     callback: function(value, index, values) {
-        //mes= labels/30.44;
-        // Convertir días a meses
-        var meses = value;
-        
-        // Convertir dias a años
-        var años = Math.floor(value/ 12);
-        
-        // Determinar si es un nuevo año
+        // Convert days to months
+        var meses = value / 30.44;
+        // Convert days to years
+        var años = Math.floor(value / 365);
+        // Determine if it's a new year
         var nuevoAño = años !== lastYear;
-        
-        // Actualizar el último año etiquetado
+        // Update the last labeled year
         lastYear = años;
-        
-        // Mostrar solo un marcador por cada mes
+        // Display only one label per month
         if (meses % 12 === 0 || meses === 0 || nuevoAño) {
-          // Años completos
-          return meses === 0 ? 'Nacimiento' : años + ' años';
+          // Display the year if it's a new year
+          return meses === 0 ? 'Nacimiento' : años + ' años'
         } else {
-          // Meses dentro de un año
-          return meses % 12 === 0 ? '1 año' : meses % 12;
+          // Display the month number
+          return meses % 12 === 0 ? '1 mes' : meses % 12 + ' meses'
         }
-      }
-            },          
-        }
-    
+      } 
     },
 
    
