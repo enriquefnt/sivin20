@@ -113,9 +113,11 @@ public function grafico($id=null){
    // data['nombre']
  
   $result = $this->tablaZscore->findAll();
-  var_dump($result);die;
-  $diasArray =  $result['edadDias'];
-  var_dump($diasArray);die;
+  //var_dump($result);die;
+  
+
+  $diasArray = array_column( $result, 'edadDias');
+  //var_dump($diasArray);die;
   foreach ($result as $dias) {
 
     $diaValue = $dias['edadDias'];
