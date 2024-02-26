@@ -183,53 +183,53 @@ public function grafico(){
   $tabla=$indicador . $sex;
 
 ///////////////Datos tabla//////////////////////////////////
-$result = $this->tablaZscore->findAll();
-$data = [
-    'edad' => [],
-    'SD3neg' => [],
-    'SD2neg' => [],
-    'SD1neg' => [],
-    'SD0' => [],
-    'SD1' => [],
-    'SD2' => [],
-    'SD3' => [],
-    'medida' => [],
-    'caso' => []
+// $result = $this->tablaZscore->findAll();
+// $data = [
+//     'edad' => [],
+//     'SD3neg' => [],
+//     'SD2neg' => [],
+//     'SD1neg' => [],
+//     'SD0' => [],
+//     'SD1' => [],
+//     'SD2' => [],
+//     'SD3' => [],
+//     'medida' => [],
+//     'caso' => []
    
-];
-$counter = 0;
-foreach ($result as $dias) {
+// ];
+// $counter = 0;
+// foreach ($result as $dias) {
    
-   $counter++;
+//    $counter++;
    
-   if ($counter % 31 === 0||$dias['edadDias']=== 0) {
-        $data['edad'][] = $dias['edadDias'];
-        $data['SD3neg'][] = $dias['SD3neg' . $tabla];
-        $data['SD2neg'][] = $dias['SD2neg' . $tabla];
-        $data['SD1neg'][] = $dias['SD1neg' . $tabla];
-        $data['SD0'][] = $dias['SD0' . $tabla];
-        $data['SD1'][] = $dias['SD1' . $tabla];
-        $data['SD2'][] = $dias['SD2' . $tabla];
-        $data['SD3'][] = $dias['SD3' . $tabla];
-              }
+//    if ($counter % 31 === 0||$dias['edadDias']=== 0) {
+//         $data['edad'][] = $dias['edadDias'];
+//         $data['SD3neg'][] = $dias['SD3neg' . $tabla];
+//         $data['SD2neg'][] = $dias['SD2neg' . $tabla];
+//         $data['SD1neg'][] = $dias['SD1neg' . $tabla];
+//         $data['SD0'][] = $dias['SD0' . $tabla];
+//         $data['SD1'][] = $dias['SD1' . $tabla];
+//         $data['SD2'][] = $dias['SD2' . $tabla];
+//         $data['SD3'][] = $dias['SD3' . $tabla];
+//               }
          
     
     
-    switch ($data['medida'] = $tabla){
-      case $tabla=="PEF"||$tabla=="PEM":
-        $data['medida'] ='Peso (kg)';
-        break;
-        case $tabla=="TEF"||$tabla=="TEM":
-        $data['medida'] ='Talla (cm)';
-        break;
-        case $tabla=="IEF"||$tabla=="IEM":
-        $data['medida'] ='Indice de masa corporal (kg/m2)';
-        break;
+//     switch ($data['medida'] = $tabla){
+//       case $tabla=="PEF"||$tabla=="PEM":
+//         $data['medida'] ='Peso (kg)';
+//         break;
+//         case $tabla=="TEF"||$tabla=="TEM":
+//         $data['medida'] ='Talla (cm)';
+//         break;
+//         case $tabla=="IEF"||$tabla=="IEM":
+//         $data['medida'] ='Indice de masa corporal (kg/m2)';
+//         break;
        
-      default:
-      $data['medida']  ='Otra';
-    }
-}
+//       default:
+//       $data['medida']  ='Otra';
+//     }
+// }
 //////////////////////////////////////////////////////////////////////
 /////////////////////datos niño ////////////////////////////////
 $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso);");
@@ -311,7 +311,7 @@ for ($i = 0; $i <= 120; $i++) {
 }
 $result = $this->tablaZscore->findAll();
 
-
+var_dump($result); die;
 
 $data1 = [
   'edad' => [],
