@@ -42,17 +42,17 @@
            labels: datosRef.edad,
     
             datasets: [
-                // {
-                //     label: datosControl.nombre ,
-                //     data: datosControl.valor.map((valor, i) => ({
-                //         x: datosControl.edad[i],
-                //         y: valor,
-                //     })),
-                //     borderColor: 'rgba(0, 0, 255, 100)',
-                //     backgroundColor: 'rgba(0, 0, 255, 100)',
-                //     borderWidth: 1.6,
-                //     pointRadius: 1.3,
-                // },
+                {
+                    label: datosControl.nombre ,
+                    data: datosControl.valor.map((valor, i) => ({
+                        x: datosControl.edad[i],
+                        y: valor,
+                    })),
+                    borderColor: 'rgba(0, 0, 255, 100)',
+                    backgroundColor: 'rgba(0, 0, 255, 100)',
+                    borderWidth: 1.6,
+                    pointRadius: 1.3,
+                },
                     {
                     label: '-3Z',
                     data: datosRef.SD3neg,
