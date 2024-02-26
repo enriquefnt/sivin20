@@ -108,7 +108,7 @@ public function grafico($id=null){
     'SD2' => [],
     'SD3' => [],
     'Caso' => [],
-    'rotulosX'=> []
+    'rotulox'=> []
   ];
    // data['nombre']
  
@@ -150,7 +150,20 @@ public function grafico($id=null){
 
 
 }
-var_dump($data); die;
+
+
+//var_dump($data); die;
+
+        $title='Gráfica';
+
+          return [
+              'template' => 'grafica.html.php',
+              'title' => $title,
+              'variables' => [
+                  'data' => $data ?? []
+                                ]
+          ];
+
 }
 
 }

@@ -3,10 +3,12 @@
 
 
     <script>
+                  
           console.log(Chart.version);
-         
-
-        const chartData = {
+            const datosRef = <?php echo json_encode($data); ?>;
+           console.log(datosRef);
+           var tituloY = datosRef.medida;
+           const chartData = {
         
            labels: datosRef.edad,
     
@@ -69,7 +71,7 @@
             pointRadius: 0
         },
         {
-            label: 'datosControl.Caso',
+            label: 'Caso',
             data: datosRef.Caso,
             borderColor: 'rgba(0, 0, 255, 100)',
             backgroundColor: 'rgba(0, 0, 255, 100)',
@@ -92,8 +94,8 @@
                 }
             },
             x: {
-               type: 'linear',
-              labels: ,
+               type: 'category',
+              labels: datosRef.rotulox,
            
                 min: 0,
                 max: Math.max(...datosRef.edad),
