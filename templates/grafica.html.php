@@ -1,14 +1,16 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
 <canvas id="graficoLineas" >Datos de crecimiento</canvas>
 
 
     <script>
-                  
+         
+         
           console.log(Chart.version);
             const datosRef = <?php echo json_encode($data); ?>;
-           console.log(datosRef);
+           console.log(datosRef)
            var tituloY = datosRef.medida;
-           const chartData = {
+
+        const chartData = {
         
            labels: datosRef.edad,
     
@@ -71,8 +73,9 @@
             pointRadius: 0
         },
         {
-            label: 'Caso',
+            label: 'datosControl.Caso',
             data: datosRef.Caso,
+            type: 'line', // <-- Cambiar a "scatter"
             borderColor: 'rgba(0, 0, 255, 100)',
             backgroundColor: 'rgba(0, 0, 255, 100)',
             borderWidth: 1.6,
@@ -94,8 +97,8 @@
                 }
             },
             x: {
-               type: 'category',
-              labels: datosRef.rotulox,
+            type: 'category',
+            labels: datosRef.edad,
            
                 min: 0,
                 max: Math.max(...datosRef.edad),
@@ -107,7 +110,26 @@
 
             }
             },
-                
+            ticks: {
+            callback: function(value, index, values) {
+                // Convert days to months
+                var meses = value / 30.44;
+                // Convert days to years
+                var años = Math.floor(value / 365);
+                // Determine if it's a new year
+                var nuevoAño = años !== lastYear;
+                // Update the last labeled year
+                lastYear = años;
+                // Display only one label per month
+                if (meses % 12 === 0 || meses === 0 || nuevoAño) {
+                // Display the year if it's a new year
+                return meses === 0 ? 'Nacimiento' : años + ' años'
+                } else {
+                // Display the month number
+                return meses % 12 === 0 ? '1 mes' : meses % 12 + ' meses'
+                }
+            } 
+    },
           
 
    
@@ -130,6 +152,7 @@
 
     var myChart = new Chart(ctx, {
         type: 'line',
+      // type: 'scatter', // <-- Cambiar a "scatter"
         data: chartData,
         options: chartOptions
     })

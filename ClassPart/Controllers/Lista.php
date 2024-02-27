@@ -8,23 +8,20 @@ class Lista
 {
   private $tablaNinios;
   private $tablaZscore;
-	  private $pdoZSCORE;
-    
-    private $authentication;   
-	
-    public function __construct(
+  private $pdoZSCORE;
+ // private $authentication;  	
+  public function __construct(
       \ClassGrl\DataTables $tablaNinios,
       $pdoZSCORE,
-        \ClassGrl\DataTables $tablaZscore,
-       
-    \ClassGrl\Authentication $authentication
+       \ClassGrl\DataTables $tablaZscore//,
+  //     \ClassGrl\Authentication $authentication
     
     )
     {
                 $this->tablaNinios = $tablaNinios;	
                 $this->pdoZSCORE = $pdoZSCORE;
                 $this->tablaZscore = $tablaZscore;     
-                $this->authentication = $authentication;
+             //   $this->authentication = $authentication;
                 
 		    }
 
@@ -107,6 +104,7 @@ public function grafico($id=null){
     'SD1' => [],
     'SD2' => [],
     'SD3' => [],
+    'medida' => [],
     'Caso' => [],
     'rotulox'=> []
   ];
@@ -134,6 +132,23 @@ public function grafico($id=null){
       $data['SD2'][] = $dias['SD2' . $tabla];
       $data['SD3'][] = $dias['SD3' . $tabla];
       $data['rotulox'][] = $dias['Rotulo'];
+
+      switch ($data['medida'] = $tabla){
+        case $tabla=="PEF"||$tabla=="PEM":
+          $data['medida'] ='Peso (kg)';
+          break;
+          case $tabla=="TEF"||$tabla=="TEM":
+          $data['medida'] ='Talla (cm)';
+          break;
+          case $tabla=="IEF"||$tabla=="IEM":
+          $data['medida'] ='Indice de masa corporal (kg/m2)';
+          break;
+         
+        default:
+        $data['medida']  ='Otra';
+      }
+
+
       foreach ($data['edad'] as $index => $edad) {
         // Busca la coincidencia entre la edad en $data1 y $dataCaso
         $posicion = array_search($edad, $dataCaso['edad']);
@@ -141,8 +156,8 @@ public function grafico($id=null){
             // Agrega el valor correspondiente a $data1['Caso'] si se encuentra una coincidencia
             $data['Caso'][$index] = $dataCaso['valor'][$posicion];
         } else {
-            // Si no hay coincidencia, asigna un valor predeterminado (puedes cambiarlo según tu lógica)
-            $data['Caso'][$index] = null;
+        //     // Si no hay coincidencia, asigna un valor predeterminado (puedes cambiarlo según tu lógica)
+          $data['Caso'][$index] = 'null';
         }
   }
   unset($diasArray[$diaIndex]);
