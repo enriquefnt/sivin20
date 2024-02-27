@@ -175,10 +175,10 @@ $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.datosGraficas($caso
 
 public function grafico(){
   $indicador = $_GET['indicador'] ?? '';
-  $sex= $_GET['sex'];
+ 
   $sex=substr($this->tablaNinios->findById($_GET['caso'])['Sexo'],0,1);
   $nombre=$this->tablaNinios->findById($_GET['caso'])['ApeNom'];
- // $sex= $_GET['sex'];
+ 
   $caso= $_GET['caso'] ?? '';
   $tabla=$indicador . $sex;
 
@@ -311,7 +311,7 @@ for ($i = 0; $i <= 120; $i++) {
 }
 $result = $this->tablaZscore->findAll();
 
-var_dump($result); die;
+//var_dump($result); die;
 
 $data1 = [
   'edad' => [],
@@ -356,15 +356,9 @@ foreach ($result as $dias) {
        unset($diasArray[$diaIndex]);
  }
 }
-//var_dump($data1); var_dump($meses); die;
+var_dump($data1); var_dump($meses); die;
 
 ///////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
 
 
   $title='Gráfica';

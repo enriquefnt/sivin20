@@ -12,7 +12,7 @@
            const  datosControl = <?php echo json_encode($dataCaso); ?>;
            console.log(datosControl)
            
-
+           const  label = <?php echo json_encode($rotulos); ?>;
                
         function combineAndSortArrays(array1, array2) {
             const combinedArray = array1.map((value, index) => {
@@ -33,7 +33,8 @@
 //     return combinedArray;
 // }
    
-    const labels = combineAndSortArrays(datosRef.edad, datosControl.edad);
+    const RefControl = combineAndSortArrays(datosRef.edad, datosControl.edad);
+    const labels = combineAndSortArrays(RefControl.edad, label)
     console.log(labels);
    
 
@@ -110,7 +111,7 @@
             pointRadius: 0
         },
         {
-            label: 'datosControl.Caso',
+            label: 'datosRecaso',
             data: datosRef.Caso,
             borderColor: 'rgba(0, 0, 255, 100)',
             backgroundColor: 'rgba(0, 0, 255, 100)',
