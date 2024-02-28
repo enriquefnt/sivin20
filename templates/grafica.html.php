@@ -85,76 +85,38 @@
             ],
         };
        
-
-    var chartOptions = {
-        scales: {
-            y: {
-            
-                title: {
-                    display: true,
-                    text: tituloY
-                    
-                }
-            },
-            x: {
-            type: 'category',
-            labels: datosRef.edad,
-           
-                min: 0,
-                max: Math.max(...datosRef.edad),
-                          
-                title: {
-                    display: true,
-                    text: 'Edad (meses y años)' 
-                },
-
-            }
-            },
-            ticks: {
-            callback: function(value, index, values) {
-                // Convert days to months
-                var meses = value / 30.44;
-                // Convert days to years
-                var años = Math.floor(value / 365);
-                // Determine if it's a new year
-                var nuevoAño = años !== lastYear;
-                // Update the last labeled year
-                lastYear = años;
-                // Display only one label per month
-                if (meses % 12 === 0 || meses === 0 || nuevoAño) {
-                // Display the year if it's a new year
-                return meses === 0 ? 'Nacimiento' : años + ' años'
-                } else {
-                // Display the month number
-                return meses % 12 === 0 ? '1 mes' : meses % 12 + ' meses'
-                }
-            } 
+        var lastYear = -1; // Último año etiquetado
+        const chartOptions = {
+            responsive: true,
+  scales: {
+    y: {
+      title: {
+        display: true,
+        text: tituloY
+      }
     },
-          
-
-   
-
-    plugins: {
-        legend: {
-            display: true,
-            position: 'right',
-           // padding: 20,
-           maxHeight: 10,
-            itemSpacing: 4,
-            reverse: true
-        }
+    x: {
+      type: 'linear',
+      labels: datosRef.edad,  
+      max: mathmax
+      title: {
+        display: true,
+        text: 'Edad (meses y años)'
+      }
     }
-    
-    };
-    
- 
-    const ctx = document.getElementById('graficoLineas').getContext('2d');
+  },
+  plugins: {
+    legend: {
+      display: true,
+      position: 'right'
+    }
+  }
+};
 
-    var myChart = new Chart(ctx, {
-        type: 'line',
-      // type: 'scatter', // <-- Cambiar a "scatter"
-        data: chartData,
-        options: chartOptions
-    })
-   
+const ctx = document.getElementById('graficoLineas').getContext('2d');
+const myChart = new Chart(ctx, {
+  type: 'line',
+  data: chartData,
+  options: chartOptions
+});
 </script>
