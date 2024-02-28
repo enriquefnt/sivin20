@@ -32,7 +32,7 @@ class Lista
     $casos->execute([]);
     $datos = $casos->fetchAll(\PDO::FETCH_ASSOC);
 
-  //      var_dump($datos);
+ //    var_dump($datos);
 
 $title='Nominal';
  
@@ -45,18 +45,21 @@ $title='Nominal';
 
                     ]; 
 }
- public function porCaso(){
+ public function porCaso($id=null){
  
-  $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.controlesXcaso(6599);");
+  $caso= $_GET['caso'] ?? '';
+  $controles = $this->pdoZSCORE->prepare("call saltaped_sivin2.controlesXcaso($caso);");
     $controles->execute([]);
     $datosControl =$controles->fetchAll(\PDO::FETCH_ASSOC);
+    $datosNinio=$this->tablaNinios->findById($caso);
 
     $title='Controles';
  
               return ['template' => 'controles.html.php',
                          'title' => $title ,
                     'variables' => [
-                   'datosControl'  =>   $datosControl ?? []
+                   'datosControl'  =>   $datosControl ?? [],
+                   'datosNinio'  =>    $datosNinio ?? []
     
                                      ]
 

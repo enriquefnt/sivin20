@@ -52,7 +52,7 @@
    <td align="center" ><?= htmlspecialchars($caso['ZTallaEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
    <td align="center"><?= htmlspecialchars($caso['ZIMCEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
    <td><?= htmlspecialchars($caso['Clasificación'], ENT_QUOTES, 'UTF-8'); ?></td>
-   <td><a class="navbar-brand mb-0" href="/user/listar">Ver/Editar</a></td>
+   <td><a class="navbar-brand mb-0" href="/lista/porCaso?caso=<?= $caso['IdNinio'] ?? ''; ?>"><i class="fa-solid fa-chart-line"></i></a></td>
    </tr>
   <?php endforeach;  }?>
     

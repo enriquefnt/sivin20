@@ -2,6 +2,8 @@
 <div class="container mt-4">
 <div style="padding: 7px;">
 <input type="button" class="w3-button w3-ripple w3-grey" value="Volver al listado" onClick="history.go(-1);">
+<!-- <input type="button" class="w3-button w3-ripple w3-grey" href="/lista/grafico?indicador=PE&caso="<?= $datosNinio['IdNinio']; ?> value="Peso/Edad"> -->
+<input type="button" class="w3-button w3-ripple w3-grey" onclick="location.href='/lista/grafico?indicador=PE&caso=<?= $datosNinio['IdNinio']; ?>';" value="Peso/Edad">
 </div>
 <table id="example" class="table table-striped table-sm text-xs table-condensed small" data-searchbuilder="true" style="width:100%">
 				
@@ -52,7 +54,9 @@
     Peso al Nacer: <?=$control['pesonac']?>
     &nbsp; 
     Talla al Nacer: <?=$control['tallanac']?>
+    &nbsp; 
   </h6>
+  
 </table>
 </div>
 	
