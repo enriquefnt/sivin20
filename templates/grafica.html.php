@@ -14,33 +14,34 @@
            
            const  label = <?php echo json_encode($rotulos); ?>;
                
-        function combineAndSortArrays(array1, array2) {
-            const combinedArray = array1.map((value, index) => {
-            if (index < array2.length) {
-                return array2[index];
-            } else {
-                return value;
-            }
-            });
-                combinedArray.sort((a, b) => a - b);
-                return combinedArray;
-}
-// function combineAndSortArrays(array1, array2) {
-//     const combinedArray = array1.map((value, index) => {
-//         return (typeof array1[index] !== 'undefined') ? array1[index] : array2[index];
-//     });
-//     combinedArray.sort((a, b) => a - b);
-//     return combinedArray;
+//         function combineAndSortArrays(array1, array2) {
+//             const combinedArray = array1.map((value, index) => {
+//             if (index < array2.length) {
+//                 return array2[index];
+//             } else {
+//                 return value;
+//             }
+//             });
+//                 combinedArray.sort((a, b) => a - b);
+//                 return combinedArray;
 // }
+function combineAndSortArrays(array1, array2) {
+    const combinedArray = array1.map((value, index) => {
+        return (typeof array1[index] !== 'undefined') ? array1[index] : array2[index];
+    });
+    combinedArray.sort((a, b) => a - b);
+    return combinedArray;
+}
    
-    const RefControl = combineAndSortArrays(datosRef.edad, datosControl.edad);
-    const labels = combineAndSortArrays(RefControl.edad, label)
+  //  const RefControl = combineAndSortArrays(datosRef.edad, datosControl.edad);
+    const labels = combineAndSortArrays(datosControl.edad, label)
     console.log(labels);
    
 
         const chartData = {
         
-           labels: datosRef.edad,
+        //    labels: datosRef.edad,
+        labels: labels,
     
             datasets: [
                 {
@@ -139,8 +140,9 @@ var lastYear = -1; // Último año etiquetado
                 }
             },
             x: {
-               type: 'linear',
+              type: 'linear',
               labels: datosRef.edad,
+            
            
                 min: 0,
                 max: Math.max(...datosRef.edad),
@@ -148,7 +150,7 @@ var lastYear = -1; // Último año etiquetado
                 title: {
                     display: true,
                     text: 'Edad (meses y años)' 
-                },
+                }
 
             }
             },
@@ -174,20 +176,20 @@ var lastYear = -1; // Último año etiquetado
       } 
     },
 
-   
+};
 
-    plugins: {
-        legend: {
-            display: true,
-            position: 'right',
-           // padding: 20,
-           maxHeight: 10,
-            itemSpacing: 4,
-            reverse: true
-        }
-    }
+    // plugins: {
+    //     legend: {
+    //         display: true,
+    //         position: 'right',
+    //        // padding: 20,
+    //        maxHeight: 10,
+    //         itemSpacing: 4,
+    //         reverse: true
+    //     }
+    // }
     
-    };
+ 
     
  
     const ctx = document.getElementById('graficoLineas').getContext('2d');

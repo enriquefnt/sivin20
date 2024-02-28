@@ -356,7 +356,7 @@ foreach ($result as $dias) {
        unset($diasArray[$diaIndex]);
  }
 }
-var_dump($data1); var_dump($meses); die;
+//var_dump($data1); var_dump($meses); die;
 
 ///////////////////////////////////////////////////////////////////////////
 
