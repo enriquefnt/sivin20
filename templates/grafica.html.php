@@ -1,4 +1,4 @@
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <canvas id="graficoLineas" >Datos de crecimiento</canvas>
 
 
@@ -73,7 +73,7 @@
             pointRadius: 0
         },
         {
-            label: 'datosControl.Caso',
+            label: 'datosRef.nombre',
             data: datosRef.Caso,
             type: 'line', // <-- Cambiar a "scatter"
             borderColor: 'rgba(0, 0, 255, 100)',
@@ -92,13 +92,14 @@
     y: {
       title: {
         display: true,
-        text: tituloY
+        text: tituloY   
       }
     },
     x: {
       type: 'linear',
       labels: datosRef.edad,  
-      max: mathmax
+      min: 0,
+      max: Math.max(...datosRef.edad),
       title: {
         display: true,
         text: 'Edad (meses y años)'
