@@ -7,12 +7,37 @@
          
           console.log(Chart.version);
             const datosRef = <?php echo json_encode($data); ?>;
-           console.log(datosRef)
+          // console.log(datosRef)
            var tituloY = datosRef.medida;
+            labels = [];
+                // for (let i = 0; i < 1826; i++) {
+                // const date = moment().subtract(1826 - i, 'days');
+                // labels.push(`${date.format('YYYY')}-${date.format('MM')}`);
+                // }
+                // labels = datosRef.rotulox;
+               // labels=datosRef.edad;
+                var edadDias = datosRef.edad;
+           console.log(labels);
+           console.log(edadDias);
+           function calcularRotulo(edadDias) {
+  switch (edadDias) {
+    case 0:
+      return "Nacimiento";
+    case 366:
+      return "1 año";
+    case (edadDias / 365.25) % 1 === 0:
+      return `${Math.floor(edadDias / 365.25)} años`;
+    case (edadDias / 30.44) % 1 === 0:
+      return `${Math.floor(edadDias / 30.44) - Math.floor(edadDias / 365.25) * 12} meses`;
+    default:
+      return '';
+  }
+}
 
         const chartData = {
-        
-           labels: datosRef.edad,
+       //     labels:labels,
+      //  labels: datosRef.rotulox,
+       //  labels: datosRef.edad,
     
             datasets: [
              
@@ -73,7 +98,7 @@
             pointRadius: 0
         },
         {
-            label: 'datosRef.nombre',
+            label: datosRef.nombre,
             data: datosRef.Caso,
             type: 'line', // <-- Cambiar a "scatter"
             borderColor: 'rgba(0, 0, 255, 100)',
@@ -86,7 +111,7 @@
         };
        
         var lastYear = -1; // Último año etiquetado
-        const chartOptions = {
+  const chartOptions = {
             responsive: true,
   scales: {
     y: {
@@ -96,28 +121,74 @@
       }
     },
     x: {
-      type: 'linear',
-      labels: datosRef.edad,  
+       type: 'linear',
+    //  labels: datosRef.rotulox,  
+   // type: 'category',
+   labels: labels,
       min: 0,
       max: Math.max(...datosRef.edad),
+      ticks: { callback: function (value, index, values) {
+             const days = values[index];
+              return calcularRotulo(days); } },
+      grid: { display: true },
+    
       title: {
         display: true,
         text: 'Edad (meses y años)'
       }
+      
     }
   },
   plugins: {
     legend: {
       display: true,
-      position: 'right'
+      position: 'top'
     }
   }
 };
 
 const ctx = document.getElementById('graficoLineas').getContext('2d');
-const myChart = new Chart(ctx, {
+
+datosRef.edad.forEach((valor, indice) => {
+  chartData.datasets.forEach(dataset => {
+    dataset.data[indice] = dataset.data[indice] || 0; // Inicializa el valor si es undefined
+  });
+});
+
+// const myChart = new Chart(ctx, {
+//   type: 'line',
+//   data: chartData,
+//   options: chartOptions
+// });
+
+const chart = new Chart(ctx, {
   type: 'line',
   data: chartData,
-  options: chartOptions
+  options:chartOptions
 });
+
+
+
 </script>
+<!-- <script> 
+ const chart = new Chart(ctx, { 
+  type: 'line',
+  data: chartData, 
+  options: { 
+    scales: { 
+      x: { 
+        type: 'linear', 
+        labels: labels, 
+        min: 0, 
+        title: { 
+          display: true, 
+          text: 'Edad (meses y años)' }, 
+          ticks: { callback: function (value, index, values) {
+             const days = values[index];
+              return calcularRotulo(days); } } } },
+               plugins: { 
+                legend: { 
+                  display: true, 
+                  position: 'right' } 
+                  } } });
+                   // ... (remaining code) </script> -->
