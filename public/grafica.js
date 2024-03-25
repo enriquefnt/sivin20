@@ -2,14 +2,11 @@ console.log(Chart.version);
 console.log(datosRef)
 
 var tituloY = datosRef.medida;
-// var labels = datosRef.edad
-const rotulos=datosRef.rotulox ;
-//const filteredRotulos = rotulos.filter(label => label !== null);
-//console.log(filteredRotulos);
+
 
 
 const chartData = {
-//    xAxisID: datosRef.edad,
+
    labels: datosRef.edad,
     datasets:[
         {
@@ -23,6 +20,30 @@ const chartData = {
             tension: 0.1,
         },
         {
+            label: '-3Z',
+            data: datosRef.SD3neg,
+            borderWidth: 1.6, // Grosor de la línea
+            borderColor: 'rgba(0, 0, 0, 100)', 
+            backgroundColor: 'rgba(0, 0, 0, 100)',
+            pointRadius: 0
+           },
+           {
+            label: '-2Z',
+            data: datosRef.SD2neg,
+            backgroundColor:'rgba(255, 0, 0 ,100)', 
+            borderColor: 'rgba(255, 0, 0 ,100)', 
+            borderWidth:1.6 ,
+            pointRadius: 0
+            },
+            {
+                label: '-1Z',
+                data: datosRef.SD1neg,
+                borderColor: 'rgba(243, 226, 0,100)',
+                backgroundColor:'rgba(243, 226, 0,100)', 
+                borderWidth: 1.6,
+                pointRadius: 0
+            },
+        {
             label: '0Z',
             data: datosRef.SD0,
             borderColor: 'rgba(204, 216, 255,100)',
@@ -30,6 +51,30 @@ const chartData = {
             borderWidth: 1.6,
             pointRadius: 0,
             spanGaps: true,
+        },
+        {
+            label: '1Z',
+            data: datosRef.SD1,
+            borderColor: 'rgba(243, 226, 0,100)',
+            backgroundColor:'rgba(243, 226, 0,100)', 
+            borderWidth: 1.6,
+            pointRadius: 0
+        },
+        {
+            label: '2Z',
+            data: datosRef.SD2,
+            backgroundColor:'rgba(255, 0, 0 ,100)', 
+            borderColor: 'rgba(255, 0, 0 ,100)', 
+            borderWidth: 1.6,
+            pointRadius: 0
+        },
+        {
+            label: '3Z',
+            data: datosRef.SD3,
+            borderWidth: 1.6, 
+            borderColor: 'rgba(0, 0, 0, 100)', // Transparente
+            backgroundColor: 'rgba(0, 0, 0, 100)',
+            pointRadius: 0
         },
 
     ]
@@ -44,31 +89,28 @@ const  options = {
  
  
    layout: {           
-    padding: 15 
+    padding: 10 
        },
-    interaction: {
-                mode: 'index'
-    },
-    grid: {
-        color: " rgb(97.0.18)",
-        drawTicks: true, 
-      },
+  
 
     scales: {
             x: {
-               // type: 'category',
+                type: 'category',
                 title: {
                     display: true,
                     text: 'Edad (meses y años)'
                   },
                   min: 0,
-                  max: Math.max(...datosRef.edad),
+                  //max: Math.max(...datosRef.edad),
+                  max: 1828,
                   borderWidth: 1.2,
+                  grid: {
+                   
+                  },
                   ticks: {
                     callback: function(value, index, values) {
                       // `value` es el valor de la etiqueta actual (índice en `datosRef.rotulox`)
-                      // Aquí debes obtener y devolver el rótulo correspondiente desde `datosRef.rotulox`
-                      return datosRef.rotulox[value];
+                        return datosRef.rotulox[value];
                     
                     }
                   },
@@ -91,17 +133,30 @@ const  options = {
                 text: 'Grafica de ' + datosRef.medida + ' para Edad',
                 fontSize: 24
             },
-            subtitle: {
-            display: true,
-            text: datosRef.nombre,
-            align: 'start',
-             fontSize: 14
+    subtitle: {
+    display: true,
+    text: datosRef.nombre,
+     align: 'center',
+     fontSize: 14
         },
-  
+        chartAreaBorder: {
+            borderColor: 'black',
+            borderWidth: 2,
+        
+          },
+          legend: {
+            position: 'right',
+            display: true,
+            reverse: true,
+            labels: {
+                color: 'rgb(255, 99, 132)'
+            }
+        }
+
     
-    
-    }
-}
+    },
+   
+};
 
 
  new Chart(
