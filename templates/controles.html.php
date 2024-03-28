@@ -1,62 +1,69 @@
+<div class="position-relative">
+  <div class="position-absolute top-0 end-0" style="z-index: 5;">
+    <div class="col-12 col-md-auto">
+      <button type="button" class="btn btn-outline-primary" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i>
+       
+      </button>
+    </div>
+  </div>
 
 <div class="container mt-4">
-<div style="padding: 7px;">
-<input type="button" class="w3-button w3-ripple w3-grey" value="Volver al listado" onClick="history.go(-1);">
-<!-- <input type="button" class="w3-button w3-ripple w3-grey" href="/lista/grafico?indicador=PE&caso="<?= $datosNinio['IdNinio']; ?> value="Peso/Edad"> -->
-<input type="button" class="w3-button w3-ripple w3-grey" onclick="location.href='/lista/grafico?indicador=PE&caso=<?= $datosNinio['IdNinio']; ?>';" value="Peso/Edad">
-</div>
-<table id="example" class="table table-striped table-sm text-xs table-condensed small" data-searchbuilder="true" style="width:100%">
-				
-	<thead>
-  <tr>
-  	<th class="nosort">Fecha</th> 
-    <th>Edad</th> 
-     <th>Peso</th> 
-      <th>Talla</th> 
-    <th>Z Peso/edad</th>
-    <th>Z Talla/edad</th>
-    <th>Z IMC/edad</th>
-     <th>Clasificación</th>
-        <th>Vigilante</th>
-  </tr>
-  </thead>
-  <tbody>
-  <?php if (isset($error)): ?>
 
-			<p>
-				<?php echo $error; ?>
-			</p>
-
-		<?php else: ?>
-		
-			
-	<?php foreach ($datosControl as $control): ?>
-  <tr>
-    <td align="center"><?= htmlspecialchars($control['Fecha'], ENT_QUOTES, 'UTF-8'); ?></td>
-    
-    <td ><?= htmlspecialchars($control['años'] .'A ' . $control['meses'] .'M ' . $control['dias'] .'D ', ENT_QUOTES, 'UTF-8'); ?></td>
-       <td align="center"><?= htmlspecialchars($control['Peso'], ENT_QUOTES, 'UTF-8'); ?></td>
-       <td align="center"><?= htmlspecialchars($control['Talla'], ENT_QUOTES, 'UTF-8'); ?></td>
-    <td align="center"><?= htmlspecialchars($control['ZPesoEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
-    <td align="center"><?= htmlspecialchars($control['ZTallaEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
-    <td align="center"><?= htmlspecialchars($control['ZIMCEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
-     <td align="center"><?= htmlspecialchars($control['Clasificacion'], ENT_QUOTES, 'UTF-8'); ?></td>
-     	<td align="center"><?= htmlspecialchars($control['vigilante'], ENT_QUOTES, 'UTF-8'); ?></td>
+<fieldset class="border p-2">
+<legend class="w-80 p-0 h-0 "><?= $datosNinio['ApeNom']; ?>
+   </legend>
  
-   
-    </tr>
-  <?php endforeach; ?>
-  
-  
-  <?php endif; ?>
-  </tbody>
-  <h6 style="padding: 4px;">Historial de controles de: <?= htmlspecialchars($control['Nombre'], ENT_QUOTES, 'UTF-8'); ?>  &nbsp; -  &nbsp; Edad Gestacional: <?=$control['EG']?>   &nbsp; 
-    Peso al Nacer: <?=$control['pesonac']?>
-    &nbsp; 
-    Talla al Nacer: <?=$control['tallanac']?>
-    &nbsp; 
-  </h6>
-  
+<table id="example" class="table table-striped table-sm table-condensed small" data-searchbuilder="true" style="width:100%">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Edad (Años/Meses/Días)</th>
+            <th>Peso (kg)</th>
+            <th>Talla (cm)</th>
+            <th>Z Peso/edad</th>
+            <th>Z Talla/edad</th>
+            <th>Z IMC/edad</th>
+            <th>Clasificación</th>
+            <th>Vigilante</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (isset($error)): ?>
+            <tr><td colspan="9"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></td></tr>
+        <?php else: ?>
+            <?php foreach ($datosControl as $control): ?>
+                <tr>
+                    <td><?= htmlspecialchars($control['Fecha'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($control['años'] .' A ' . $control['meses'] .' M ' . $control['dias'] .' D ', ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($control['Peso'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($control['Talla'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($control['ZPesoEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($control['ZTallaEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($control['ZIMCEdad'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($control['Clasificacion'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?= htmlspecialchars($control['vigilante'], ENT_QUOTES, 'UTF-8'); ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </tbody>
 </table>
+</fieldset>
 </div>
+
+<div class="container mt-4">
+
+<fieldset class="border p-2">
+<legend class="w-80 p-0 h-0 ">Gráficas
+   </legend>
+
+<input type="button" class="w3-button w3-ripple w3-grey" onclick="location.href='/lista/grafico?indicador=PE&caso=<?= $datosNinio['IdNinio']; ?>';" value="Peso/Edad">
+<input type="button" class="w3-button w3-ripple w3-grey" onclick="location.href='/lista/grafico?indicador=TE&caso=<?= $datosNinio['IdNinio']; ?>';" value="Talla/Edad">
+<input type="button" class="w3-button w3-ripple w3-grey" onclick="location.href='/lista/grafico?indicador=IE&caso=<?= $datosNinio['IdNinio']; ?>';" value="IMC/Edad">
+
+
+   </fieldset>
+    
+</div>
+
 	

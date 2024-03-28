@@ -1,5 +1,5 @@
 <?php
-if (isset($_SESSION['inicio']) && (time() - $_SESSION['inicio'] > 1800)) {
+if (isset($_SESSION['inicio']) && (time() - $_SESSION['inicio'] > 2400)) {
     
     session_unset();     
     session_destroy();   
@@ -13,10 +13,11 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
 
   <link rel="stylesheet" type="text/css" href="/styles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+<!-- <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script> -->
 
 
 <script src="https://kit.fontawesome.com/f6cbba0704.js" crossorigin="anonymous"></script>
@@ -48,7 +49,7 @@ $_SESSION['inicio'] = time(); // actualiza ultimo uso
 
                         <!-- Chart.js y moment.js  -->
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> -->
   
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
  

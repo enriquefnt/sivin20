@@ -67,7 +67,7 @@ $title='Nominal';
 
 }
 
-public function grafico($id=null){
+public function graficox($id=null){
 
   $indicador = $_GET['indicador'] ?? '';
   $sex=substr($this->tablaNinios->findById($_GET['caso'])['Sexo'],0,1) ?? '';
@@ -184,7 +184,7 @@ public function grafico($id=null){
           ];
 
 }
-public function dummy($id=null){
+public function grafico($id=null){
   
   $indicador = $_GET['indicador'] ?? '';
   $sex=substr($this->tablaNinios->findById($_GET['caso'])['Sexo'],0,1) ?? '';
@@ -290,10 +290,10 @@ public function dummy($id=null){
 
 
 
-  $title='Dummy';
+  $title='Grafica';
 
           return [
-            'template' => 'graficax.html.php',
+            'template' => 'grafica.html.php',
            
               'title' => $title,
               'variables' => [
